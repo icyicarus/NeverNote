@@ -18,6 +18,7 @@ public class AudioRecorder extends SetPortrait {
     private Button btnRecordStart, btnRecordStop;
     private MediaRecorder myRecorder;
     private File savedFile;
+    private int result = RESULT_CANCELED;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,15 +63,11 @@ public class AudioRecorder extends SetPortrait {
                         new AlertDialog.Builder(AudioRecorder.this).setTitle("Save?").setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
+                                result = RESULT_OK;
                                 setResult(RESULT_OK);
                                 finish();
                             }
-                        }).setNegativeButton("No", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                savedFile.delete();
-                            }
-                        }).show();
+                        }).setNegativeButton("No", null).show();
                     }
                     btnRecordStart.setText("Record");
                     btnRecordStart.setEnabled(true);
@@ -81,6 +78,14 @@ public class AudioRecorder extends SetPortrait {
             }
         }
     };
+
+    @Override
+    protected void onDestroy() {
+        if (result != RESULT_OK) {
+            savedFile.delete();
+        }
+        super.onDestroy();
+    }
 
     public static final String EXTRA_PATH = "path";
 }
