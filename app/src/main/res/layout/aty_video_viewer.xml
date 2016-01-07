@@ -10,7 +10,7 @@
         android:layout_height="match_parent"/>
 
     <LinearLayout
-        android:id="@+id/video_layout"
+        android:id="@+id/llVideo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -20,25 +20,28 @@
 
         <Button
             android:id="@+id/btnVideoStart"
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Play"/>
+            android:text="@string/play"/>
 
         <Button
             android:id="@+id/btnVideoPause"
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Pause"/>
+            android:text="@string/pause"/>
 
         <Button
             android:id="@+id/btnVideoStop"
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:enabled="false"
-            android:text="Stop"/>
+            android:text="@string/stop"/>
 
     </LinearLayout>
 
@@ -46,7 +49,7 @@
         android:id="@+id/sbVideo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/video_layout"
+        android:layout_above="@+id/llVideo"
         android:layout_alignParentStart="true"
         android:indeterminateDrawable="@android:drawable/progress_indeterminate_horizontal"
         android:indeterminateOnly="false"
