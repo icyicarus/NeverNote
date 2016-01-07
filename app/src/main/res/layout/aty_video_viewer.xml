@@ -1,13 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+    <SurfaceView
+        android:id="@+id/sfVideo"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
     <LinearLayout
         android:id="@+id/video_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
         android:gravity="center_horizontal"
         android:orientation="horizontal">
 
@@ -15,18 +22,21 @@
             android:id="@+id/btnVideoStart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="Play"/>
 
         <Button
             android:id="@+id/btnVideoPause"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="Pause"/>
 
         <Button
             android:id="@+id/btnVideoStop"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:enabled="false"
             android:text="Stop"/>
 
@@ -36,6 +46,8 @@
         android:id="@+id/sbVideo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/video_layout"
+        android:layout_alignParentStart="true"
         android:indeterminateDrawable="@android:drawable/progress_indeterminate_horizontal"
         android:indeterminateOnly="false"
         android:maxHeight="8dp"
@@ -45,9 +57,5 @@
         android:thumb="@drawable/seek_thumb"
         android:thumbOffset="10dp"/>
 
-    <SurfaceView
-        android:id="@+id/sfVideo"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"/>
 
-</LinearLayout>
+</RelativeLayout>

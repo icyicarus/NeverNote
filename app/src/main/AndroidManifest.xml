@@ -30,7 +30,8 @@
             android:configChanges="keyboardHidden|orientation|screenSize"/>
         <activity
             android:name=".mediaView.video.VideoViewer"
-            android:configChanges="keyboardHidden|orientation|screenSize"/>
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen"/>
         <activity
             android:name=".mediaView.audio.AudioRecorder"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -41,9 +42,6 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="Audio Viewer"
             android:theme="@android:style/Theme.Dialog"/>
-        <activity
-            android:name=".PlayerVideoActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"/>
     </application>
 
 </manifest>
