@@ -1,4 +1,4 @@
-package bupt.icyicarus.nevernote.media.video;
+package bupt.icyicarus.nevernote.mediaView.video;
 
 import android.os.Bundle;
 import android.widget.MediaController;

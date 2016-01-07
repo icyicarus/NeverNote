@@ -22,15 +22,15 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import bupt.icyicarus.nevernote.media.audio.AudioRecorder;
-import bupt.icyicarus.nevernote.media.audio.AudioViewer;
+import bupt.icyicarus.nevernote.mediaView.audio.AudioRecorder;
+import bupt.icyicarus.nevernote.mediaView.audio.AudioViewer;
 import bupt.icyicarus.nevernote.db.NeverNoteDB;
 import bupt.icyicarus.nevernote.init.SetPortrait;
 import bupt.icyicarus.nevernote.mediaList.MediaAdapter;
 import bupt.icyicarus.nevernote.mediaList.MediaListCellData;
 import bupt.icyicarus.nevernote.mediaList.MediaType;
-import bupt.icyicarus.nevernote.media.video.VideoViewer;
-import bupt.icyicarus.nevernote.media.photo.PhotoViewer;
+import bupt.icyicarus.nevernote.mediaView.video.VideoViewer;
+import bupt.icyicarus.nevernote.mediaView.photo.PhotoViewer;
 
 public class EditNote extends SetPortrait {
 

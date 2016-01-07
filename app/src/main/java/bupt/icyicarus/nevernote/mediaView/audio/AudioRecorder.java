@@ -1,4 +1,4 @@
-package bupt.icyicarus.nevernote.media.audio;
+package bupt.icyicarus.nevernote.mediaView.audio;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;

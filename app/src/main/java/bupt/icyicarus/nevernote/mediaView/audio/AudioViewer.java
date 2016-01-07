@@ -1,4 +1,4 @@
-package bupt.icyicarus.nevernote.media.audio;
+package bupt.icyicarus.nevernote.mediaView.audio;
 
 import android.media.MediaPlayer;
 import android.net.Uri;

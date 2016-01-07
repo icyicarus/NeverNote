@@ -12,32 +12,31 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
         <activity
-        android:name=".Main"
-        android:label="@string/app_name">
+            android:name=".Main"
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".init.SetPortraitList"/>
         <activity android:name=".init.SetPortrait"/>
         <activity
-        android:name=".EditNote"
-        android:configChanges="keyboardHidden|orientation|screenSize"
-        android:windowSoftInputMode="adjustResize"/>
+            android:name=".EditNote"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:windowSoftInputMode="adjustResize"/>
         <activity
-        android:name=".media.photo.PhotoViewer"
-        android:configChanges="keyboardHidden|orientation|screenSize"/>
+            android:name=".mediaView.photo.PhotoViewer"
+            android:configChanges="keyboardHidden|orientation|screenSize"/>
         <activity
-        android:name=".media.video.VideoViewer"
-        android:configChanges="keyboardHidden|orientation|screenSize"/>
+            android:name=".mediaView.video.VideoViewer"
+            android:configChanges="keyboardHidden|orientation|screenSize"/>
         <activity
-        android:name=".media.audio.AudioRecorder"
-        android:configChanges="keyboardHidden|orientation|screenSize"/>
+            android:name=".mediaView.audio.AudioRecorder"
+            android:configChanges="keyboardHidden|orientation|screenSize"/>
         <activity
-        android:name=".media.audio.AudioViewer"
-        android:configChanges="keyboardHidden|orientation|screenSize"/>
+            android:name=".mediaView.audio.AudioViewer"
+            android:configChanges="keyboardHidden|orientation|screenSize"/>
     </application>
 
 </manifest>

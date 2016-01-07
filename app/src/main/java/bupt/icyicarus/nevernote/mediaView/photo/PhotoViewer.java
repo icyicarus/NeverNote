@@ -1,4 +1,4 @@
-package bupt.icyicarus.nevernote.media.photo;
+package bupt.icyicarus.nevernote.mediaView.photo;
 
 import java.io.File;
 
