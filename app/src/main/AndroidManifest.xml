@@ -34,10 +34,12 @@
         <activity
             android:name=".mediaView.audio.AudioRecorder"
             android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label="Audio Recorder"
             android:theme="@android:style/Theme.Dialog"/>
         <activity
             android:name=".mediaView.audio.AudioViewer"
             android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label="Audio Viewer"
             android:theme="@android:style/Theme.Dialog"/>
     </application>
 
