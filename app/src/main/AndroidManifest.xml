@@ -33,10 +33,12 @@
             android:configChanges="keyboardHidden|orientation|screenSize"/>
         <activity
             android:name=".mediaView.audio.AudioRecorder"
-            android:configChanges="keyboardHidden|orientation|screenSize"/>
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:theme="@android:style/Theme.Dialog"/>
         <activity
             android:name=".mediaView.audio.AudioViewer"
-            android:configChanges="keyboardHidden|orientation|screenSize"/>
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:theme="@android:style/Theme.Dialog"/>
     </application>
 
 </manifest>
