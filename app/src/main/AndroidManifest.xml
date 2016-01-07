@@ -41,6 +41,9 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="Audio Viewer"
             android:theme="@android:style/Theme.Dialog"/>
+        <activity
+            android:name=".PlayerVideoActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"/>
     </application>
 
 </manifest>

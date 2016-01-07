@@ -16,9 +16,9 @@ import bupt.icyicarus.nevernote.init.SetPortrait;
 
 public class AudioViewer extends SetPortrait {
 
-    private MediaPlayer mp;
-    private Button btnPlayStart, btnPlayPause, btnPlayStop;
-    private SeekBar sbPlay;
+    private MediaPlayer mpAudio;
+    private Button btnAudioStart, btnAudioPause, btnAudioStop;
+    private SeekBar sbAudio;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,44 +29,44 @@ public class AudioViewer extends SetPortrait {
         toastOut(path);
 
         System.out.println(path);
-        mp = new MediaPlayer();
+        mpAudio = new MediaPlayer();
         try {
-            mp.setDataSource(this, Uri.parse(path));
-            mp.prepare();
+            mpAudio.setDataSource(this, Uri.parse(path));
+            mpAudio.prepare();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+        mpAudio.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
                 mp.pause();
                 mp.seekTo(0);
-                sbPlay.setProgress(0);
+                sbAudio.setProgress(0);
                 updateSeekBarHandler.removeCallbacks(updateSeekBarThread);
-                btnPlayPause.setEnabled(false);
-                btnPlayStop.setEnabled(false);
+                btnAudioPause.setEnabled(false);
+                btnAudioStop.setEnabled(false);
             }
         });
 
-        btnPlayStart = (Button) findViewById(R.id.btnPlayStart);
-        btnPlayPause = (Button) findViewById(R.id.btnPlayPause);
-        btnPlayStop = (Button) findViewById(R.id.btnPlayStop);
+        btnAudioStart = (Button) findViewById(R.id.btnAudioStart);
+        btnAudioPause = (Button) findViewById(R.id.btnAudioPause);
+        btnAudioStop = (Button) findViewById(R.id.btnAudioStop);
 
-        btnPlayPause.setEnabled(false);
-        btnPlayStop.setEnabled(false);
+        btnAudioPause.setEnabled(false);
+        btnAudioStop.setEnabled(false);
 
-        btnPlayStart.setOnClickListener(btnClickHandler);
-        btnPlayPause.setOnClickListener(btnClickHandler);
-        btnPlayStop.setOnClickListener(btnClickHandler);
+        btnAudioStart.setOnClickListener(btnClickHandler);
+        btnAudioPause.setOnClickListener(btnClickHandler);
+        btnAudioStop.setOnClickListener(btnClickHandler);
 
-        sbPlay = (SeekBar) findViewById(R.id.sbPlay);
-        sbPlay.setMax(mp.getDuration());
-        sbPlay.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+        sbAudio = (SeekBar) findViewById(R.id.sbAudio);
+        sbAudio.setMax(mpAudio.getDuration());
+        sbAudio.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 if (fromUser) {
-                    mp.seekTo(progress);
+                    mpAudio.seekTo(progress);
                 }
             }
 
@@ -87,7 +87,7 @@ public class AudioViewer extends SetPortrait {
     private Runnable updateSeekBarThread = new Runnable() {
         @Override
         public void run() {
-            sbPlay.setProgress(mp.getCurrentPosition());
+            sbAudio.setProgress(mpAudio.getCurrentPosition());
             updateSeekBarHandler.postDelayed(updateSeekBarThread, 100);
         }
     };
@@ -98,32 +98,32 @@ public class AudioViewer extends SetPortrait {
         @Override
         public void onClick(View v) {
             switch (v.getId()) {
-                case R.id.btnPlayStart:
-                    if (mp.isPlaying()) {
-                        mp.pause();
-                        mp.seekTo(0);
-                        mp.start();
+                case R.id.btnAudioStart:
+                    if (mpAudio.isPlaying()) {
+                        mpAudio.pause();
+                        mpAudio.seekTo(0);
+                        mpAudio.start();
                     } else {
-                        mp.start();
+                        mpAudio.start();
                     }
-                    btnPlayPause.setEnabled(true);
-                    btnPlayStop.setEnabled(true);
+                    btnAudioPause.setEnabled(true);
+                    btnAudioStop.setEnabled(true);
                     updateSeekBarHandler.post(updateSeekBarThread);
                     break;
-                case R.id.btnPlayPause:
-                    if (mp.isPlaying()) {
-                        mp.pause();
+                case R.id.btnAudioPause:
+                    if (mpAudio.isPlaying()) {
+                        mpAudio.pause();
                     } else {
-                        mp.start();
+                        mpAudio.start();
                     }
                     break;
-                case R.id.btnPlayStop:
-                    mp.pause();
-                    mp.seekTo(0);
-                    sbPlay.setProgress(0);
+                case R.id.btnAudioStop:
+                    mpAudio.pause();
+                    mpAudio.seekTo(0);
+                    sbAudio.setProgress(0);
                     updateSeekBarHandler.removeCallbacks(updateSeekBarThread);
-                    btnPlayPause.setEnabled(false);
-                    btnPlayStop.setEnabled(false);
+                    btnAudioPause.setEnabled(false);
+                    btnAudioStop.setEnabled(false);
                     break;
                 default:
                     break;
@@ -133,8 +133,8 @@ public class AudioViewer extends SetPortrait {
 
     @Override
     protected void onDestroy() {
-        mp.stop();
-        mp.release();
+        mpAudio.stop();
+        mpAudio.release();
         updateSeekBarHandler.removeCallbacks(updateSeekBarThread);
         super.onDestroy();
     }

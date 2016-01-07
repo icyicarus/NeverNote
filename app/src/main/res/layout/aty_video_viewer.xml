@@ -4,8 +4,50 @@
               android:layout_height="match_parent"
               android:orientation="vertical">
 
-    <VideoView
-        android:id="@+id/video"
+    <LinearLayout
+        android:id="@+id/video_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnVideoStart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Play"/>
+
+        <Button
+            android:id="@+id/btnVideoPause"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pause"/>
+
+        <Button
+            android:id="@+id/btnVideoStop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:enabled="false"
+            android:text="Stop"/>
+
+    </LinearLayout>
+
+    <SeekBar
+        android:id="@+id/sbVideo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:indeterminateDrawable="@android:drawable/progress_indeterminate_horizontal"
+        android:indeterminateOnly="false"
+        android:maxHeight="8dp"
+        android:minHeight="8dp"
+        android:padding="10dp"
+        android:progressDrawable="@drawable/seekbar"
+        android:thumb="@drawable/seek_thumb"
+        android:thumbOffset="10dp"/>
+
+    <SurfaceView
+        android:id="@+id/sfVideo"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"/>
+
 </LinearLayout>

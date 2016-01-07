@@ -70,11 +70,6 @@ public class Main extends SetPortrait {
                         NoteListCellData data = adapter.getItem(position);
                         File f;
 
-//                        toastOut(data.name);
-//                        toastOut(data.date);
-//                        toastOut(data.content);
-//                        toastOut(Integer.toString(data.id));
-
                         Cursor c = dbRead.query(NeverNoteDB.TABLE_NAME_MEDIA, null, NeverNoteDB.COLUMN_NAME_MEDIA_OWNER_NOTE_ID + "=?", new String[]{data.id + ""}, null, null, null);
                         while (c.moveToNext()) {
                             f = new File(c.getString(c.getColumnIndex(NeverNoteDB.COLUMN_NAME_MEDIA_PATH)));

@@ -5,7 +5,7 @@
               android:orientation="vertical">
 
     <SeekBar
-        android:id="@+id/sbPlay"
+        android:id="@+id/sbAudio"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:indeterminateDrawable="@android:drawable/progress_indeterminate_horizontal"
@@ -23,21 +23,21 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/btnPlayStart"
+            android:id="@+id/btnAudioStart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Play"/>
 
         <Button
-            android:id="@+id/btnPlayPause"
+            android:id="@+id/btnAudioPause"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Pause"/>
 
         <Button
-            android:id="@+id/btnPlayStop"
+            android:id="@+id/btnAudioStop"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
