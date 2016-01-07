@@ -17,7 +17,7 @@ public class AudioRecorder extends SetPortrait {
 
     private Button btnRecordStart, btnRecordStop;
     private MediaRecorder myRecorder;
-    private File savedFile;
+    private File savedFile = null;
     private int result = RESULT_CANCELED;
 
     @Override
@@ -67,7 +67,12 @@ public class AudioRecorder extends SetPortrait {
                                 setResult(RESULT_OK);
                                 finish();
                             }
-                        }).setNegativeButton("No", null).show();
+                        }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                savedFile.delete();
+                            }
+                        }).show();
                     }
                     btnRecordStart.setText("Record");
                     btnRecordStart.setEnabled(true);
@@ -81,7 +86,7 @@ public class AudioRecorder extends SetPortrait {
 
     @Override
     protected void onDestroy() {
-        if (result != RESULT_OK) {
+        if (result != RESULT_OK && savedFile != null) {
             savedFile.delete();
         }
         super.onDestroy();
