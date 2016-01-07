@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest
+    package="bupt.icyicarus.nevernote"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/logo"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme">
+        <activity
+        android:name=".Main"
+        android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <activity android:name=".init.SetPortraitList"/>
+        <activity android:name=".init.SetPortrait"/>
+        <activity
+        android:name=".EditNote"
+        android:configChanges="keyboardHidden|orientation|screenSize"
+        android:windowSoftInputMode="adjustResize"/>
+        <activity
+        android:name=".media.photo.PhotoViewer"
+        android:configChanges="keyboardHidden|orientation|screenSize"/>
+        <activity
+        android:name=".media.video.VideoViewer"
+        android:configChanges="keyboardHidden|orientation|screenSize"/>
+        <activity
+        android:name=".media.audio.AudioRecorder"
+        android:configChanges="keyboardHidden|orientation|screenSize"/>
+        <activity
+        android:name=".media.audio.AudioViewer"
+        android:configChanges="keyboardHidden|orientation|screenSize"/>
+    </application>
+
+</manifest>
