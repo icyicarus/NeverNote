@@ -9,12 +9,12 @@
         android:id="@+id/btnRecordStart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Start Record"/>
+        android:text="@string/startRecord"/>
 
     <Button
         android:id="@+id/btnRecordStop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:enabled="false"
-        android:text="Stop Record"/>
+        android:text="@string/stopRecord"/>
 </LinearLayout>

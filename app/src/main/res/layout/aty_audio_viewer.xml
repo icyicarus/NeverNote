@@ -24,24 +24,27 @@
 
         <Button
             android:id="@+id/btnAudioStart"
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Play"/>
+            android:text="@string/play"/>
 
         <Button
             android:id="@+id/btnAudioPause"
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Pause"/>
+            android:text="@string/pause"/>
 
         <Button
             android:id="@+id/btnAudioStop"
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Stop"/>
+            android:text="@string/stop"/>
     </LinearLayout>
 
 </LinearLayout>

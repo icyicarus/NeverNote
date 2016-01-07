@@ -3,4 +3,12 @@
     <string name="play">Play</string>
     <string name="pause">Pause</string>
     <string name="stop">Stop</string>
+    <string name="addNote">Add Note</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+    <string name="addPhoto">Add Photo</string>
+    <string name="addVideo">Add Video</string>
+    <string name="addAudio">Add Audio</string>
+    <string name="startRecord">Start Record</string>
+    <string name="stopRecord">Stop Record</string>
 </resources>
