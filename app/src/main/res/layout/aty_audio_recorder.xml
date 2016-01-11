@@ -7,12 +7,14 @@
 
     <Button
         android:id="@+id/btnRecordStart"
+        style="?android:attr/buttonBarButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/startRecord"/>
 
     <Button
         android:id="@+id/btnRecordStop"
+        style="?android:attr/buttonBarButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:enabled="false"
