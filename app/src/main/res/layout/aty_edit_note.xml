@@ -6,7 +6,6 @@
               android:focusableInTouchMode="true"
               android:orientation="vertical">
 
-
     <EditText
         android:id="@+id/etName"
         android:layout_width="match_parent"
