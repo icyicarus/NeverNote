@@ -105,6 +105,7 @@ public class EditNote extends SetPortrait {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.aty_edit_note);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
         db = new NeverNoteDB(this);
         dbRead = db.getReadableDatabase();
