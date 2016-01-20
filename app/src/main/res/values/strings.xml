@@ -11,4 +11,16 @@
     <string name="addAudio">Add Audio</string>
     <string name="startRecord">Start Record</string>
     <string name="stopRecord">Stop Record</string>
+
+    <string name="play_t">Play</string>
+    <string name="pause_t">Pause</string>
+    <string name="stop_t">Stop</string>
+    <string name="addNote_t">&#xf055;</string>
+    <string name="save_t">&#xf00c;</string>
+    <string name="cancel_t">&#xf00d;</string>
+    <string name="addPhoto_t">&#xf030;</string>
+    <string name="addVideo_t">&#xf03d;</string>
+    <string name="addAudio_t">&#xf130;</string>
+    <string name="startRecord_t">&#xf04b;</string>
+    <string name="stopRecord_t">&#xf04d;</string>
 </resources>

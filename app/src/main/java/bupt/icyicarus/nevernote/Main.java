@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -15,11 +16,14 @@ import android.widget.ListView;
 import java.io.File;
 
 import bupt.icyicarus.nevernote.db.NeverNoteDB;
+import bupt.icyicarus.nevernote.font.FontManager;
 import bupt.icyicarus.nevernote.init.SetPortrait;
 import bupt.icyicarus.nevernote.noteList.NoteAdapter;
 import bupt.icyicarus.nevernote.noteList.NoteListCellData;
 
 public class Main extends SetPortrait {
+    public static final int REQUEST_CODE_ADD_NOTE = 1;
+    public static final int REQUEST_CODE_EDIT_NOTE = 2;
     private ListView mainListView;
     private OnClickListener btnAddNote_clickHandler = new OnClickListener() {
 
@@ -28,11 +32,16 @@ public class Main extends SetPortrait {
             startActivityForResult(new Intent(Main.this, EditNote.class), REQUEST_CODE_ADD_NOTE);
         }
     };
+    private NoteAdapter adapter = null;
+    private NeverNoteDB db;
+    private SQLiteDatabase dbRead, dbWrite;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.aty_main_view);
+        Typeface iconFont = FontManager.getTypeface(getApplicationContext(), FontManager.FONTAWESOME);
+        FontManager.markAsIconContainer(findViewById(R.id.btnAddNote), iconFont);
 
         mainListView = (ListView) findViewById(R.id.mainListView);
 
@@ -116,11 +125,4 @@ public class Main extends SetPortrait {
         }
         mainListView.setAdapter(adapter);
     }
-
-    private NoteAdapter adapter = null;
-    private NeverNoteDB db;
-    private SQLiteDatabase dbRead, dbWrite;
-
-    public static final int REQUEST_CODE_ADD_NOTE = 1;
-    public static final int REQUEST_CODE_EDIT_NOTE = 2;
 }

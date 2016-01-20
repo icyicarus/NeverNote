@@ -16,5 +16,4 @@ public class SetPortrait extends Activity {
     public void toastOut(String arg) {
         Toast.makeText(this, arg, Toast.LENGTH_LONG).show();
     }
-
 }

@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -22,21 +23,33 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import bupt.icyicarus.nevernote.mediaView.audio.AudioRecorder;
-import bupt.icyicarus.nevernote.mediaView.audio.AudioViewer;
 import bupt.icyicarus.nevernote.db.NeverNoteDB;
+import bupt.icyicarus.nevernote.font.FontManager;
 import bupt.icyicarus.nevernote.init.SetPortrait;
 import bupt.icyicarus.nevernote.mediaList.MediaAdapter;
 import bupt.icyicarus.nevernote.mediaList.MediaListCellData;
 import bupt.icyicarus.nevernote.mediaList.MediaType;
-import bupt.icyicarus.nevernote.mediaView.video.VideoViewer;
+import bupt.icyicarus.nevernote.mediaView.audio.AudioRecorder;
+import bupt.icyicarus.nevernote.mediaView.audio.AudioViewer;
 import bupt.icyicarus.nevernote.mediaView.photo.PhotoViewer;
+import bupt.icyicarus.nevernote.mediaView.video.VideoViewer;
 
 public class EditNote extends SetPortrait {
 
+    public static final String EXTRA_NOTE_ID = "noteID";
+    public static final String EXTRA_NOTE_NAME = "noteName";
+    public static final String EXTRA_NOTE_CONTENT = "noteContent";
+    public static final int REQUEST_CODE_GET_PHOTO = 1;
+    public static final int REQUEST_CODE_GET_VIDEO = 2;
+    public static final int REQUEST_CODE_GET_AUDIO = 3;
     private ListView enListView;
     private File f;
-
+    private int noteID = -1;
+    private EditText etName, etContent;
+    private MediaAdapter adapter;
+    private NeverNoteDB db;
+    private SQLiteDatabase dbRead, dbWrite;
+    private String currentPath = null;
     private OnClickListener btnClickHandler = new OnClickListener() {
         Intent i;
 
@@ -106,6 +119,9 @@ public class EditNote extends SetPortrait {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.aty_edit_note);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+
+        Typeface iconFont = FontManager.getTypeface(getApplicationContext(), FontManager.FONTAWESOME);
+        FontManager.markAsIconContainer(findViewById(R.id.containerEditNote), iconFont);
 
         db = new NeverNoteDB(this);
         dbRead = db.getReadableDatabase();
@@ -244,21 +260,4 @@ public class EditNote extends SetPortrait {
         dbWrite.close();
         super.onDestroy();
     }
-
-    private int noteID = -1;
-
-    private EditText etName, etContent;
-    private MediaAdapter adapter;
-
-    private NeverNoteDB db;
-    private SQLiteDatabase dbRead, dbWrite;
-
-    private String currentPath = null;
-
-    public static final String EXTRA_NOTE_ID = "noteID";
-    public static final String EXTRA_NOTE_NAME = "noteName";
-    public static final String EXTRA_NOTE_CONTENT = "noteContent";
-    public static final int REQUEST_CODE_GET_PHOTO = 1;
-    public static final int REQUEST_CODE_GET_VIDEO = 2;
-    public static final int REQUEST_CODE_GET_AUDIO = 3;
 }

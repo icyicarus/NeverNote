@@ -32,6 +32,7 @@
         android:layout_weight="2"/>
 
     <LinearLayout
+        android:id="@+id/containerEditNote"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content">
 
@@ -41,7 +42,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/save"/>
+            android:text="@string/save_t"/>
 
         <Button
             android:id="@+id/btnCancel"
@@ -49,7 +50,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/cancel"/>
+            android:text="@string/cancel_t"/>
 
         <Button
             android:id="@+id/btnAddPhoto"
@@ -57,7 +58,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/addPhoto"/>
+            android:text="@string/addPhoto_t"/>
 
         <Button
             android:id="@+id/btnAddVideo"
@@ -65,7 +66,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/addVideo"/>
+            android:text="@string/addVideo_t"/>
 
         <Button
             android:id="@+id/btnAddAudio"
@@ -73,7 +74,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/addAudio"/>
+            android:text="@string/addAudio_t"/>
     </LinearLayout>
 
 </LinearLayout>
