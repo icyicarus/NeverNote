@@ -39,7 +39,8 @@
         <activity
             android:name=".mediaView.audio.AudioViewer"
             android:configChanges="keyboardHidden|orientation|screenSize"
-            android:label="Audio Viewer"/>
+            android:label="Audio Viewer"
+            android:theme="@style/Theme.AppCompat.Light.Dialog"/>
     </application>
 
 </manifest>

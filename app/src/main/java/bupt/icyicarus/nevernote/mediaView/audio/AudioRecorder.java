@@ -43,7 +43,6 @@ public class AudioRecorder extends SetPortrait {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-
                     break;
                 case R.id.btnRecordStop:
                     if (savedFile.exists() && savedFile != null) {
