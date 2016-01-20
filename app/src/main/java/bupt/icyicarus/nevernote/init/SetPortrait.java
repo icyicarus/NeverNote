@@ -1,11 +1,11 @@
 package bupt.icyicarus.nevernote.init;
 
-import android.app.Activity;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
-public class SetPortrait extends Activity {
+public class SetPortrait extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

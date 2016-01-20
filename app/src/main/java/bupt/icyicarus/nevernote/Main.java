@@ -6,8 +6,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -16,7 +16,6 @@ import android.widget.ListView;
 import java.io.File;
 
 import bupt.icyicarus.nevernote.db.NeverNoteDB;
-import bupt.icyicarus.nevernote.font.FontManager;
 import bupt.icyicarus.nevernote.init.SetPortrait;
 import bupt.icyicarus.nevernote.noteList.NoteAdapter;
 import bupt.icyicarus.nevernote.noteList.NoteListCellData;
@@ -25,13 +24,6 @@ public class Main extends SetPortrait {
     public static final int REQUEST_CODE_ADD_NOTE = 1;
     public static final int REQUEST_CODE_EDIT_NOTE = 2;
     private ListView mainListView;
-    private OnClickListener btnAddNote_clickHandler = new OnClickListener() {
-
-        @Override
-        public void onClick(View v) {
-            startActivityForResult(new Intent(Main.this, EditNote.class), REQUEST_CODE_ADD_NOTE);
-        }
-    };
     private NoteAdapter adapter = null;
     private NeverNoteDB db;
     private SQLiteDatabase dbRead, dbWrite;
@@ -40,8 +32,9 @@ public class Main extends SetPortrait {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.aty_main_view);
-        Typeface iconFont = FontManager.getTypeface(getApplicationContext(), FontManager.FONTAWESOME);
-        FontManager.markAsIconContainer(findViewById(R.id.btnAddNote), iconFont);
+
+        Toolbar tbMain = (Toolbar) findViewById(R.id.tbMain);
+        setSupportActionBar(tbMain);
 
         mainListView = (ListView) findViewById(R.id.mainListView);
 
@@ -96,7 +89,12 @@ public class Main extends SetPortrait {
 
         refreshNotesListView();
 
-        findViewById(R.id.btnAddNote).setOnClickListener(btnAddNote_clickHandler);
+        findViewById(R.id.fabAddNote).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivityForResult(new Intent(Main.this, EditNote.class), REQUEST_CODE_ADD_NOTE);
+            }
+        });
     }
 
     @Override
