@@ -30,18 +30,16 @@
             android:configChanges="keyboardHidden|orientation|screenSize"/>
         <activity
             android:name=".mediaView.video.VideoViewer"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen"/>
+            android:configChanges="keyboardHidden|orientation|screenSize"/>
         <activity
             android:name=".mediaView.audio.AudioRecorder"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="Audio Recorder"
-            android:theme="@android:style/Theme.Dialog"/>
+            android:theme="@style/Theme.AppCompat.Light.Dialog"/>
         <activity
             android:name=".mediaView.audio.AudioViewer"
             android:configChanges="keyboardHidden|orientation|screenSize"
-            android:label="Audio Viewer"
-            android:theme="@android:style/Theme.Dialog"/>
+            android:label="Audio Viewer"/>
     </application>
 
 </manifest>

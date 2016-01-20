@@ -1,80 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:focusable="true"
-              android:focusableInTouchMode="true"
-              android:orientation="vertical">
-
-    <EditText
-        android:id="@+id/etName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="text"
-        android:labelFor="@id/etName"
-        android:singleLine="true">
-    </EditText>
-
-    <EditText
-        android:id="@+id/etContent"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:gravity="top"
-        android:inputType="text"
-        android:labelFor="@id/etContent"/>
-
-    <ListView
-        android:id="@+id/enListView"
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_weight="2"/>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
 
     <LinearLayout
-        android:id="@+id/containerEditNote"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <Button
-            android:id="@+id/btnSave"
-            style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="wrap_content"
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/appBar"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/save_t"/>
+            android:theme="@style/AppTheme.AppBarOverlay">
 
-        <Button
-            android:id="@+id/btnCancel"
-            style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/cancel_t"/>
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/tbEditNote"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                app:popupTheme="@style/AppTheme.PopupOverlay"/>
 
-        <Button
-            android:id="@+id/btnAddPhoto"
-            style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/addPhoto_t"/>
+        </android.support.design.widget.AppBarLayout>
 
-        <Button
-            android:id="@+id/btnAddVideo"
-            style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="wrap_content"
+        <EditText
+            android:id="@+id/etName"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/addVideo_t"/>
+            android:ems="10"
+            android:inputType="text"
+            android:labelFor="@id/etName"
+            android:singleLine="true">
+        </EditText>
 
-        <Button
-            android:id="@+id/btnAddAudio"
-            style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="wrap_content"
+        <EditText
+            android:id="@+id/etContent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/addAudio_t"/>
+            android:ems="10"
+            android:gravity="top"
+            android:inputType="text"
+            android:labelFor="@id/etContent"/>
+
+        <ListView
+            android:id="@+id/enListView"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"/>
+
+        <LinearLayout
+            android:id="@+id/containerEditNote"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/btnSave"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/save_t"/>
+
+            <Button
+                android:id="@+id/btnCancel"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/cancel_t"/>
+
+            <Button
+                android:id="@+id/btnAddPhoto"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/addPhoto_t"/>
+
+            <Button
+                android:id="@+id/btnAddVideo"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/addVideo_t"/>
+
+            <Button
+                android:id="@+id/btnAddAudio"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/addAudio_t"/>
+        </LinearLayout>
+
     </LinearLayout>
-
-</LinearLayout>
+</android.support.design.widget.CoordinatorLayout>

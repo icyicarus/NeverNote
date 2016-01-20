@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
@@ -119,6 +120,9 @@ public class EditNote extends SetPortrait {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.aty_edit_note);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+
+        Toolbar tbMain = (Toolbar) findViewById(R.id.tbEditNote);
+        setSupportActionBar(tbMain);
 
         Typeface iconFont = FontManager.getTypeface(getApplicationContext(), FontManager.FONTAWESOME);
         FontManager.markAsIconContainer(findViewById(R.id.containerEditNote), iconFont);

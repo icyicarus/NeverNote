@@ -18,7 +18,7 @@ public class MediaListCellData {
             iconID = R.drawable.img_video;
             type = MediaType.VIDEO;
         } else if (path.endsWith(".amr")) {
-            iconID = R.drawable.img_photo;
+            iconID = R.drawable.img_audio;
             type = MediaType.AUDIO;
         }
     }

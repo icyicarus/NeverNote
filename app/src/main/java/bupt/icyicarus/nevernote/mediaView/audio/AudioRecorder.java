@@ -15,31 +15,20 @@ import bupt.icyicarus.nevernote.init.SetPortrait;
 
 public class AudioRecorder extends SetPortrait {
 
+    public static final String EXTRA_PATH = "path";
     private Button btnRecordStart, btnRecordStop;
     private MediaRecorder myRecorder;
     private File savedFile = null;
     private int result = RESULT_CANCELED;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.aty_audio_recorder);
-        myRecorder = new MediaRecorder();
-        myRecorder.setAudioSource(MediaRecorder.AudioSource.DEFAULT);
-        myRecorder.setOutputFormat(MediaRecorder.OutputFormat.DEFAULT);
-        myRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.DEFAULT);
-
-        btnRecordStart = (Button) findViewById(R.id.btnRecordStart);
-        btnRecordStop = (Button) findViewById(R.id.btnRecordStop);
-        btnRecordStart.setOnClickListener(btnClickHandler);
-        btnRecordStop.setOnClickListener(btnClickHandler);
-    }
-
     private View.OnClickListener btnClickHandler = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.btnRecordStart:
+                    myRecorder = new MediaRecorder();
+                    myRecorder.setAudioSource(MediaRecorder.AudioSource.DEFAULT);
+                    myRecorder.setOutputFormat(MediaRecorder.OutputFormat.DEFAULT);
+                    myRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.DEFAULT);
                     String path = getIntent().getStringExtra(EXTRA_PATH);
                     toastOut(path);
                     try {
@@ -74,7 +63,7 @@ public class AudioRecorder extends SetPortrait {
                             }
                         }).show();
                     }
-                    btnRecordStart.setText("Record");
+                    btnRecordStart.setText(R.string.startRecord);
                     btnRecordStart.setEnabled(true);
                     btnRecordStop.setEnabled(false);
                     break;
@@ -85,12 +74,21 @@ public class AudioRecorder extends SetPortrait {
     };
 
     @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.aty_audio_recorder);
+
+        btnRecordStart = (Button) findViewById(R.id.btnRecordStart);
+        btnRecordStop = (Button) findViewById(R.id.btnRecordStop);
+        btnRecordStart.setOnClickListener(btnClickHandler);
+        btnRecordStop.setOnClickListener(btnClickHandler);
+    }
+
+    @Override
     protected void onDestroy() {
         if (result != RESULT_OK && savedFile != null) {
             savedFile.delete();
         }
         super.onDestroy();
     }
-
-    public static final String EXTRA_PATH = "path";
 }
