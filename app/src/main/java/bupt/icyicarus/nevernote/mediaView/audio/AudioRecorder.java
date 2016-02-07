@@ -37,7 +37,7 @@ public class AudioRecorder extends SetPortrait {
                         savedFile.createNewFile();
                         myRecorder.prepare();
                         myRecorder.start();
-                        btnRecordStart.setText("Recording");
+                        btnRecordStart.setText(R.string.recording);
                         btnRecordStart.setEnabled(false);
                         btnRecordStop.setEnabled(true);
                     } catch (IOException e) {
