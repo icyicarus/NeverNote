@@ -45,8 +45,8 @@ public class AudioViewer extends SetPortrait {
                         mpAudio.start();
                     }
                     btnAudioPause.setEnabled(true);
-                    btnAudioStop.setEnabled(true);
                     btnAudioPause.setTextColor(Color.BLACK);
+                    btnAudioStop.setEnabled(true);
                     btnAudioStop.setTextColor(Color.BLACK);
                     updateSeekBarHandler.post(updateSeekBarThread);
                     break;
@@ -61,8 +61,8 @@ public class AudioViewer extends SetPortrait {
                     sbAudio.setProgress(0);
                     updateSeekBarHandler.removeCallbacks(updateSeekBarThread);
                     btnAudioPause.setEnabled(false);
-                    btnAudioStop.setEnabled(false);
                     btnAudioPause.setTextColor(Color.LTGRAY);
+                    btnAudioStop.setEnabled(false);
                     btnAudioStop.setTextColor(Color.LTGRAY);
                     break;
                 default:
@@ -109,8 +109,8 @@ public class AudioViewer extends SetPortrait {
         btnAudioStop = (Button) findViewById(R.id.btnAudioStop);
 
         btnAudioPause.setEnabled(false);
-        btnAudioStop.setEnabled(false);
         btnAudioPause.setTextColor(Color.LTGRAY);
+        btnAudioStop.setEnabled(false);
         btnAudioStop.setTextColor(Color.LTGRAY);
 
         btnAudioStart.setTextColor(Color.BLACK);
