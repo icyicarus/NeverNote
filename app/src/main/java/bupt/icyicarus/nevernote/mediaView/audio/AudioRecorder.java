@@ -2,6 +2,7 @@ package bupt.icyicarus.nevernote.mediaView.audio;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.graphics.Typeface;
 import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.view.View;
@@ -11,6 +12,7 @@ import java.io.File;
 import java.io.IOException;
 
 import bupt.icyicarus.nevernote.R;
+import bupt.icyicarus.nevernote.font.FontManager;
 import bupt.icyicarus.nevernote.init.SetPortrait;
 
 public class AudioRecorder extends SetPortrait {
@@ -76,6 +78,9 @@ public class AudioRecorder extends SetPortrait {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.aty_audio_recorder);
+
+        Typeface iconFont = FontManager.getTypeface(getApplicationContext(), FontManager.FONTAWESOME);
+        FontManager.markAsIconContainer(findViewById(R.id.containerAudioRecorder), iconFont);
 
         btnRecordStart = (Button) findViewById(R.id.btnRecordStart);
         btnRecordStop = (Button) findViewById(R.id.btnRecordStop);
