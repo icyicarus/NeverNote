@@ -227,7 +227,7 @@ public class EditNote extends SetPortrait {
         ContentValues cv = new ContentValues();
         cv.put(NeverNoteDB.COLUMN_NAME_NOTE_NAME, etName.getText().toString());
         cv.put(NeverNoteDB.COLUMN_NAME_NOTE_CONTENT, etContent.getText().toString());
-        cv.put(NeverNoteDB.COLUMN_NAME_NOTE_DATE, new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date()));
+        cv.put(NeverNoteDB.COLUMN_NAME_NOTE_DATE, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
 
         if (noteID > -1) {
             dbWrite.update(NeverNoteDB.TABLE_NAME_NOTES, cv, NeverNoteDB.COLUMN_ID + "=?", new String[]{noteID + ""});
@@ -248,6 +248,8 @@ public class EditNote extends SetPortrait {
                 if (resultCode == RESULT_OK) {
                     adapter.Add(new MediaListCellData(currentPath));
                     adapter.notifyDataSetChanged();
+                } else if (f != null) {
+                    f.delete();
                 }
                 break;
 
