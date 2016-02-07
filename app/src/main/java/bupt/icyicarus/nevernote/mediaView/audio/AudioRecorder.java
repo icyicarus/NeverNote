@@ -39,7 +39,7 @@ public class AudioRecorder extends SetPortrait {
                         savedFile.createNewFile();
                         myRecorder.prepare();
                         myRecorder.start();
-                        btnRecordStart.setText(R.string.recording);
+                        btnRecordStart.setText(R.string.recording_t);
                         btnRecordStart.setEnabled(false);
                         btnRecordStop.setEnabled(true);
                     } catch (IOException e) {
@@ -64,7 +64,7 @@ public class AudioRecorder extends SetPortrait {
                             }
                         }).show();
                     }
-                    btnRecordStart.setText(R.string.startRecord);
+                    btnRecordStart.setText(R.string.startRecord_t);
                     btnRecordStart.setEnabled(true);
                     btnRecordStop.setEnabled(false);
                     break;

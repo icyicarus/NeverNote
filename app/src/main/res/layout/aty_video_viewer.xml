@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+<RelativeLayout
+    android:id="@+id/containerVideoViewer"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <SurfaceView
         android:id="@+id/sfVideo"
@@ -24,7 +26,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/play"/>
+            android:text="@string/play_t"/>
 
         <Button
             android:id="@+id/btnVideoPause"
@@ -32,7 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/pause"/>
+            android:text="@string/pause_t"/>
 
         <Button
             android:id="@+id/btnVideoStop"
@@ -41,7 +43,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:enabled="false"
-            android:text="@string/stop"/>
+            android:text="@string/stop_t"/>
 
     </LinearLayout>
 
@@ -49,16 +51,7 @@
         android:id="@+id/sbVideo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/llVideo"
-        android:layout_alignParentStart="true"
-        android:indeterminateDrawable="@android:drawable/progress_indeterminate_horizontal"
-        android:indeterminateOnly="false"
-        android:maxHeight="8dp"
-        android:minHeight="8dp"
-        android:padding="10dp"
-        android:progressDrawable="@drawable/seekbar"
-        android:thumb="@drawable/seek_thumb"
-        android:thumbOffset="10dp"/>
+        android:layout_above="@+id/llVideo"/>
 
 
 </RelativeLayout>

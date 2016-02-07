@@ -1,5 +1,7 @@
 package bupt.icyicarus.nevernote.mediaView.video;
 
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -13,21 +15,35 @@ import android.widget.SeekBar;
 import java.io.IOException;
 
 import bupt.icyicarus.nevernote.R;
+import bupt.icyicarus.nevernote.font.FontManager;
 import bupt.icyicarus.nevernote.init.SetPortrait;
 
 public class VideoViewer extends SetPortrait {
 
+    public static final String EXTRA_PATH = "path";
     private Button btnVideoStart, btnVideoPause, btnVideoStop;
     private SurfaceView sfVideo;
     private SurfaceHolder surfaceHolder;
     private MediaPlayer mpVideo;
     private String path;
     private SeekBar sbVideo;
+    private Handler updateSeekBarHandler = new Handler();
+
+    private Runnable updateSeekBarThread = new Runnable() {
+        @Override
+        public void run() {
+            sbVideo.setProgress(mpVideo.getCurrentPosition());
+            updateSeekBarHandler.postDelayed(updateSeekBarThread, 100);
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.aty_video_viewer);
+
+        Typeface iconFont = FontManager.getTypeface(getApplicationContext(), FontManager.FONTAWESOME);
+        FontManager.markAsIconContainer(findViewById(R.id.containerVideoViewer), iconFont);
 
         sfVideo = (SurfaceView) findViewById(R.id.sfVideo);
         btnVideoStart = (Button) findViewById(R.id.btnVideoStart);
@@ -35,7 +51,12 @@ public class VideoViewer extends SetPortrait {
         btnVideoStop = (Button) findViewById(R.id.btnVideoStop);
 
         btnVideoPause.setEnabled(false);
+        btnVideoPause.setTextColor(Color.LTGRAY);
         btnVideoStop.setEnabled(false);
+        btnVideoStop.setTextColor(Color.LTGRAY);
+
+        btnVideoStart.setTextColor(Color.RED);
+
         mpVideo = new MediaPlayer();
         path = getIntent().getStringExtra(EXTRA_PATH);
 
@@ -108,7 +129,9 @@ public class VideoViewer extends SetPortrait {
                     mpVideo.start();
                 }
                 btnVideoPause.setEnabled(true);
+                btnVideoPause.setTextColor(Color.RED);
                 btnVideoStop.setEnabled(true);
+                btnVideoStop.setTextColor(Color.RED);
                 updateSeekBarHandler.post(updateSeekBarThread);
             }
         });
@@ -116,11 +139,9 @@ public class VideoViewer extends SetPortrait {
         btnVideoPause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mpVideo.isPlaying()) {
-                    mpVideo.pause();
-                } else {
-                    mpVideo.start();
-                }
+                mpVideo.pause();
+                btnVideoPause.setEnabled(false);
+                btnVideoPause.setTextColor(Color.LTGRAY);
             }
         });
 
@@ -132,20 +153,12 @@ public class VideoViewer extends SetPortrait {
                 sbVideo.setProgress(0);
                 updateSeekBarHandler.removeCallbacks(updateSeekBarThread);
                 btnVideoPause.setEnabled(false);
+                btnVideoPause.setTextColor(Color.LTGRAY);
                 btnVideoStop.setEnabled(false);
+                btnVideoStop.setTextColor(Color.LTGRAY);
             }
         });
     }
-
-    private Handler updateSeekBarHandler = new Handler();
-
-    private Runnable updateSeekBarThread = new Runnable() {
-        @Override
-        public void run() {
-            sbVideo.setProgress(mpVideo.getCurrentPosition());
-            updateSeekBarHandler.postDelayed(updateSeekBarThread, 100);
-        }
-    };
 
     @Override
     protected void onDestroy() {
@@ -154,7 +167,5 @@ public class VideoViewer extends SetPortrait {
         updateSeekBarHandler.removeCallbacks(updateSeekBarThread);
         super.onDestroy();
     }
-
-    public static final String EXTRA_PATH = "path";
 
 }
