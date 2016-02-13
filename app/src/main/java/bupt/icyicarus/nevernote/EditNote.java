@@ -6,11 +6,14 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
@@ -23,6 +26,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import bupt.icyicarus.nevernote.config.Settings;
 import bupt.icyicarus.nevernote.db.NeverNoteDB;
 import bupt.icyicarus.nevernote.font.FontManager;
 import bupt.icyicarus.nevernote.init.SetPortrait;
@@ -251,9 +255,34 @@ public class EditNote extends SetPortrait {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        if (customBackground) {
+            findViewById(R.id.containerEditNote).setBackgroundColor(Integer.parseInt(backgroundColor));
+        } else {
+            findViewById(R.id.containerEditNote).setBackgroundColor(Color.WHITE);
+        }
+    }
+
+    @Override
     protected void onDestroy() {
         dbRead.close();
         dbWrite.close();
         super.onDestroy();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.settings) {
+            startActivity(new Intent(EditNote.this, Settings.class));
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
