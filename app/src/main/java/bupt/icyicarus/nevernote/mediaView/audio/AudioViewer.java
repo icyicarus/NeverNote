@@ -81,8 +81,6 @@ public class AudioViewer extends SetPortrait {
 
         String path = getIntent().getStringExtra(EXTRA_PATH);
 
-        toastOut(path);
-
         System.out.println(path);
         mpAudio = new MediaPlayer();
         try {

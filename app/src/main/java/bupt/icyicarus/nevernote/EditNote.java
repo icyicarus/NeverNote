@@ -9,7 +9,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -105,14 +104,6 @@ public class EditNote extends SetPortrait {
             }
         }
     };
-
-    public File getMediaDir() {
-        File dir = new File(Environment.getExternalStorageDirectory(), "NeverNoteMedia");
-        if (!dir.exists()) {
-            dir.mkdirs();
-        }
-        return dir;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -244,7 +235,6 @@ public class EditNote extends SetPortrait {
             case REQUEST_CODE_GET_PHOTO:
             case REQUEST_CODE_GET_VIDEO:
             case REQUEST_CODE_GET_AUDIO:
-                toastOut(resultCode + "");
                 if (resultCode == RESULT_OK) {
                     adapter.Add(new MediaListCellData(currentPath));
                     adapter.notifyDataSetChanged();

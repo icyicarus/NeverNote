@@ -32,7 +32,6 @@ public class AudioRecorder extends SetPortrait {
                     myRecorder.setOutputFormat(MediaRecorder.OutputFormat.DEFAULT);
                     myRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.DEFAULT);
                     String path = getIntent().getStringExtra(EXTRA_PATH);
-                    toastOut(path);
                     try {
                         savedFile = new File(path);
                         myRecorder.setOutputFile(savedFile.getAbsolutePath());

@@ -6,8 +6,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -15,6 +18,7 @@ import android.widget.ListView;
 
 import java.io.File;
 
+import bupt.icyicarus.nevernote.config.Settings;
 import bupt.icyicarus.nevernote.db.NeverNoteDB;
 import bupt.icyicarus.nevernote.init.SetPortrait;
 import bupt.icyicarus.nevernote.noteList.NoteAdapter;
@@ -122,5 +126,30 @@ public class Main extends SetPortrait {
             adapter.Add(new NoteListCellData(c.getString(c.getColumnIndex(NeverNoteDB.COLUMN_NAME_NOTE_NAME)), c.getString(c.getColumnIndex(NeverNoteDB.COLUMN_NAME_NOTE_DATE)), c.getString(c.getColumnIndex(NeverNoteDB.COLUMN_NAME_NOTE_CONTENT)), c.getInt(c.getColumnIndex(NeverNoteDB.COLUMN_ID))));
         }
         mainListView.setAdapter(adapter);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.settings) {
+            startActivity(new Intent(Main.this, Settings.class));
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (customBackground) {
+            findViewById(R.id.containerMainView).setBackgroundColor(Color.parseColor(backgroundColor));
+        } else {
+            findViewById(R.id.containerMainView).setBackgroundColor(Color.WHITE);
+        }
     }
 }
