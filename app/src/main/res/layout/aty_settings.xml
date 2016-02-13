@@ -26,16 +26,57 @@
 
         </android.support.design.widget.AppBarLayout>
 
-        <ToggleButton
-            android:id="@+id/toggleCustomBackground"
-            android:layout_width="wrap_content"
+        <FrameLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:background="@android:color/transparent"
-            android:button="@drawable/toggle_btn"
-            android:checked="false"
-            android:textOff=""
-            android:textOn=""/>
-    </LinearLayout>
+            android:orientation="horizontal"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="start|center_vertical"
+                android:text="Custom Background"
+                android:textAlignment="center"
+                android:textSize="20sp"/>
+
+            <ToggleButton
+                android:id="@+id/toggleCustomBackground"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right|center_vertical"
+                android:background="@android:color/transparent"
+                android:button="@drawable/toggle_btn"
+                android:checked="false"
+                android:textOff=""
+                android:textOn=""/>
+        </FrameLayout>
+
+        <LinearLayout
+            android:id="@+id/containerColorPicker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <bupt.icyicarus.nevernote.colorPicker.ColorPicker
+                android:id="@+id/colorPicker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"/>
+
+            <bupt.icyicarus.nevernote.colorPicker.SVBar
+                android:id="@+id/svBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"/>
+
+            <bupt.icyicarus.nevernote.colorPicker.OpacityBar
+                android:id="@+id/oBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"/>
+        </LinearLayout>
+
+    </LinearLayout>
 </android.support.design.widget.CoordinatorLayout>

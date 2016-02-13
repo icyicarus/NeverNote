@@ -31,7 +31,7 @@ public class SetPortrait extends AppCompatActivity {
         if (p == null) {
             p = new Properties();
             p.put("CUSTOM_BACKGROUND", "false");
-            p.put("BACKGROUND_COLOR", "#FF0000");
+            p.put("BACKGROUND_COLOR", "16777215");
             saveConfig(configFileName, p);
         }
         customBackground = Boolean.parseBoolean(p.get("CUSTOM_BACKGROUND").toString());

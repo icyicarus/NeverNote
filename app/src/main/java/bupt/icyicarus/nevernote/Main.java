@@ -147,7 +147,7 @@ public class Main extends SetPortrait {
     protected void onResume() {
         super.onResume();
         if (customBackground) {
-            findViewById(R.id.containerMainView).setBackgroundColor(Color.parseColor(backgroundColor));
+            findViewById(R.id.containerMainView).setBackgroundColor(Integer.parseInt(backgroundColor));
         } else {
             findViewById(R.id.containerMainView).setBackgroundColor(Color.WHITE);
         }
