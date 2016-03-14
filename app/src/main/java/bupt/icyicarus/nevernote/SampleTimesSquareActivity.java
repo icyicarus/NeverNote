@@ -1,9 +1,7 @@
 package bupt.icyicarus.nevernote;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -17,11 +15,12 @@ import java.util.Date;
 
 import bupt.icyicarus.nevernote.calenderLib.CalendarPickerView;
 import bupt.icyicarus.nevernote.calenderLib.CalendarPickerView.SelectionMode;
+import bupt.icyicarus.nevernote.init.SetPortrait;
 
 import static android.widget.Toast.LENGTH_SHORT;
 
-public class SampleTimesSquareActivity extends Activity {
-    private static final String TAG = "SampleTimesSquareActivity";
+public class SampleTimesSquareActivity extends SetPortrait {
+    private static final String TAG = "TimesSquare";
     private CalendarPickerView calendar;
     private AlertDialog theDialog;
     private CalendarPickerView dialogView;
@@ -41,6 +40,17 @@ public class SampleTimesSquareActivity extends Activity {
         calendar.init(lastYear.getTime(), nextYear.getTime()) //
                 .inMode(SelectionMode.SINGLE) //
                 .withSelectedDate(new Date());
+        calendar.setOnDateSelectedListener(new CalendarPickerView.OnDateSelectedListener() {
+            @Override
+            public void onDateSelected(Date date) {
+                Log.e("date", "onDateSelected");
+            }
+
+            @Override
+            public void onDateUnselected(Date date) {
+                Log.e("date", "onDateUnselected");
+            }
+        });
 
         final Button single = (Button) findViewById(R.id.button_single);
         final Button multi = (Button) findViewById(R.id.button_multi);
@@ -151,24 +161,5 @@ public class SampleTimesSquareActivity extends Activity {
                 Toast.makeText(SampleTimesSquareActivity.this, toast, LENGTH_SHORT).show();
             }
         });
-    }
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        boolean applyFixes = theDialog != null && theDialog.isShowing();
-        if (applyFixes) {
-            Log.d(TAG, "Config change: unfix the dimens so I'll get remeasured!");
-            dialogView.unfixDialogDimens();
-        }
-        super.onConfigurationChanged(newConfig);
-        if (applyFixes) {
-            dialogView.post(new Runnable() {
-                @Override
-                public void run() {
-                    Log.d(TAG, "Config change done: re-fix the dimens!");
-                    dialogView.fixDialogDimens();
-                }
-            });
-        }
     }
 }
