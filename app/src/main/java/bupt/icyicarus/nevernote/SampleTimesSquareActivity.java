@@ -20,7 +20,7 @@ import bupt.icyicarus.nevernote.init.SetPortrait;
 import static android.widget.Toast.LENGTH_SHORT;
 
 public class SampleTimesSquareActivity extends SetPortrait {
-    private static final String TAG = "TimesSquare";
+    private static final String TAG = "CalenderView";
     private CalendarPickerView calendar;
     private AlertDialog theDialog;
     private CalendarPickerView dialogView;
