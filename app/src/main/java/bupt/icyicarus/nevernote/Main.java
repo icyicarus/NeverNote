@@ -140,6 +140,9 @@ public class Main extends SetPortrait {
         if (id == R.id.settings) {
             startActivity(new Intent(Main.this, Settings.class));
         }
+        if (id == R.id.calender) {
+            startActivity(new Intent(Main.this, SampleTimesSquareActivity.class));
+        }
         return super.onOptionsItemSelected(item);
     }
 

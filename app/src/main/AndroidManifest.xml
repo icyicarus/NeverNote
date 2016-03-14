@@ -20,6 +20,9 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <activity
+            android:name=".SampleTimesSquareActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"/>
         <activity android:name=".init.SetPortrait"/>
         <activity
             android:name=".EditNote"
