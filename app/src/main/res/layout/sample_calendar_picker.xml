@@ -1,69 +1,52 @@
-<?xml version="1.0" encoding="utf-8"?>
-
-<LinearLayout
+<android.support.design.widget.CoordinatorLayout
+    android:id="@+id/containerMainView"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:fitsSystemWindows="true">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <Button
-            android:id="@+id/button_single"
-            android:layout_width="wrap_content"
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/appBar"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:enabled="false"
-            android:text="Single"/>
+            android:theme="@style/AppTheme.AppBarOverlay">
 
-        <Button
-            android:id="@+id/button_multi"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Multi"/>
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/tbCalender"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                app:popupTheme="@style/AppTheme.PopupOverlay"/>
 
-        <Button
-            android:id="@+id/button_range"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Range"/>
+        </android.support.design.widget.AppBarLayout>
 
-        <Button
-            android:id="@+id/button_display_only"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <bupt.icyicarus.nevernote.calenderLib.CalendarPickerView
+            android:id="@+id/mainCalenderView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
             android:layout_weight="1"
-            android:text="DisplayOnly"/>
-
-        <Button
-            android:id="@+id/button_dialog"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Dialog"/>
+            android:background="#FFFFFF"
+            android:clipToPadding="false"
+            android:paddingBottom="16dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:scrollbarStyle="outsideOverlay"/>
 
     </LinearLayout>
 
-    <bupt.icyicarus.nevernote.calenderLib.CalendarPickerView
-        android:id="@+id/calendar_view"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="#FFFFFF"
-        android:clipToPadding="false"
-        android:paddingBottom="16dp"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
-        android:scrollbarStyle="outsideOverlay"/>
-
-    <Button
-        android:id="@+id/done_button"
-        android:layout_width="match_parent"
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabAddNoteCalender"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Done"/>
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:src="@drawable/btn_add_note"
+        app:backgroundTint="#007700"/>
 
-</LinearLayout>
+</android.support.design.widget.CoordinatorLayout>
