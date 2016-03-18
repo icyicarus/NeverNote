@@ -16,6 +16,7 @@ public class SetPortrait extends AppCompatActivity {
     public Properties p = null;
     public Boolean customBackground = false;
     public String backgroundColor = "#000000";
+    public String launchView = "overview";
     public String configFileName = getMediaDir().getAbsolutePath() + "/config.properties";
 
     @Override
@@ -26,16 +27,17 @@ public class SetPortrait extends AppCompatActivity {
 
     @Override
     protected void onResume() {
-        Log.wtf("SPonResume", "loadConfig");
         p = loadConfig(configFileName);
         if (p == null) {
             p = new Properties();
             p.put("CUSTOM_BACKGROUND", "false");
             p.put("BACKGROUND_COLOR", "16777215");
+            p.put("LAUNCH_VIEW", launchView);
             saveConfig(configFileName, p);
         }
         customBackground = Boolean.parseBoolean(p.get("CUSTOM_BACKGROUND").toString());
         backgroundColor = p.get("BACKGROUND_COLOR").toString();
+        launchView = p.get("LAUNCH_VIEW").toString();
         super.onResume();
     }
 
@@ -57,7 +59,6 @@ public class SetPortrait extends AppCompatActivity {
             e.printStackTrace();
             return null;
         }
-        Log.wtf("configLoaded", "cB = " + properties.get("CUSTOM_BACKGROUND") + "");
         return properties;
     }
 

@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest
-    package="bupt.icyicarus.nevernote"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="bupt.icyicarus.nevernote">
 
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
     <application
         android:allowBackup="true"
@@ -12,42 +11,45 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".Main"
+            android:name=".AtyLaunch"
             android:label="@string/app_name">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".SampleTimesSquareActivity"
-            android:configChanges="orientation|screenSize|keyboardHidden"/>
-        <activity android:name=".init.SetPortrait"/>
+            android:name=".OverView"
+            android:configChanges="orientation|screenSize|keyboardHidden" />
+        <activity
+            android:name=".CalenderView"
+            android:configChanges="orientation|screenSize|keyboardHidden" />
+        <activity android:name=".init.SetPortrait" />
         <activity
             android:name=".EditNote"
             android:configChanges="keyboardHidden|orientation|screenSize"
-            android:windowSoftInputMode="adjustResize"/>
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".mediaView.photo.PhotoViewer"
-            android:configChanges="keyboardHidden|orientation|screenSize"/>
+            android:configChanges="keyboardHidden|orientation|screenSize" />
         <activity
             android:name=".mediaView.video.VideoViewer"
-            android:configChanges="keyboardHidden|orientation|screenSize"/>
+            android:configChanges="keyboardHidden|orientation|screenSize" />
         <activity
             android:name=".mediaView.audio.AudioRecorder"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="Audio Recorder"
-            android:theme="@style/Theme.AppCompat.Light.Dialog"/>
+            android:theme="@style/Theme.AppCompat.Light.Dialog" />
         <activity
             android:name=".mediaView.audio.AudioViewer"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="Audio Viewer"
-            android:theme="@style/Theme.AppCompat.Light.Dialog"/>
+            android:theme="@style/Theme.AppCompat.Light.Dialog" />
         <activity
             android:name=".config.Settings"
             android:configChanges="keyboardHidden|orientation|screenSize"
-            android:label="Settings"/>
+            android:label="Settings" />
     </application>
 
 </manifest>

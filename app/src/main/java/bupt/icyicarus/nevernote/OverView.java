@@ -27,7 +27,7 @@ import bupt.icyicarus.nevernote.init.SetPortrait;
 import bupt.icyicarus.nevernote.noteList.NoteAdapter;
 import bupt.icyicarus.nevernote.noteList.NoteListCellData;
 
-public class Main extends SetPortrait {
+public class OverView extends SetPortrait {
     public static final int REQUEST_CODE_ADD_NOTE = 1;
     public static final int REQUEST_CODE_EDIT_NOTE = 2;
     private ListView mainListView;
@@ -59,7 +59,7 @@ public class Main extends SetPortrait {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 NoteListCellData data = adapter.getItem(position);
-                Intent i = new Intent(Main.this, EditNote.class);
+                Intent i = new Intent(OverView.this, EditNote.class);
 
                 i.putExtra(EditNote.EXTRA_NOTE_ID, data.id);
                 i.putExtra(EditNote.EXTRA_NOTE_NAME, data.name);
@@ -70,7 +70,7 @@ public class Main extends SetPortrait {
         mainListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(final AdapterView<?> parent, View view, final int position, long id) {
-                new AlertDialog.Builder(Main.this).setTitle("Delete?").setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                new AlertDialog.Builder(OverView.this).setTitle("Delete?").setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         NoteListCellData data = adapter.getItem(position);
@@ -95,7 +95,7 @@ public class Main extends SetPortrait {
         findViewById(R.id.fabAddNote).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivityForResult(new Intent(Main.this, EditNote.class), REQUEST_CODE_ADD_NOTE);
+                startActivityForResult(new Intent(OverView.this, EditNote.class), REQUEST_CODE_ADD_NOTE);
             }
         });
     }
@@ -124,14 +124,12 @@ public class Main extends SetPortrait {
         while (c.moveToNext()) {
             try {
                 noteAddDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(c.getString(c.getColumnIndex(NeverNoteDB.COLUMN_NAME_NOTE_DATE))).getTime();
-                Log.e("noteAddDate", noteAddDate + "");
             } catch (ParseException e) {
                 e.printStackTrace();
             }
 
             if (noteDate == -1 || (noteDate != -1 && noteAddDate >= noteDate && noteAddDate < (noteDate + 86400000))) {
                 adapter.Add(new NoteListCellData(c.getString(c.getColumnIndex(NeverNoteDB.COLUMN_NAME_NOTE_NAME)), c.getString(c.getColumnIndex(NeverNoteDB.COLUMN_NAME_NOTE_DATE)), c.getString(c.getColumnIndex(NeverNoteDB.COLUMN_NAME_NOTE_CONTENT)), c.getInt(c.getColumnIndex(NeverNoteDB.COLUMN_ID))));
-                Log.e("test2", "add");
             }
         }
         mainListView.setAdapter(adapter);
@@ -148,10 +146,10 @@ public class Main extends SetPortrait {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.settings) {
-            startActivity(new Intent(Main.this, Settings.class));
+            startActivity(new Intent(OverView.this, Settings.class));
         }
         if (id == R.id.calender) {
-            startActivity(new Intent(Main.this, SampleTimesSquareActivity.class));
+            startActivity(new Intent(OverView.this, CalenderView.class));
         }
         return super.onOptionsItemSelected(item);
     }

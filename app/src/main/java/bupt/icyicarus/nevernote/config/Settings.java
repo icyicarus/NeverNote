@@ -3,8 +3,10 @@ package bupt.icyicarus.nevernote.config;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.ToggleButton;
 
 import bupt.icyicarus.nevernote.R;
@@ -27,6 +29,19 @@ public class Settings extends SetPortrait {
     @Override
     protected void onResume() {
         super.onResume();
+
+        final Spinner spinnerLaunchView = (Spinner) findViewById(R.id.spinnerLaunchView);
+        spinnerLaunchView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                p.put("LAUNCH_VIEW", spinnerLaunchView.getSelectedItem().toString());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         ToggleButton toggleCustomBackground = (ToggleButton) findViewById(R.id.toggleCustomBackground);
         toggleCustomBackground.setChecked(customBackground);
