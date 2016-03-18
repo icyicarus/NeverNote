@@ -10,13 +10,25 @@ import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.ToggleButton;
 
+import com.larswerkman.holocolorpicker.ColorPicker;
+import com.larswerkman.holocolorpicker.OpacityBar;
+import com.larswerkman.holocolorpicker.SVBar;
+
 import bupt.icyicarus.nevernote.R;
-import bupt.icyicarus.nevernote.colorPicker.ColorPicker;
-import bupt.icyicarus.nevernote.colorPicker.OpacityBar;
-import bupt.icyicarus.nevernote.colorPicker.SVBar;
 import bupt.icyicarus.nevernote.init.SetPortrait;
 
 public class Settings extends SetPortrait {
+
+    public static void setSpinnerItemSelectedByValue(Spinner spinner, String value) {
+        SpinnerAdapter spinnerAdapter = spinner.getAdapter(); //得到SpinnerAdapter对象
+        int k = spinnerAdapter.getCount();
+        for (int i = 0; i < k; i++) {
+            if (value.equals(spinnerAdapter.getItem(i).toString())) {
+                spinner.setSelection(i, true);// 默认选中项
+                break;
+            }
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,17 +92,5 @@ public class Settings extends SetPortrait {
     protected void onPause() {
         super.onPause();
         saveConfig(configFileName, p);
-    }
-
-
-    public static void setSpinnerItemSelectedByValue(Spinner spinner, String value) {
-        SpinnerAdapter spinnerAdapter = spinner.getAdapter(); //得到SpinnerAdapter对象
-        int k = spinnerAdapter.getCount();
-        for (int i = 0; i < k; i++) {
-            if (value.equals(spinnerAdapter.getItem(i).toString())) {
-                spinner.setSelection(i, true);// 默认选中项
-                break;
-            }
-        }
     }
 }

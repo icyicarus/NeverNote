@@ -25,7 +25,7 @@
 
         </android.support.design.widget.AppBarLayout>
 
-        <bupt.icyicarus.nevernote.calenderLib.CalendarPickerView
+        <com.squareup.timessquare.CalendarPickerView
             android:id="@+id/mainCalenderView"
             android:layout_width="match_parent"
             android:layout_height="0dp"

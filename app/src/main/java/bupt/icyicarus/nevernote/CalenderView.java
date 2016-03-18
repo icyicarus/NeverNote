@@ -7,16 +7,16 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.squareup.timessquare.CalendarPickerView;
+import com.squareup.timessquare.CalendarPickerView.SelectionMode;
+
 import java.util.Calendar;
 import java.util.Date;
 
-import bupt.icyicarus.nevernote.calenderLib.CalendarPickerView;
-import bupt.icyicarus.nevernote.calenderLib.CalendarPickerView.SelectionMode;
 import bupt.icyicarus.nevernote.config.Settings;
 import bupt.icyicarus.nevernote.init.SetPortrait;
 
 public class CalenderView extends SetPortrait {
-    private static final String TAG = "CalenderView";
     private CalendarPickerView calendar;
 
     @Override
