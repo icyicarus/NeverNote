@@ -62,18 +62,8 @@
                 android:textAlignment="center"
                 android:textSize="20sp" />
 
-            <ToggleButton
-                android:id="@+id/toggleCustomBackground"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end|center_vertical"
-                android:background="@android:color/transparent"
-                android:button="@drawable/toggle_btn"
-                android:checked="false"
-                android:textOff=""
-                android:textOn="" />
-
             <com.gc.materialdesign.views.Switch
+                android:id="@+id/switchCustomBackground"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end|center_vertical" />

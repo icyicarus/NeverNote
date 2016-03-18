@@ -2,6 +2,7 @@ package bupt.icyicarus.nevernote.config;
 
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.CompoundButton;
@@ -10,6 +11,7 @@ import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.ToggleButton;
 
+import com.gc.materialdesign.views.Switch;
 import com.larswerkman.holocolorpicker.ColorPicker;
 import com.larswerkman.holocolorpicker.OpacityBar;
 import com.larswerkman.holocolorpicker.SVBar;
@@ -57,8 +59,9 @@ public class Settings extends SetPortrait {
             }
         });
 
-        ToggleButton toggleCustomBackground = (ToggleButton) findViewById(R.id.toggleCustomBackground);
-        toggleCustomBackground.setChecked(customBackground);
+        Switch switchCustomBackground = (Switch) findViewById(R.id.switchCustomBackground);
+        switchCustomBackground.setChecked(customBackground);
+
         final LinearLayout containerColorPicker = (LinearLayout) findViewById(R.id.containerColorPicker);
         final ColorPicker colorPicker = (ColorPicker) findViewById(R.id.colorPicker);
         final SVBar svBar = (SVBar) findViewById(R.id.svBar);
@@ -70,16 +73,18 @@ public class Settings extends SetPortrait {
         colorPicker.setColor(Integer.parseInt(p.get("BACKGROUND_COLOR").toString()));
         colorPicker.setOldCenterColor(Integer.parseInt(p.get("BACKGROUND_COLOR").toString()));
 
-        toggleCustomBackground.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        switchCustomBackground.setOncheckListener(new Switch.OnCheckListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                customBackground = isChecked;
+            public void onCheck(Switch view, boolean check) {
+                Log.e("switchTest", check + "");
+                customBackground = check;
                 containerColorPicker.setVisibility(customBackground ? View.VISIBLE : View.GONE);
                 backgroundColor = colorPicker.getColor() + "";
-                p.put("CUSTOM_BACKGROUND", isChecked + "");
+                p.put("CUSTOM_BACKGROUND", check + "");
                 p.put("BACKGROUND_COLOR", backgroundColor);
             }
         });
+
         colorPicker.setOnColorChangedListener(new ColorPicker.OnColorChangedListener() {
             @Override
             public void onColorChanged(int color) {
