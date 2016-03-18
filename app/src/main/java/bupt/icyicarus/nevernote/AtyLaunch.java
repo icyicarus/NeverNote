@@ -15,10 +15,10 @@ public class AtyLaunch extends SetPortrait {
             @Override
             public void run() {
                 switch (launchView) {
-                    case "overview":
+                    case "Overview":
                         startActivity(new Intent(AtyLaunch.this, OverView.class));
                         break;
-                    case "calender":
+                    case "Calender":
                         startActivity(new Intent(AtyLaunch.this, CalenderView.class));
                         break;
                     default:

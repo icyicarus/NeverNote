@@ -2,24 +2,28 @@ package bupt.icyicarus.nevernote.config;
 
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.CompoundButton;
+import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
-import android.widget.ToggleButton;
 
 import com.gc.materialdesign.views.Switch;
 import com.larswerkman.holocolorpicker.ColorPicker;
 import com.larswerkman.holocolorpicker.OpacityBar;
 import com.larswerkman.holocolorpicker.SVBar;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import bupt.icyicarus.nevernote.R;
 import bupt.icyicarus.nevernote.init.SetPortrait;
 
 public class Settings extends SetPortrait {
+
+    private List<String> listLaunchView;
+    private ArrayAdapter<String> adapterListLaunchView;
 
     public static void setSpinnerItemSelectedByValue(Spinner spinner, String value) {
         SpinnerAdapter spinnerAdapter = spinner.getAdapter(); //得到SpinnerAdapter对象
@@ -46,6 +50,12 @@ public class Settings extends SetPortrait {
         super.onResume();
 
         final Spinner spinnerLaunchView = (Spinner) findViewById(R.id.spinnerLaunchView);
+        listLaunchView = new ArrayList<>();
+        listLaunchView.add("Overview");
+        listLaunchView.add("Calender");
+        adapterListLaunchView = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, listLaunchView);
+        adapterListLaunchView.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerLaunchView.setAdapter(adapterListLaunchView);
         setSpinnerItemSelectedByValue(spinnerLaunchView, launchView);
         spinnerLaunchView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -76,7 +86,6 @@ public class Settings extends SetPortrait {
         switchCustomBackground.setOncheckListener(new Switch.OnCheckListener() {
             @Override
             public void onCheck(Switch view, boolean check) {
-                Log.e("switchTest", check + "");
                 customBackground = check;
                 containerColorPicker.setVisibility(customBackground ? View.VISIBLE : View.GONE);
                 backgroundColor = colorPicker.getColor() + "";
