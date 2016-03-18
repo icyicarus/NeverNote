@@ -1,24 +1,21 @@
 package bupt.icyicarus.nevernote;
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
-import android.widget.Toast;
+import android.view.Menu;
+import android.view.MenuItem;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
 import bupt.icyicarus.nevernote.calenderLib.CalendarPickerView;
 import bupt.icyicarus.nevernote.calenderLib.CalendarPickerView.SelectionMode;
+import bupt.icyicarus.nevernote.config.Settings;
 import bupt.icyicarus.nevernote.init.SetPortrait;
-
-import static android.widget.Toast.LENGTH_SHORT;
 
 public class SampleTimesSquareActivity extends SetPortrait {
     private static final String TAG = "CalenderView";
@@ -47,7 +44,10 @@ public class SampleTimesSquareActivity extends SetPortrait {
         calendar.setOnDateSelectedListener(new CalendarPickerView.OnDateSelectedListener() {
             @Override
             public void onDateSelected(Date date) {
-                Log.e("date", "onDateSelected");
+                Log.e(TAG, "Selected time in millis: " + calendar.getSelectedDate().getTime());
+                Intent i = new Intent(SampleTimesSquareActivity.this, Main.class);
+                i.putExtra("noteDate", calendar.getSelectedDate().getTime());
+                startActivity(i);
             }
 
             @Override
@@ -165,5 +165,33 @@ public class SampleTimesSquareActivity extends SetPortrait {
 //                Toast.makeText(SampleTimesSquareActivity.this, toast, LENGTH_SHORT).show();
 //            }
 //        });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.settings) {
+            startActivity(new Intent(SampleTimesSquareActivity.this, Settings.class));
+        }
+        if (id == R.id.calender) {
+            startActivity(new Intent(SampleTimesSquareActivity.this, SampleTimesSquareActivity.class));
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (customBackground) {
+            findViewById(R.id.mainCalenderView).setBackgroundColor(Integer.parseInt(backgroundColor));
+        } else {
+            findViewById(R.id.mainCalenderView).setBackgroundColor(Color.WHITE);
+        }
     }
 }

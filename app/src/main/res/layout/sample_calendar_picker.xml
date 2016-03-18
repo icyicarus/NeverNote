@@ -1,7 +1,7 @@
 <android.support.design.widget.CoordinatorLayout
-    android:id="@+id/containerMainView"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/containerCalenderView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
@@ -22,7 +22,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:background="?attr/colorPrimary"
-                app:popupTheme="@style/AppTheme.PopupOverlay"/>
+                app:popupTheme="@style/AppTheme.PopupOverlay" />
 
         </android.support.design.widget.AppBarLayout>
 
@@ -36,7 +36,7 @@
             android:paddingBottom="16dp"
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
-            android:scrollbarStyle="outsideOverlay"/>
+            android:scrollbarStyle="outsideOverlay" />
 
     </LinearLayout>
 
@@ -47,6 +47,6 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
         android:src="@drawable/btn_add_note"
-        app:backgroundTint="#007700"/>
+        app:backgroundTint="#007700" />
 
 </android.support.design.widget.CoordinatorLayout>

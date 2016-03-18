@@ -18,6 +18,8 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.io.File;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 import bupt.icyicarus.nevernote.config.Settings;
 import bupt.icyicarus.nevernote.db.NeverNoteDB;
@@ -32,6 +34,8 @@ public class Main extends SetPortrait {
     private NoteAdapter adapter = null;
     private NeverNoteDB db;
     private SQLiteDatabase dbRead, dbWrite;
+    private long noteDate = -1;
+    private long noteAddDate = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,14 +52,9 @@ public class Main extends SetPortrait {
         dbWrite = db.getWritableDatabase();
 
         adapter = new NoteAdapter(this);
-        Cursor c = dbRead.query(NeverNoteDB.TABLE_NAME_NOTES, null, null, null, null, null, null);
-        while (c.moveToNext()) {
-            adapter.Add(new NoteListCellData(c.getString(c.getColumnIndex(NeverNoteDB.COLUMN_NAME_NOTE_NAME)), c.getString(c.getColumnIndex(NeverNoteDB.COLUMN_NAME_NOTE_DATE)), c.getString(c.getColumnIndex(NeverNoteDB.COLUMN_NAME_NOTE_CONTENT)), c.getInt(c.getColumnIndex(NeverNoteDB.COLUMN_ID))));
-        }
-        adapter.notifyDataSetChanged();
-        c.close();
+        noteDate = getIntent().getLongExtra("noteDate", -1);
+        refreshNotesListView();
 
-        mainListView.setAdapter(adapter);
         mainListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -93,8 +92,6 @@ public class Main extends SetPortrait {
             }
         });
 
-        refreshNotesListView();
-
         findViewById(R.id.fabAddNote).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -125,7 +122,17 @@ public class Main extends SetPortrait {
         adapter.Clear();
         Cursor c = dbRead.query(NeverNoteDB.TABLE_NAME_NOTES, null, null, null, null, null, null);
         while (c.moveToNext()) {
-            adapter.Add(new NoteListCellData(c.getString(c.getColumnIndex(NeverNoteDB.COLUMN_NAME_NOTE_NAME)), c.getString(c.getColumnIndex(NeverNoteDB.COLUMN_NAME_NOTE_DATE)), c.getString(c.getColumnIndex(NeverNoteDB.COLUMN_NAME_NOTE_CONTENT)), c.getInt(c.getColumnIndex(NeverNoteDB.COLUMN_ID))));
+            try {
+                noteAddDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(c.getString(c.getColumnIndex(NeverNoteDB.COLUMN_NAME_NOTE_DATE))).getTime();
+                Log.e("noteAddDate", noteAddDate + "");
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+            if (noteDate == -1 || (noteDate != -1 && noteAddDate >= noteDate && noteAddDate < (noteDate + 86400000))) {
+                adapter.Add(new NoteListCellData(c.getString(c.getColumnIndex(NeverNoteDB.COLUMN_NAME_NOTE_NAME)), c.getString(c.getColumnIndex(NeverNoteDB.COLUMN_NAME_NOTE_DATE)), c.getString(c.getColumnIndex(NeverNoteDB.COLUMN_NAME_NOTE_CONTENT)), c.getInt(c.getColumnIndex(NeverNoteDB.COLUMN_ID))));
+                Log.e("test2", "add");
+            }
         }
         mainListView.setAdapter(adapter);
         c.close();
