@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -23,9 +22,9 @@ public class CalenderView extends SetPortrait {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.sample_calendar_picker);
+        setContentView(R.layout.aty_calenderview);
 
-        Toolbar tbCalender = (Toolbar) findViewById(R.id.tbCalender);
+        Toolbar tbCalender = (Toolbar) findViewById(R.id.tbCalenderView);
         setSupportActionBar(tbCalender);
 
         final Calendar nextYear = Calendar.getInstance();

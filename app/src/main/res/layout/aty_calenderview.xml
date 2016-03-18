@@ -12,13 +12,12 @@
         android:orientation="vertical">
 
         <android.support.design.widget.AppBarLayout
-            android:id="@+id/appBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:theme="@style/AppTheme.AppBarOverlay">
 
             <android.support.v7.widget.Toolbar
-                android:id="@+id/tbCalender"
+                android:id="@+id/tbCalenderView"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:background="?attr/colorPrimary"

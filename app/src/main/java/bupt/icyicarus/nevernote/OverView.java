@@ -40,9 +40,9 @@ public class OverView extends SetPortrait {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.aty_main_view);
+        setContentView(R.layout.aty_overview);
 
-        Toolbar tbMain = (Toolbar) findViewById(R.id.tbMain);
+        Toolbar tbMain = (Toolbar) findViewById(R.id.tbOverView);
         setSupportActionBar(tbMain);
 
         mainListView = (ListView) findViewById(R.id.mainListView);

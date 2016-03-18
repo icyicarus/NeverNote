@@ -126,7 +126,7 @@ public class EditNote extends SetPortrait {
         dbRead = db.getReadableDatabase();
         dbWrite = db.getWritableDatabase();
 
-        enListView = (ListView) findViewById(R.id.enListView);
+        enListView = (ListView) findViewById(R.id.enMediaList);
         adapter = new MediaAdapter(this);
         enListView.setAdapter(adapter);
         enListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

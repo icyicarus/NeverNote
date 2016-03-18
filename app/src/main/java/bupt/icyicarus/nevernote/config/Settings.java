@@ -7,6 +7,7 @@ import android.widget.AdapterView;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.ToggleButton;
 
 import bupt.icyicarus.nevernote.R;
@@ -31,6 +32,7 @@ public class Settings extends SetPortrait {
         super.onResume();
 
         final Spinner spinnerLaunchView = (Spinner) findViewById(R.id.spinnerLaunchView);
+        setSpinnerItemSelectedByValue(spinnerLaunchView, launchView);
         spinnerLaunchView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -80,4 +82,15 @@ public class Settings extends SetPortrait {
         saveConfig(configFileName, p);
     }
 
+
+    public static void setSpinnerItemSelectedByValue(Spinner spinner, String value) {
+        SpinnerAdapter spinnerAdapter = spinner.getAdapter(); //得到SpinnerAdapter对象
+        int k = spinnerAdapter.getCount();
+        for (int i = 0; i < k; i++) {
+            if (value.equals(spinnerAdapter.getItem(i).toString())) {
+                spinner.setSelection(i, true);// 默认选中项
+                break;
+            }
+        }
+    }
 }

@@ -24,6 +24,7 @@ public class AtyLaunch extends SetPortrait {
                     default:
                         break;
                 }
+                finish();
             }
         }, 2000);
     }
