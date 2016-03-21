@@ -1,4 +1,4 @@
-package bupt.icyicarus.nevernote;
+package bupt.icyicarus.nevernote.views;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -13,6 +13,7 @@ import com.squareup.timessquare.CalendarPickerView.SelectionMode;
 import java.util.Calendar;
 import java.util.Date;
 
+import bupt.icyicarus.nevernote.R;
 import bupt.icyicarus.nevernote.config.Settings;
 import bupt.icyicarus.nevernote.init.SetPortrait;
 

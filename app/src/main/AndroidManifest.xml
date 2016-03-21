@@ -20,10 +20,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".OverView"
+            android:name=".views.OverView"
             android:configChanges="orientation|screenSize|keyboardHidden" />
         <activity
-            android:name=".CalenderView"
+            android:name=".views.CalenderView"
             android:configChanges="orientation|screenSize|keyboardHidden" />
         <activity android:name=".init.SetPortrait" />
         <activity

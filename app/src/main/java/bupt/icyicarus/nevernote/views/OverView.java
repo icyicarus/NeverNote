@@ -1,4 +1,4 @@
-package bupt.icyicarus.nevernote;
+package bupt.icyicarus.nevernote.views;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -21,6 +21,8 @@ import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
+import bupt.icyicarus.nevernote.EditNote;
+import bupt.icyicarus.nevernote.R;
 import bupt.icyicarus.nevernote.config.Settings;
 import bupt.icyicarus.nevernote.db.NeverNoteDB;
 import bupt.icyicarus.nevernote.init.SetPortrait;
