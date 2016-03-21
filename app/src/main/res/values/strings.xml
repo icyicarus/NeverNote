@@ -34,4 +34,5 @@
 
     <string name="customBackground">Custom Background</string>
     <string name="launchView">LaunchView</string>
+    <string name="copyRight">By IcyIcarus@BUPT</string>
 </resources>

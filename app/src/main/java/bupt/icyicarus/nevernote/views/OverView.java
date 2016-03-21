@@ -150,9 +150,6 @@ public class OverView extends SetPortrait {
         if (id == R.id.settings) {
             startActivity(new Intent(OverView.this, Settings.class));
         }
-        if (id == R.id.calender) {
-            startActivity(new Intent(OverView.this, CalenderView.class));
-        }
         return super.onOptionsItemSelected(item);
     }
 

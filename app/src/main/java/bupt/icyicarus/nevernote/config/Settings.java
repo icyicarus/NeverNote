@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
+import android.widget.Toast;
 
 import com.gc.materialdesign.views.Switch;
 import com.larswerkman.holocolorpicker.ColorPicker;
@@ -61,6 +62,7 @@ public class Settings extends SetPortrait {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 p.put("LAUNCH_VIEW", spinnerLaunchView.getSelectedItem().toString());
+                Toast.makeText(Settings.this, "This setting will take effect at the next launch", Toast.LENGTH_LONG).show();
             }
 
             @Override

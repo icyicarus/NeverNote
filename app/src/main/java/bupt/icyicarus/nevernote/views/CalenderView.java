@@ -64,9 +64,6 @@ public class CalenderView extends SetPortrait {
         if (id == R.id.settings) {
             startActivity(new Intent(CalenderView.this, Settings.class));
         }
-        if (id == R.id.calender) {
-            startActivity(new Intent(CalenderView.this, CalenderView.class));
-        }
         return super.onOptionsItemSelected(item);
     }
 
