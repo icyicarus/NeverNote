@@ -4,6 +4,7 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -15,7 +16,7 @@ public class SetPortrait extends AppCompatActivity {
     public Properties p = null;
     public Boolean customBackground = false;
     public String backgroundColor = "#000000";
-    public String launchView = "overview";
+    public String launchView = "Overview";
     public String configFileName = getMediaDir().getAbsolutePath() + "/config.properties";
 
     @Override
@@ -45,6 +46,7 @@ public class SetPortrait extends AppCompatActivity {
         if (!dir.exists()) {
             dir.mkdirs();
         }
+        Log.e("EXTSTORAGE", dir.toString());
         return dir;
     }
 
