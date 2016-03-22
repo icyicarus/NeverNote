@@ -4,10 +4,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
-import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
 import android.widget.Toast;
 
 import com.gc.materialdesign.views.Switch;
@@ -26,20 +23,7 @@ import bupt.icyicarus.nevernote.init.SetPortrait;
 
 public class Settings extends SetPortrait {
 
-    private List<String> listLaunchView;
-    private ArrayAdapter<String> adapterListLaunchView;
     private List<String> viewSet = new LinkedList<>(Arrays.asList("Overview", "Calender"));
-
-    public static void setSpinnerItemSelectedByValue(Spinner spinner, String value) {
-        SpinnerAdapter spinnerAdapter = spinner.getAdapter(); //得到SpinnerAdapter对象
-        int k = spinnerAdapter.getCount();
-        for (int i = 0; i < k; i++) {
-            if (value.equals(spinnerAdapter.getItem(i).toString())) {
-                spinner.setSelection(i, true);// 默认选中项
-                break;
-            }
-        }
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
