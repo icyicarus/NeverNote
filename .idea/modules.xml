@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/ColorPicker/ColorPicker.iml" filepath="$PROJECT_DIR$/ColorPicker/ColorPicker.iml" />
       <module fileurl="file://$PROJECT_DIR$/MaterialDesign/MaterialDesign.iml" filepath="$PROJECT_DIR$/MaterialDesign/MaterialDesign.iml" />
       <module fileurl="file://$PROJECT_DIR$/NeverNote.iml" filepath="$PROJECT_DIR$/NeverNote.iml" />
+      <module fileurl="file://$PROJECT_DIR$/NiceSpinner/NiceSpinner.iml" filepath="$PROJECT_DIR$/NiceSpinner/NiceSpinner.iml" />
       <module fileurl="file://$PROJECT_DIR$/TimeSquare/TimeSquare.iml" filepath="$PROJECT_DIR$/TimeSquare/TimeSquare.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>

@@ -37,10 +37,10 @@
                 android:textAlignment="center"
                 android:textSize="20sp" />
 
-            <android.support.v7.widget.AppCompatSpinner
-                android:id="@+id/spinnerLaunchView"
+            <org.angmarch.views.NiceSpinner
+                android:id="@+id/niceSpinner"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_gravity="end|center_vertical" />
         </FrameLayout>
 

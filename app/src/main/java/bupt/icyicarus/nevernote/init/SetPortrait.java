@@ -4,7 +4,6 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -46,7 +45,6 @@ public class SetPortrait extends AppCompatActivity {
         if (!dir.exists()) {
             dir.mkdirs();
         }
-        Log.e("EXTSTORAGE", dir.toString());
         return dir;
     }
 

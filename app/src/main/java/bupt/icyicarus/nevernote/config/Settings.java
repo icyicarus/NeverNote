@@ -15,7 +15,10 @@ import com.larswerkman.holocolorpicker.ColorPicker;
 import com.larswerkman.holocolorpicker.OpacityBar;
 import com.larswerkman.holocolorpicker.SVBar;
 
-import java.util.ArrayList;
+import org.angmarch.views.NiceSpinner;
+
+import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 import bupt.icyicarus.nevernote.R;
@@ -25,6 +28,7 @@ public class Settings extends SetPortrait {
 
     private List<String> listLaunchView;
     private ArrayAdapter<String> adapterListLaunchView;
+    private List<String> viewSet = new LinkedList<>(Arrays.asList("Overview", "Calender"));
 
     public static void setSpinnerItemSelectedByValue(Spinner spinner, String value) {
         SpinnerAdapter spinnerAdapter = spinner.getAdapter(); //得到SpinnerAdapter对象
@@ -50,18 +54,12 @@ public class Settings extends SetPortrait {
     protected void onResume() {
         super.onResume();
 
-        final Spinner spinnerLaunchView = (Spinner) findViewById(R.id.spinnerLaunchView);
-        listLaunchView = new ArrayList<>();
-        listLaunchView.add("Overview");
-        listLaunchView.add("Calender");
-        adapterListLaunchView = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, listLaunchView);
-        adapterListLaunchView.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerLaunchView.setAdapter(adapterListLaunchView);
-        setSpinnerItemSelectedByValue(spinnerLaunchView, launchView);
-        spinnerLaunchView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        final NiceSpinner niceSpinner = (NiceSpinner) findViewById(R.id.niceSpinner);
+        niceSpinner.attachDataSource(viewSet);
+        niceSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                p.put("LAUNCH_VIEW", spinnerLaunchView.getSelectedItem().toString());
+                p.put("LAUNCH_VIEW", viewSet.get(niceSpinner.getSelectedIndex()));
                 Toast.makeText(Settings.this, "This setting will take effect at the next launch", Toast.LENGTH_LONG).show();
             }
 
@@ -70,6 +68,7 @@ public class Settings extends SetPortrait {
 
             }
         });
+        niceSpinner.setSelectedIndex(viewSet.indexOf(launchView));
 
         Switch switchCustomBackground = (Switch) findViewById(R.id.switchCustomBackground);
         switchCustomBackground.setChecked(customBackground);
