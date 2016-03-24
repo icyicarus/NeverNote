@@ -1,8 +1,8 @@
 package bupt.icyicarus.nevernote.init;
 
+import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 
 import java.io.File;
@@ -16,12 +16,14 @@ public class SetPortrait extends AppCompatActivity {
     public Boolean customBackground = false;
     public String backgroundColor = "#000000";
     public String launchView = "Overview";
-    public String configFileName = getMediaDir().getAbsolutePath() + "/config.properties";
+    public String mediaDirectory = null;
+    public String configFileName = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        setMediaDir(this);
     }
 
     @Override
@@ -40,12 +42,9 @@ public class SetPortrait extends AppCompatActivity {
         super.onResume();
     }
 
-    public File getMediaDir() {
-        File dir = new File(Environment.getExternalStorageDirectory(), "NeverNoteMedia");
-        if (!dir.exists()) {
-            dir.mkdirs();
-        }
-        return dir;
+    public void setMediaDir(Context context) {
+        mediaDirectory = context.getExternalFilesDir(null).toString();
+        configFileName = mediaDirectory + "/config.properties";
     }
 
     public Properties loadConfig(String filename) {

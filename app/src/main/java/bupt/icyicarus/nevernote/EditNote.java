@@ -71,7 +71,7 @@ public class EditNote extends SetPortrait {
                     break;
                 case R.id.btnAddPhoto:
                     i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    f = new File(getMediaDir(), System.currentTimeMillis() + ".jpg");
+                    f = new File(mediaDirectory, System.currentTimeMillis() + ".jpg");
                     if (!f.exists()) {
                         try {
                             f.createNewFile();
@@ -85,7 +85,7 @@ public class EditNote extends SetPortrait {
                     break;
                 case R.id.btnAddVideo:
                     i = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
-                    f = new File(getMediaDir(), System.currentTimeMillis() + ".mp4");
+                    f = new File(mediaDirectory, System.currentTimeMillis() + ".mp4");
                     if (!f.exists()) {
                         try {
                             f.createNewFile();
@@ -99,7 +99,7 @@ public class EditNote extends SetPortrait {
                     break;
                 case R.id.btnAddAudio:
                     i = new Intent(EditNote.this, AudioRecorder.class);
-                    currentPath = getMediaDir().getAbsolutePath() + "/" + System.currentTimeMillis() + ".amr";
+                    currentPath = mediaDirectory + "/" + System.currentTimeMillis() + ".amr";
                     i.putExtra(AudioRecorder.EXTRA_PATH, currentPath);
                     startActivityForResult(i, REQUEST_CODE_GET_AUDIO);
                     break;
