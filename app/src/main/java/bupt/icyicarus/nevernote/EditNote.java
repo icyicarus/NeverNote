@@ -222,7 +222,9 @@ public class EditNote extends SetPortrait {
         ContentValues cv = new ContentValues();
         cv.put(NeverNoteDB.COLUMN_NAME_NOTE_NAME, etName.getText().toString());
         cv.put(NeverNoteDB.COLUMN_NAME_NOTE_CONTENT, etContent.getText().toString());
-        cv.put(NeverNoteDB.COLUMN_NAME_NOTE_DATE, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+        if (noteID == -1) {
+            cv.put(NeverNoteDB.COLUMN_NAME_NOTE_DATE, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+        }
 
         if (noteID > -1) {
             dbWrite.update(NeverNoteDB.TABLE_NAME_NOTES, cv, NeverNoteDB.COLUMN_ID + "=?", new String[]{noteID + ""});
