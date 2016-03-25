@@ -81,7 +81,6 @@ public class AudioViewer extends SetPortrait {
 
         String path = getIntent().getStringExtra(EXTRA_PATH);
 
-        System.out.println(path);
         mpAudio = new MediaPlayer();
         try {
             mpAudio.setDataSource(this, Uri.parse(path));
@@ -98,7 +97,9 @@ public class AudioViewer extends SetPortrait {
                 sbAudio.setProgress(0);
                 updateSeekBarHandler.removeCallbacks(updateSeekBarThread);
                 btnAudioPause.setEnabled(false);
+                btnAudioPause.setTextColor(Color.LTGRAY);
                 btnAudioStop.setEnabled(false);
+                btnAudioStop.setTextColor(Color.LTGRAY);
             }
         });
 

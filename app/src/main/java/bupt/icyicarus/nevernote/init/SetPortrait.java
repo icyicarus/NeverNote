@@ -12,6 +12,8 @@ import java.util.Properties;
 
 public class SetPortrait extends AppCompatActivity {
 
+    public final int PERMISSION_REQUEST_RECORD_AUDIO = 1;
+
     public Properties p = null;
     public Boolean customBackground = false;
     public String backgroundColor = "#000000";
