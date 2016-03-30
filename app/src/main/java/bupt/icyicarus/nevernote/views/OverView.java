@@ -10,8 +10,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -23,7 +21,6 @@ import java.text.SimpleDateFormat;
 
 import bupt.icyicarus.nevernote.EditNote;
 import bupt.icyicarus.nevernote.R;
-import bupt.icyicarus.nevernote.config.Settings;
 import bupt.icyicarus.nevernote.db.NeverNoteDB;
 import bupt.icyicarus.nevernote.init.SetPortrait;
 import bupt.icyicarus.nevernote.noteList.NoteAdapter;
@@ -136,21 +133,6 @@ public class OverView extends SetPortrait {
         }
         mainListView.setAdapter(adapter);
         c.close();
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.settings) {
-            startActivity(new Intent(OverView.this, Settings.class));
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     @Override

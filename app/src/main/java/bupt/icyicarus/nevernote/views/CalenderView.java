@@ -4,8 +4,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
 
 import com.squareup.timessquare.CalendarPickerView;
 import com.squareup.timessquare.CalendarPickerView.SelectionMode;
@@ -14,7 +12,6 @@ import java.util.Calendar;
 import java.util.Date;
 
 import bupt.icyicarus.nevernote.R;
-import bupt.icyicarus.nevernote.config.Settings;
 import bupt.icyicarus.nevernote.init.SetPortrait;
 
 public class CalenderView extends SetPortrait {
@@ -50,21 +47,6 @@ public class CalenderView extends SetPortrait {
             public void onDateUnselected(Date date) {
             }
         });
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.settings) {
-            startActivity(new Intent(CalenderView.this, Settings.class));
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     @Override

@@ -1,14 +1,20 @@
 package bupt.icyicarus.nevernote.init;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.util.Properties;
+
+import bupt.icyicarus.nevernote.R;
+import bupt.icyicarus.nevernote.config.Settings;
 
 public class SetPortrait extends AppCompatActivity {
 
@@ -76,5 +82,20 @@ public class SetPortrait extends AppCompatActivity {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.settings) {
+            startActivity(new Intent(this, Settings.class));
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

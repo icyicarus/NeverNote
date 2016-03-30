@@ -12,8 +12,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
@@ -26,7 +24,6 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import bupt.icyicarus.nevernote.config.Settings;
 import bupt.icyicarus.nevernote.db.NeverNoteDB;
 import bupt.icyicarus.nevernote.font.FontManager;
 import bupt.icyicarus.nevernote.init.SetPortrait;
@@ -63,10 +60,6 @@ public class EditNote extends SetPortrait {
                 case R.id.btnSave:
                     saveMedia(saveNote());
                     setResult(RESULT_OK);
-                    finish();
-                    break;
-                case R.id.btnCancel:
-                    setResult(RESULT_CANCELED);
                     finish();
                     break;
                 case R.id.btnAddPhoto:
@@ -195,7 +188,6 @@ public class EditNote extends SetPortrait {
         ((EditText) findViewById(R.id.etContent)).setMinHeight(wm.getDefaultDisplay().getHeight() * 20 / 100);
 
         findViewById(R.id.btnSave).setOnClickListener(btnClickHandler);
-        findViewById(R.id.btnCancel).setOnClickListener(btnClickHandler);
         findViewById(R.id.btnAddPhoto).setOnClickListener(btnClickHandler);
         findViewById(R.id.btnAddVideo).setOnClickListener(btnClickHandler);
         findViewById(R.id.btnAddAudio).setOnClickListener(btnClickHandler);
@@ -274,17 +266,9 @@ public class EditNote extends SetPortrait {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.settings) {
-            startActivity(new Intent(EditNote.this, Settings.class));
-        }
-        return super.onOptionsItemSelected(item);
+    public void onBackPressed() {
+//        saveMedia(saveNote());
+//        setResult(RESULT_OK);
+        super.onBackPressed();
     }
 }
