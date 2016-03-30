@@ -2,7 +2,6 @@ package bupt.icyicarus.nevernote.config;
 
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
@@ -88,7 +87,6 @@ public class Settings extends SetPortrait {
             @Override
             public void onCheck(Switch view, boolean check) {
                 showOKButton = check;
-                Log.e("oncheck", check + "");
                 p.put("SHOW_OK", check + "");
             }
         });

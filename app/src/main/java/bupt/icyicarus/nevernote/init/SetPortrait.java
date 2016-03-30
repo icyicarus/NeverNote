@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -52,7 +51,6 @@ public class SetPortrait extends AppCompatActivity {
         backgroundColor = p.get("BACKGROUND_COLOR").toString();
         launchView = p.get("LAUNCH_VIEW").toString();
         showOKButton = Boolean.parseBoolean(p.get("SHOW_OK").toString());
-        Log.e("setP", showOKButton + "");
         super.onResume();
     }
 
