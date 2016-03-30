@@ -12,6 +12,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
@@ -51,6 +52,7 @@ public class EditNote extends SetPortrait {
     private NeverNoteDB db;
     private SQLiteDatabase dbRead, dbWrite;
     private String currentPath = null;
+
     private OnClickListener btnClickHandler = new OnClickListener() {
         Intent i;
 
@@ -251,6 +253,8 @@ public class EditNote extends SetPortrait {
     @Override
     protected void onResume() {
         super.onResume();
+        Log.e("showOKButton", showOKButton + "");
+        findViewById(R.id.btnSave).setVisibility(showOKButton ? View.VISIBLE : View.GONE);
         if (customBackground) {
             findViewById(R.id.containerEditNote).setBackgroundColor(Integer.parseInt(backgroundColor));
         } else {
@@ -267,8 +271,10 @@ public class EditNote extends SetPortrait {
 
     @Override
     public void onBackPressed() {
-//        saveMedia(saveNote());
-//        setResult(RESULT_OK);
+        if (!showOKButton) {
+            saveMedia(saveNote());
+            setResult(RESULT_OK);
+        }
         super.onBackPressed();
     }
 }

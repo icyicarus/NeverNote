@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -24,6 +25,8 @@ public class SetPortrait extends AppCompatActivity {
     public Boolean customBackground = false;
     public String backgroundColor = "#000000";
     public String launchView = "Overview";
+    public Boolean showOKButton = false;
+
     public String mediaDirectory = null;
     public String configFileName = null;
 
@@ -42,11 +45,14 @@ public class SetPortrait extends AppCompatActivity {
             p.put("CUSTOM_BACKGROUND", "false");
             p.put("BACKGROUND_COLOR", "16777215");
             p.put("LAUNCH_VIEW", launchView);
+            p.put("SHOW_OK", "false");
             saveConfig(configFileName, p);
         }
         customBackground = Boolean.parseBoolean(p.get("CUSTOM_BACKGROUND").toString());
         backgroundColor = p.get("BACKGROUND_COLOR").toString();
         launchView = p.get("LAUNCH_VIEW").toString();
+        showOKButton = Boolean.parseBoolean(p.get("SHOW_OK").toString());
+        Log.e("setP", showOKButton + "");
         super.onResume();
     }
 

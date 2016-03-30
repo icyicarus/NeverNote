@@ -2,12 +2,13 @@ package bupt.icyicarus.nevernote.config;
 
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.gc.materialdesign.views.Switch;
+import com.gc.materialdesign.widgets.SnackBar;
 import com.larswerkman.holocolorpicker.ColorPicker;
 import com.larswerkman.holocolorpicker.OpacityBar;
 import com.larswerkman.holocolorpicker.SVBar;
@@ -44,7 +45,8 @@ public class Settings extends SetPortrait {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 p.put("LAUNCH_VIEW", viewSet.get(niceSpinner.getSelectedIndex()));
-                Toast.makeText(Settings.this, "This setting will take effect at the next launch", Toast.LENGTH_LONG).show();
+                SnackBar snackBar = new SnackBar(Settings.this, "This setting will take effect at the next launch", null, null);
+                snackBar.show();
             }
 
             @Override
@@ -56,6 +58,9 @@ public class Settings extends SetPortrait {
 
         Switch switchCustomBackground = (Switch) findViewById(R.id.switchCustomBackground);
         switchCustomBackground.setChecked(customBackground);
+
+        Switch switchShowOKButton = (Switch) findViewById(R.id.switchShowOKButton);
+        switchShowOKButton.setChecked(showOKButton);
 
         final LinearLayout containerColorPicker = (LinearLayout) findViewById(R.id.containerColorPicker);
         final ColorPicker colorPicker = (ColorPicker) findViewById(R.id.colorPicker);
@@ -76,6 +81,15 @@ public class Settings extends SetPortrait {
                 backgroundColor = colorPicker.getColor() + "";
                 p.put("CUSTOM_BACKGROUND", check + "");
                 p.put("BACKGROUND_COLOR", backgroundColor);
+            }
+        });
+
+        switchShowOKButton.setOncheckListener(new Switch.OnCheckListener() {
+            @Override
+            public void onCheck(Switch view, boolean check) {
+                showOKButton = check;
+                Log.e("oncheck", check + "");
+                p.put("SHOW_OK", check + "");
             }
         });
 
