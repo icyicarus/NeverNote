@@ -12,6 +12,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
@@ -23,6 +24,8 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import bupt.icyicarus.nevernote.db.NeverNoteDB;
 import bupt.icyicarus.nevernote.font.FontManager;
@@ -51,6 +54,7 @@ public class EditNote extends SetPortrait {
     private NeverNoteDB db;
     private SQLiteDatabase dbRead, dbWrite;
     private String currentPath = null;
+    private Map operationQueue = null;
 
     private OnClickListener btnClickHandler = new OnClickListener() {
         Intent i;
@@ -59,6 +63,7 @@ public class EditNote extends SetPortrait {
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.btnSave:
+                    clearOperationQueue();
                     saveMedia(saveNote());
                     setResult(RESULT_OK);
                     finish();
@@ -119,6 +124,7 @@ public class EditNote extends SetPortrait {
         db = new NeverNoteDB(this);
         dbRead = db.getReadableDatabase();
         dbWrite = db.getWritableDatabase();
+        operationQueue = new HashMap();
 
         enListView = (ListView) findViewById(R.id.enMediaList);
         adapter = new MediaAdapter(this);
@@ -150,6 +156,7 @@ public class EditNote extends SetPortrait {
                 }
             }
         });
+
         enListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
@@ -157,9 +164,7 @@ public class EditNote extends SetPortrait {
                 new AlertDialog.Builder(EditNote.this).setTitle("Delete?").setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        dbWrite.delete(NeverNoteDB.TABLE_NAME_MEDIA, NeverNoteDB.COLUMN_NAME_MEDIA_PATH + "=?", new String[]{data.path + ""});
-                        f = new File(data.path);
-                        f.delete();
+                        operationQueue.put(data.path, "DEL");
                         adapter.Remove(data.path);
                         adapter.notifyDataSetChanged();
                     }
@@ -249,6 +254,14 @@ public class EditNote extends SetPortrait {
         super.onActivityResult(requestCode, resultCode, data);
     }
 
+    private void clearOperationQueue() {
+        for (Object key : operationQueue.keySet()) {
+            dbWrite.delete(NeverNoteDB.TABLE_NAME_MEDIA, NeverNoteDB.COLUMN_NAME_MEDIA_PATH + "=?", new String[]{key.toString() + ""});
+            f = new File(key.toString());
+            f.delete();
+        }
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -264,12 +277,14 @@ public class EditNote extends SetPortrait {
     protected void onDestroy() {
         dbRead.close();
         dbWrite.close();
+        Log.e("EditNote", "onDestroy");
         super.onDestroy();
     }
 
     @Override
     public void onBackPressed() {
         if (!showOKButton) {
+            clearOperationQueue();
             saveMedia(saveNote());
             setResult(RESULT_OK);
         }
