@@ -12,7 +12,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
@@ -277,7 +276,6 @@ public class EditNote extends SetPortrait {
     protected void onDestroy() {
         dbRead.close();
         dbWrite.close();
-        Log.e("EditNote", "onDestroy");
         super.onDestroy();
     }
 
