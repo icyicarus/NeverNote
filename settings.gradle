@@ -1,1 +1,1 @@
-include ':app', ':MaterialDesign', ':TimeSquare', ':ColorPicker', ':NiceSpinner'
+include ':app', ':MaterialDesign', ':TimeSquare', ':ColorPicker', ':NiceSpinner', ':CardView'

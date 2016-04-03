@@ -1,7 +1,6 @@
-<android.support.design.widget.CoordinatorLayout
-    android:id="@+id/containerMainView"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/containerMainView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
@@ -21,19 +20,27 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:background="?attr/colorPrimary"
-                app:popupTheme="@style/AppTheme.PopupOverlay"/>
+                app:popupTheme="@style/AppTheme.PopupOverlay" />
 
         </android.support.design.widget.AppBarLayout>
 
-        <ListView
-            android:id="@+id/mainListView"
-            android:layout_width="fill_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp">
-        </ListView>
+        <!--<ListView-->
+        <!--android:id="@+id/mainListView"-->
+        <!--android:layout_width="fill_parent"-->
+        <!--android:layout_height="0dp"-->
+        <!--android:layout_weight="1"-->
+        <!--android:paddingLeft="10dp"-->
+        <!--android:paddingRight="10dp" />-->
+        <!--<RelativeLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent">-->
 
+        <com.dexafree.materialList.view.MaterialListView
+            android:id="@+id/materialListView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:overScrollMode="never" />
+        <!--</RelativeLayout>-->
     </LinearLayout>
 
     <android.support.design.widget.FloatingActionButton
@@ -43,6 +50,6 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
         android:src="@drawable/btn_add_note"
-        app:backgroundTint="#007700"/>
+        app:backgroundTint="#007700" />
 
 </android.support.design.widget.CoordinatorLayout>
