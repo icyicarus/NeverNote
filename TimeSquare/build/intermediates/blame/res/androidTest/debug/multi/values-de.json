@@ -1,6 +1,6 @@
 [
     {
-        "outputFile": "/Users/Icarus/Downloads/MyProjects/AndroidProjects/NeverNote/TimeSquare/build/intermediates/res/merged/androidTest/debug/values-de/values-de.xml",
+        "outputFile": "E:\\Projects\\Android Project\\NeverNote\\TimeSquare\\build\\intermediates\\res\\merged\\androidTest\\debug\\values-de\\values-de.xml",
         "map": [
             {
                 "to": {
@@ -11,7 +11,7 @@
                     "endOffset": 133
                 },
                 "from": {
-                    "file": "/Users/Icarus/Downloads/MyProjects/AndroidProjects/NeverNote/TimeSquare/build/intermediates/bundles/debug/res/values-de/values-de.xml",
+                    "file": "E:\\Projects\\Android Project\\NeverNote\\TimeSquare\\build\\intermediates\\bundles\\debug\\res\\values-de\\values-de.xml",
                     "position": {
                         "startLine": 2,
                         "startColumn": 4,
