@@ -24,23 +24,11 @@
 
         </android.support.design.widget.AppBarLayout>
 
-        <!--<ListView-->
-        <!--android:id="@+id/mainListView"-->
-        <!--android:layout_width="fill_parent"-->
-        <!--android:layout_height="0dp"-->
-        <!--android:layout_weight="1"-->
-        <!--android:paddingLeft="10dp"-->
-        <!--android:paddingRight="10dp" />-->
-        <!--<RelativeLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent">-->
-
         <com.dexafree.materialList.view.MaterialListView
-            android:id="@+id/materialListView"
+            android:id="@+id/mlvOverView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:overScrollMode="never" />
-        <!--</RelativeLayout>-->
     </LinearLayout>
 
     <android.support.design.widget.FloatingActionButton
