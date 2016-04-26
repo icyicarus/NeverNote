@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/CardView/CardView.iml" filepath="$PROJECT_DIR$/CardView/CardView.iml" />
-      <module fileurl="file://$PROJECT_DIR$/ColorPicker/ColorPicker.iml" filepath="$PROJECT_DIR$/ColorPicker/ColorPicker.iml" />
       <module fileurl="file://$PROJECT_DIR$/MaterialDesign/MaterialDesign.iml" filepath="$PROJECT_DIR$/MaterialDesign/MaterialDesign.iml" />
       <module fileurl="file://$PROJECT_DIR$/NeverNote.iml" filepath="$PROJECT_DIR$/NeverNote.iml" />
       <module fileurl="file://$PROJECT_DIR$/NiceSpinner/NiceSpinner.iml" filepath="$PROJECT_DIR$/NiceSpinner/NiceSpinner.iml" />

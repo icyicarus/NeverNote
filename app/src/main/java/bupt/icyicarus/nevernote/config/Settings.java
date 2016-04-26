@@ -4,13 +4,12 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.LinearLayout;
+import android.widget.FrameLayout;
 
+import com.gc.materialdesign.views.ButtonRectangle;
 import com.gc.materialdesign.views.Switch;
+import com.gc.materialdesign.widgets.ColorSelector;
 import com.gc.materialdesign.widgets.SnackBar;
-import com.larswerkman.holocolorpicker.ColorPicker;
-import com.larswerkman.holocolorpicker.OpacityBar;
-import com.larswerkman.holocolorpicker.SVBar;
 
 import org.angmarch.views.NiceSpinner;
 
@@ -61,23 +60,17 @@ public class Settings extends SetPortrait {
         Switch switchShowOKButton = (Switch) findViewById(R.id.switchShowOKButton);
         switchShowOKButton.setChecked(showOKButton);
 
-        final LinearLayout containerColorPicker = (LinearLayout) findViewById(R.id.containerColorPicker);
-        final ColorPicker colorPicker = (ColorPicker) findViewById(R.id.colorPicker);
-        final SVBar svBar = (SVBar) findViewById(R.id.svBar);
-        final OpacityBar opacityBar = (OpacityBar) findViewById(R.id.oBar);
-        colorPicker.addSVBar(svBar);
-        colorPicker.addOpacityBar(opacityBar);
-
-        containerColorPicker.setVisibility(customBackground ? View.VISIBLE : View.GONE);
-        colorPicker.setColor(Integer.parseInt(p.get("BACKGROUND_COLOR").toString()));
-        colorPicker.setOldCenterColor(Integer.parseInt(p.get("BACKGROUND_COLOR").toString()));
+        final FrameLayout containerBackgroundColor = (FrameLayout) findViewById(R.id.containerBackgroundColor);
+        final ButtonRectangle sampleBackgroundColor = (ButtonRectangle) findViewById(R.id.sampleBackgroundColor);
+        containerBackgroundColor.setVisibility(customBackground ? View.VISIBLE : View.GONE);
+        sampleBackgroundColor.setBackgroundColor(Integer.parseInt(p.get("BACKGROUND_COLOR").toString()));
 
         switchCustomBackground.setOncheckListener(new Switch.OnCheckListener() {
             @Override
             public void onCheck(Switch view, boolean check) {
                 customBackground = check;
-                containerColorPicker.setVisibility(customBackground ? View.VISIBLE : View.GONE);
-                backgroundColor = colorPicker.getColor() + "";
+                containerBackgroundColor.setVisibility(customBackground ? View.VISIBLE : View.GONE);
+                sampleBackgroundColor.setBackgroundColor(Integer.parseInt(backgroundColor));
                 p.put("CUSTOM_BACKGROUND", check + "");
                 p.put("BACKGROUND_COLOR", backgroundColor);
             }
@@ -91,10 +84,18 @@ public class Settings extends SetPortrait {
             }
         });
 
-        colorPicker.setOnColorChangedListener(new ColorPicker.OnColorChangedListener() {
+        sampleBackgroundColor.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onColorChanged(int color) {
-                p.put("BACKGROUND_COLOR", color + "");
+            public void onClick(View v) {
+                ColorSelector colorSelector = new ColorSelector(Settings.this, Integer.parseInt(backgroundColor), new ColorSelector.OnColorSelectedListener() {
+                    @Override
+                    public void onColorSelected(int color) {
+                        backgroundColor = color + "";
+                        p.put("BACKGROUND_COLOR", color + "");
+                        sampleBackgroundColor.setBackgroundColor(color);
+                    }
+                });
+                colorSelector.show();
             }
         });
     }

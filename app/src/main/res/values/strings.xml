@@ -36,4 +36,6 @@
     <string name="launchView">LaunchView</string>
     <string name="copyRight">By IcyIcarus@BUPT</string>
     <string name="showOKButton">Show OK Button</string>
+    <string name="backgroundColor">Background Color</string>
+    <string name="changeColor">Change</string>>
 </resources>
