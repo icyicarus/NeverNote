@@ -23,6 +23,13 @@ public class NoteListCellData {
         this.havePic = checkMedia(id, context);
     }
 
+    public NoteListCellData(String name, String date, String content, int id) {
+        this.name = name;
+        this.date = date;
+        this.content = content;
+        this.id = id;
+    }
+
     private Boolean checkMedia(int id, Context context) {
         NeverNoteDB db = new NeverNoteDB(context);
         SQLiteDatabase dbRead;

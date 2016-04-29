@@ -9,8 +9,7 @@ import android.view.animation.ScaleAnimation;
 import android.widget.ImageView;
 
 import bupt.icyicarus.nevernote.init.SetPortrait;
-import bupt.icyicarus.nevernote.views.CalenderView;
-import bupt.icyicarus.nevernote.views.OverView;
+import bupt.icyicarus.nevernote.views.DebugView;
 
 public class AtyLaunch extends SetPortrait {
 
@@ -36,16 +35,17 @@ public class AtyLaunch extends SetPortrait {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                switch (launchView) {
-                    case "Overview":
-                        startActivity(new Intent(AtyLaunch.this, OverView.class));
-                        break;
-                    case "Calender":
-                        startActivity(new Intent(AtyLaunch.this, CalenderView.class));
-                        break;
-                    default:
-                        break;
-                }
+//                switch (launchView) {
+//                    case "Overview":
+//                        startActivity(new Intent(AtyLaunch.this, OverView.class));
+//                        break;
+//                    case "Calender":
+//                        startActivity(new Intent(AtyLaunch.this, CalenderView.class));
+//                        break;
+//                    default:
+//                        break;
+//                }
+                startActivity(new Intent(AtyLaunch.this, DebugView.class));
                 finish();
             }
         }, 2000);
