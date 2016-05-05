@@ -28,12 +28,19 @@ android {
     }
 }
 
+repositories {
+    maven { url "https://jitpack.io" }
+}
+
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:23.3.0'
     compile 'com.android.support:design:23.3.0'
-    compile project(':MaterialDesign')
-    compile project(':TimeSquare')
-    compile project(':NiceSpinner')
-    compile project(':CardView')
+    compile 'com.github.dexafree:materiallist:3.2.1'
+    compile 'com.squareup:android-times-square:1.6.5'
+    compile 'com.github.vajro:MaterialDesignLibrary:1.6'
+    compile 'com.github.arcadefire:nice-spinner:-SNAPSHOT'
+
+    compile 'jp.wasabeef:recyclerview-animators:2.2.2'
+    compile 'com.squareup.picasso:picasso:2.5.2'
 }
