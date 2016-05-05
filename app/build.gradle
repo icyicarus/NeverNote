@@ -40,7 +40,4 @@ dependencies {
     compile 'com.squareup:android-times-square:1.6.5'
     compile 'com.github.vajro:MaterialDesignLibrary:1.6'
     compile 'com.github.arcadefire:nice-spinner:-SNAPSHOT'
-
-    compile 'jp.wasabeef:recyclerview-animators:2.2.2'
-    compile 'com.squareup.picasso:picasso:2.5.2'
 }

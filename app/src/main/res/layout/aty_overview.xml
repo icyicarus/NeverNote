@@ -27,8 +27,7 @@
         <com.dexafree.materialList.view.MaterialListView
             android:id="@+id/mlvOverView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:overScrollMode="never" />
+            android:layout_height="match_parent" />
     </LinearLayout>
 
     <android.support.design.widget.FloatingActionButton
