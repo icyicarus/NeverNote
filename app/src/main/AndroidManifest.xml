@@ -25,9 +25,6 @@
         <activity
             android:name=".views.CalenderView"
             android:configChanges="orientation|screenSize|keyboardHidden" />
-        <activity
-            android:name=".views.DebugView"
-            android:configChanges="orientation|screenSize|keyboardHidden" />
         <activity android:name=".init.SetPortrait" />
         <activity
             android:name=".EditNote"

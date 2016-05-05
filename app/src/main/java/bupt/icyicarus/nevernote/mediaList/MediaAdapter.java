@@ -1,6 +1,7 @@
 package bupt.icyicarus.nevernote.mediaList;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,9 @@ import java.util.List;
 import bupt.icyicarus.nevernote.R;
 
 public class MediaAdapter extends BaseAdapter {
+
+    private Context context;
+    private List<MediaListCellData> list = new ArrayList<>();
 
     public MediaAdapter(Context context) {
         this.context = context;
@@ -56,13 +60,13 @@ public class MediaAdapter extends BaseAdapter {
         ImageView ivIcon = (ImageView) convertView.findViewById(R.id.ivIcon);
         TextView tvPath = (TextView) convertView.findViewById(R.id.tvPath);
 
-        ivIcon.setImageResource(data.iconID);
+        if (data.iconID == R.drawable.img_photo) {
+            ivIcon.setImageDrawable(Drawable.createFromPath(data.path));
+        } else {
+            ivIcon.setImageResource(data.iconID);
+        }
         tvPath.setText(data.path);
 
         return convertView;
     }
-
-    private Context context;
-    private List<MediaListCellData> list = new ArrayList<>();
-
 }
