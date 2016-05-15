@@ -12,7 +12,7 @@
         android:largeHeap="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".DebugView"
+            android:name=".view.LaunchView"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,14 +21,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".views.OverView"
+            android:name=".view.MergeView"
             android:configChanges="orientation|screenSize|keyboardHidden" />
         <activity
-            android:name=".views.CalenderView"
+            android:name=".noteList.NoteList"
             android:configChanges="orientation|screenSize|keyboardHidden" />
-        <activity android:name=".init.SetPortrait" />
         <activity
-            android:name=".EditNote"
+            android:name=".view.NoteView"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:windowSoftInputMode="adjustResize" />
         <activity

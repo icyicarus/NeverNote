@@ -1,4 +1,4 @@
-package bupt.icyicarus.nevernote;
+package bupt.icyicarus.nevernote.view;
 
 import android.app.AlertDialog;
 import android.content.ContentValues;
@@ -19,8 +19,6 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 
-import com.facebook.drawee.backends.pipeline.Fresco;
-
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -28,6 +26,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import bupt.icyicarus.nevernote.R;
 import bupt.icyicarus.nevernote.db.NeverNoteDB;
 import bupt.icyicarus.nevernote.font.FontManager;
 import bupt.icyicarus.nevernote.init.SetPortrait;
@@ -39,7 +38,7 @@ import bupt.icyicarus.nevernote.mediaView.audio.AudioViewer;
 import bupt.icyicarus.nevernote.mediaView.photo.PhotoViewer;
 import bupt.icyicarus.nevernote.mediaView.video.VideoViewer;
 
-public class EditNote extends SetPortrait {
+public class NoteView extends SetPortrait {
 
     public static final String EXTRA_NOTE_ID = "noteID";
     public static final String EXTRA_NOTE_NAME = "noteName";
@@ -98,7 +97,7 @@ public class EditNote extends SetPortrait {
                     startActivityForResult(i, REQUEST_CODE_GET_VIDEO);
                     break;
                 case R.id.btnAddAudio:
-                    i = new Intent(EditNote.this, AudioRecorder.class);
+                    i = new Intent(NoteView.this, AudioRecorder.class);
                     currentPath = mediaDirectory + "/" + System.currentTimeMillis() + ".amr";
                     i.putExtra(AudioRecorder.EXTRA_PATH, currentPath);
                     startActivityForResult(i, REQUEST_CODE_GET_AUDIO);
@@ -115,7 +114,6 @@ public class EditNote extends SetPortrait {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        Fresco.initialize(this);
         setContentView(R.layout.aty_edit_note);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
@@ -141,17 +139,17 @@ public class EditNote extends SetPortrait {
 
                 switch (data.type) {
                     case MediaType.PHOTO:
-                        i = new Intent(EditNote.this, PhotoViewer.class);
+                        i = new Intent(NoteView.this, PhotoViewer.class);
                         i.putExtra(PhotoViewer.EXTRA_PATH, data.path);
                         startActivity(i);
                         break;
                     case MediaType.VIDEO:
-                        i = new Intent(EditNote.this, VideoViewer.class);
+                        i = new Intent(NoteView.this, VideoViewer.class);
                         i.putExtra(VideoViewer.EXTRA_PATH, data.path);
                         startActivity(i);
                         break;
                     case MediaType.AUDIO:
-                        i = new Intent(EditNote.this, AudioViewer.class);
+                        i = new Intent(NoteView.this, AudioViewer.class);
                         i.putExtra(AudioViewer.EXTRA_PATH, data.path);
                         startActivity(i);
                         break;
@@ -165,7 +163,7 @@ public class EditNote extends SetPortrait {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 final MediaListCellData data = adapter.getItem(position);
-                new AlertDialog.Builder(EditNote.this).setTitle("Delete?").setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                new AlertDialog.Builder(NoteView.this).setTitle("Delete?").setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         operationQueue.put(data.path, "DEL");

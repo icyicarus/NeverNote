@@ -27,22 +27,20 @@ import com.squareup.picasso.RequestCreator;
 import java.io.File;
 import java.util.ArrayList;
 
-import bupt.icyicarus.nevernote.EditNote;
 import bupt.icyicarus.nevernote.R;
 import bupt.icyicarus.nevernote.db.NeverNoteDB;
 import bupt.icyicarus.nevernote.noteList.NoteListCellData;
+import bupt.icyicarus.nevernote.view.NoteView;
 
-public class OverviewFragment extends Fragment {
+public class NoteListFragment extends Fragment {
 
     private MaterialListView mlvOverView;
     private ArrayList<NoteListCellData> noteListCellDataArrayList = null;
     private NeverNoteDB db;
     private SQLiteDatabase dbRead, dbWrite;
-    private long noteDate = -1;
-    private long noteAddDate = -1;
 
-    public static OverviewFragment newInstance() {
-        return new OverviewFragment();
+    public static NoteListFragment newInstance() {
+        return new NoteListFragment();
     }
 
     @Nullable
@@ -111,12 +109,12 @@ public class OverviewFragment extends Fragment {
                                 @Override
                                 public void onActionClicked(View view, Card card) {
                                     NoteListCellData data = (NoteListCellData) card.getTag();
-                                    Intent i = new Intent(getContext(), EditNote.class);
+                                    Intent i = new Intent(getContext(), NoteView.class);
 
                                     if (data != null) {
-                                        i.putExtra(EditNote.EXTRA_NOTE_ID, data.id);
-                                        i.putExtra(EditNote.EXTRA_NOTE_NAME, data.name);
-                                        i.putExtra(EditNote.EXTRA_NOTE_CONTENT, data.content);
+                                        i.putExtra(NoteView.EXTRA_NOTE_ID, data.id);
+                                        i.putExtra(NoteView.EXTRA_NOTE_NAME, data.name);
+                                        i.putExtra(NoteView.EXTRA_NOTE_CONTENT, data.content);
                                     }
                                     startActivity(i);
                                 }
@@ -163,12 +161,12 @@ public class OverviewFragment extends Fragment {
                                 @Override
                                 public void onActionClicked(View view, Card card) {
                                     NoteListCellData data = (NoteListCellData) card.getTag();
-                                    Intent i = new Intent(getContext(), EditNote.class);
+                                    Intent i = new Intent(getContext(), NoteView.class);
 
                                     if (data != null) {
-                                        i.putExtra(EditNote.EXTRA_NOTE_ID, data.id);
-                                        i.putExtra(EditNote.EXTRA_NOTE_NAME, data.name);
-                                        i.putExtra(EditNote.EXTRA_NOTE_CONTENT, data.content);
+                                        i.putExtra(NoteView.EXTRA_NOTE_ID, data.id);
+                                        i.putExtra(NoteView.EXTRA_NOTE_NAME, data.name);
+                                        i.putExtra(NoteView.EXTRA_NOTE_CONTENT, data.content);
                                     }
                                     startActivity(i);
                                 }
@@ -196,13 +194,6 @@ public class OverviewFragment extends Fragment {
         }
         Cursor c = dbRead.query(NeverNoteDB.TABLE_NAME_NOTES, null, null, null, null, null, null, null);
         while (c.moveToNext()) {
-//            try {
-//                noteAddDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(c.getString(c.getColumnIndex(NeverNoteDB.COLUMN_NAME_NOTE_DATE))).getTime();
-//            } catch (ParseException e) {
-//                e.printStackTrace();
-//            }
-//
-//            if (noteDate == -1 || (noteDate != -1 && noteAddDate >= noteDate && noteAddDate < (noteDate + 86400000))) {
             noteListCellDataArrayList.add(new NoteListCellData(
                     c.getString(c.getColumnIndex(NeverNoteDB.COLUMN_NAME_NOTE_NAME)),
                     c.getString(c.getColumnIndex(NeverNoteDB.COLUMN_NAME_NOTE_DATE)),
@@ -210,7 +201,6 @@ public class OverviewFragment extends Fragment {
                     c.getInt(c.getColumnIndex(NeverNoteDB.COLUMN_ID)),
                     getContext()
             ));
-//            }
         }
         for (NoteListCellData noteListCellData : noteListCellDataArrayList) {
             addCard(noteListCellData);

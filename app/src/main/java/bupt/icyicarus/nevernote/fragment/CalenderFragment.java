@@ -4,21 +4,21 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.squareup.timessquare.CalendarPickerView;
+import com.roomorama.caldroid.CaldroidFragment;
+import com.roomorama.caldroid.CaldroidListener;
 
 import java.util.Calendar;
 import java.util.Date;
 
 import bupt.icyicarus.nevernote.R;
-import bupt.icyicarus.nevernote.views.OverView;
+import bupt.icyicarus.nevernote.noteList.NoteList;
 
 public class CalenderFragment extends Fragment {
-    private CalendarPickerView calendar;
-
     public static CalenderFragment newInstance() {
         return new CalenderFragment();
     }
@@ -27,60 +27,26 @@ public class CalenderFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_calender, container, false);
-        Calendar nextYear = Calendar.getInstance();
-        nextYear.add(Calendar.YEAR, 1);
+        CaldroidFragment caldroidFragment = new CaldroidFragment();
+        Bundle args = new Bundle();
+        Calendar calendar = Calendar.getInstance();
+        args.putInt(CaldroidFragment.MONTH, calendar.get(Calendar.MONTH) + 1);
+        args.putInt(CaldroidFragment.YEAR, calendar.get(Calendar.YEAR));
+        caldroidFragment.setArguments(args);
 
-        Calendar lastYear = Calendar.getInstance();
-        lastYear.add(Calendar.YEAR, -1);
-
-        calendar = (CalendarPickerView) root.findViewById(R.id.mainCalenderView);
-        calendar.init(lastYear.getTime(), nextYear.getTime()) //
-                .inMode(CalendarPickerView.SelectionMode.SINGLE) //
-                .withSelectedDate(new Date());
-        calendar.setOnDateSelectedListener(new CalendarPickerView.OnDateSelectedListener() {
+        FragmentTransaction t = getChildFragmentManager().beginTransaction();
+        t.replace(R.id.mainCalenderView, caldroidFragment);
+        t.commit();
+        CaldroidListener caldroidListener = new CaldroidListener() {
             @Override
-            public void onDateSelected(Date date) {
-                Intent i = new Intent(getContext(), OverView.class);
-                i.putExtra("noteDate", calendar.getSelectedDate().getTime());
+            public void onSelectDate(Date date, View view) {
+                Intent i = new Intent(getContext(), NoteList.class);
+                i.putExtra("noteDate", date.getTime());
                 startActivity(i);
             }
+        };
 
-            @Override
-            public void onDateUnselected(Date date) {
-            }
-        });
+        caldroidFragment.setCaldroidListener(caldroidListener);
         return root;
-    }
-
-    public int getLastDay(int year, int month) {
-        switch (month) {
-            case 1:
-            case 3:
-            case 5:
-            case 7:
-            case 8:
-            case 10:
-            case 12:
-                return 31;
-            case 4:
-            case 6:
-            case 9:
-            case 11:
-                return 30;
-            case 2:
-                if (year % 4 == 0) {
-                    if (year % 100 == 0) {
-                        if (year % 400 == 0) {
-                            return 27;
-                        } else
-                            return 28;
-                    } else
-                        return 27;
-                } else {
-                    return 28;
-                }
-            default:
-                return 0;
-        }
     }
 }

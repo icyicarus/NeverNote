@@ -1,4 +1,4 @@
-package bupt.icyicarus.nevernote.views;
+package bupt.icyicarus.nevernote.noteList;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -29,13 +29,13 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
-import bupt.icyicarus.nevernote.EditNote;
+import bupt.icyicarus.nevernote.PublicMethods;
 import bupt.icyicarus.nevernote.R;
 import bupt.icyicarus.nevernote.db.NeverNoteDB;
 import bupt.icyicarus.nevernote.init.SetPortrait;
-import bupt.icyicarus.nevernote.noteList.NoteListCellData;
+import bupt.icyicarus.nevernote.view.NoteView;
 
-public class OverView extends SetPortrait {
+public class NoteList extends SetPortrait {
     private MaterialListView mlvOverView;
     private ArrayList<NoteListCellData> noteListCellDataArrayList = null;
     private NeverNoteDB db;
@@ -64,7 +64,7 @@ public class OverView extends SetPortrait {
             fabAddNote.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    startActivity(new Intent(OverView.this, EditNote.class));
+                    startActivity(new Intent(NoteList.this, NoteView.class));
                 }
             });
         }
@@ -91,7 +91,7 @@ public class OverView extends SetPortrait {
                         c.getString(c.getColumnIndex(NeverNoteDB.COLUMN_NAME_NOTE_DATE)),
                         c.getString(c.getColumnIndex(NeverNoteDB.COLUMN_NAME_NOTE_CONTENT)),
                         c.getInt(c.getColumnIndex(NeverNoteDB.COLUMN_ID)),
-                        OverView.this
+                        NoteList.this
                 ));
             }
         }
@@ -105,7 +105,7 @@ public class OverView extends SetPortrait {
         Card card;
         if (noteListCellData.havePic) {
 
-            Bitmap bitmap = BitmapFactory.decodeFile(noteListCellData.picturePath, getBitmapOption(16));
+            Bitmap bitmap = BitmapFactory.decodeFile(noteListCellData.picturePath, PublicMethods.getBitmapOption(16));
 
             card = new Card.Builder(this)
                     .setTag(noteListCellData)
@@ -126,7 +126,7 @@ public class OverView extends SetPortrait {
                             .setListener(new OnActionClickListener() {
                                 @Override
                                 public void onActionClicked(View view, final Card card) {
-                                    new AlertDialog.Builder(OverView.this).setTitle("Delete this note?").setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                    new AlertDialog.Builder(NoteList.this).setTitle("Delete this note?").setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialog, int which) {
                                             NoteListCellData data = (NoteListCellData) card.getTag();
@@ -153,12 +153,12 @@ public class OverView extends SetPortrait {
                                 @Override
                                 public void onActionClicked(View view, Card card) {
                                     NoteListCellData data = (NoteListCellData) card.getTag();
-                                    Intent i = new Intent(OverView.this, EditNote.class);
+                                    Intent i = new Intent(NoteList.this, NoteView.class);
 
                                     if (data != null) {
-                                        i.putExtra(EditNote.EXTRA_NOTE_ID, data.id);
-                                        i.putExtra(EditNote.EXTRA_NOTE_NAME, data.name);
-                                        i.putExtra(EditNote.EXTRA_NOTE_CONTENT, data.content);
+                                        i.putExtra(NoteView.EXTRA_NOTE_ID, data.id);
+                                        i.putExtra(NoteView.EXTRA_NOTE_NAME, data.name);
+                                        i.putExtra(NoteView.EXTRA_NOTE_CONTENT, data.content);
                                     }
                                     startActivity(i);
                                 }
@@ -178,7 +178,7 @@ public class OverView extends SetPortrait {
                             .setListener(new OnActionClickListener() {
                                 @Override
                                 public void onActionClicked(View view, final Card card) {
-                                    new AlertDialog.Builder(OverView.this).setTitle("Delete this note?").setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                    new AlertDialog.Builder(NoteList.this).setTitle("Delete this note?").setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialog, int which) {
                                             NoteListCellData data = (NoteListCellData) card.getTag();
@@ -205,12 +205,12 @@ public class OverView extends SetPortrait {
                                 @Override
                                 public void onActionClicked(View view, Card card) {
                                     NoteListCellData data = (NoteListCellData) card.getTag();
-                                    Intent i = new Intent(OverView.this, EditNote.class);
+                                    Intent i = new Intent(NoteList.this, NoteView.class);
 
                                     if (data != null) {
-                                        i.putExtra(EditNote.EXTRA_NOTE_ID, data.id);
-                                        i.putExtra(EditNote.EXTRA_NOTE_NAME, data.name);
-                                        i.putExtra(EditNote.EXTRA_NOTE_CONTENT, data.content);
+                                        i.putExtra(NoteView.EXTRA_NOTE_ID, data.id);
+                                        i.putExtra(NoteView.EXTRA_NOTE_NAME, data.name);
+                                        i.putExtra(NoteView.EXTRA_NOTE_CONTENT, data.content);
                                     }
                                     startActivity(i);
                                 }

@@ -1,4 +1,4 @@
-package bupt.icyicarus.nevernote;
+package bupt.icyicarus.nevernote.view;
 
 import android.content.Intent;
 import android.os.Build;
@@ -8,15 +8,13 @@ import android.view.WindowManager;
 import android.view.animation.ScaleAnimation;
 import android.widget.ImageView;
 
+import bupt.icyicarus.nevernote.R;
 import bupt.icyicarus.nevernote.init.SetPortrait;
-import bupt.icyicarus.nevernote.views.CalenderView;
-import bupt.icyicarus.nevernote.views.OverView;
 
-public class AtyLaunch extends SetPortrait {
+public class LaunchView extends SetPortrait {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             //透明状态栏
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
@@ -36,18 +34,10 @@ public class AtyLaunch extends SetPortrait {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                switch (launchView) {
-                    case "Overview":
-                        startActivity(new Intent(AtyLaunch.this, OverView.class));
-                        break;
-                    case "Calender":
-                        startActivity(new Intent(AtyLaunch.this, CalenderView.class));
-                        break;
-                    default:
-                        break;
-                }
+                startActivity(new Intent(LaunchView.this, MergeView.class));
                 finish();
             }
         }, 2000);
+        super.onCreate(savedInstanceState);
     }
 }

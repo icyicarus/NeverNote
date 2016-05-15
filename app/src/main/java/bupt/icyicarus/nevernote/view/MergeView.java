@@ -1,4 +1,4 @@
-package bupt.icyicarus.nevernote;
+package bupt.icyicarus.nevernote.view;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -11,11 +11,12 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import bupt.icyicarus.nevernote.R;
 import bupt.icyicarus.nevernote.fragment.CalenderFragment;
-import bupt.icyicarus.nevernote.fragment.OverviewFragment;
+import bupt.icyicarus.nevernote.fragment.NoteListFragment;
 import bupt.icyicarus.nevernote.init.SetPortrait;
 
-public class DebugView extends SetPortrait {
+public class MergeView extends SetPortrait {
     private SectionsPagerAdapter mSectionsPagerAdapter;
 
     private ViewPager mViewPager;
@@ -52,7 +53,7 @@ public class DebugView extends SetPortrait {
         @Override
         public Fragment getItem(int position) {
             if (position == 0)
-                return OverviewFragment.newInstance();
+                return NoteListFragment.newInstance();
             else
                 return CalenderFragment.newInstance();
         }

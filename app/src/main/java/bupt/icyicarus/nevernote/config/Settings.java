@@ -3,26 +3,16 @@ package bupt.icyicarus.nevernote.config;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.FrameLayout;
 
 import com.gc.materialdesign.views.ButtonRectangle;
 import com.gc.materialdesign.views.Switch;
 import com.gc.materialdesign.widgets.ColorSelector;
-import com.gc.materialdesign.widgets.SnackBar;
-
-import org.angmarch.views.NiceSpinner;
-
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
 
 import bupt.icyicarus.nevernote.R;
 import bupt.icyicarus.nevernote.init.SetPortrait;
 
 public class Settings extends SetPortrait {
-
-    private List<String> viewSet = new LinkedList<>(Arrays.asList("Overview", "Calender"));
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,23 +26,6 @@ public class Settings extends SetPortrait {
     @Override
     protected void onResume() {
         super.onResume();
-
-        final NiceSpinner niceSpinner = (NiceSpinner) findViewById(R.id.niceSpinner);
-        niceSpinner.attachDataSource(viewSet);
-        niceSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                p.put("LAUNCH_VIEW", viewSet.get(niceSpinner.getSelectedIndex()));
-                SnackBar snackBar = new SnackBar(Settings.this, "This setting will take effect at the next launch", null, null);
-                snackBar.show();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-        niceSpinner.setSelectedIndex(viewSet.indexOf(launchView));
 
         Switch switchCustomBackground = (Switch) findViewById(R.id.switchCustomBackground);
         switchCustomBackground.setChecked(customBackground);

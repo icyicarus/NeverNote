@@ -3,7 +3,6 @@ package bupt.icyicarus.nevernote.init;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -44,23 +43,13 @@ public class SetPortrait extends AppCompatActivity {
             p = new Properties();
             p.put("CUSTOM_BACKGROUND", "false");
             p.put("BACKGROUND_COLOR", "16777215");
-            p.put("LAUNCH_VIEW", launchView);
             p.put("SHOW_OK", "false");
             saveConfig(configFileName, p);
         }
         customBackground = Boolean.parseBoolean(p.get("CUSTOM_BACKGROUND").toString());
         backgroundColor = p.get("BACKGROUND_COLOR").toString();
-        launchView = p.get("LAUNCH_VIEW").toString();
         showOKButton = Boolean.parseBoolean(p.get("SHOW_OK").toString());
         super.onResume();
-    }
-
-    public BitmapFactory.Options getBitmapOption(int size) {
-        System.gc();
-        BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inPurgeable = true;
-        options.inSampleSize = size;
-        return options;
     }
 
     public void setMediaDir(Context context) {

@@ -33,27 +33,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="start|center_vertical"
-                android:text="@string/launchView"
-                android:textAlignment="center"
-                android:textSize="20sp" />
-
-            <org.angmarch.views.NiceSpinner
-                android:id="@+id/niceSpinner"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end|center_vertical" />
-        </FrameLayout>
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="10dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="start|center_vertical"
                 android:text="@string/showOKButton"
                 android:textAlignment="center"
                 android:textSize="20sp" />
