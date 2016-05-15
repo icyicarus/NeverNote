@@ -1,7 +1,9 @@
 package bupt.icyicarus.nevernote.mediaList;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,12 +63,21 @@ public class MediaAdapter extends BaseAdapter {
         TextView tvPath = (TextView) convertView.findViewById(R.id.tvPath);
 
         if (data.iconID == R.drawable.img_photo) {
-            ivIcon.setImageDrawable(Drawable.createFromPath(data.path));
+            Bitmap bitmap = BitmapFactory.decodeFile(data.path, getBitmapOption(16));
+            ivIcon.setImageDrawable(new BitmapDrawable(bitmap));
         } else {
             ivIcon.setImageResource(data.iconID);
         }
         tvPath.setText(data.path);
 
         return convertView;
+    }
+
+    public BitmapFactory.Options getBitmapOption(int size) {
+        System.gc();
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inPurgeable = true;
+        options.inSampleSize = size;
+        return options;
     }
 }

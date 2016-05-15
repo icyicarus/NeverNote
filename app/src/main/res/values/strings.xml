@@ -23,6 +23,7 @@
     <string name="addPhoto_t">&#xf030;</string>
     <string name="addVideo_t">&#xf03d;</string>
     <string name="addAudio_t">&#xf130;</string>
+    <string name="addNotification_t">&#xf017;</string>
     <string name="startRecord_t">&#xf04b;</string>
     <string name="stopRecord_t">&#xf04d;</string>
     <string name="recording_t">&#xf110;</string>

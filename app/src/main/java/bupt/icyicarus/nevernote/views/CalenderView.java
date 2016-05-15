@@ -3,7 +3,9 @@ package bupt.icyicarus.nevernote.views;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 
 import com.squareup.timessquare.CalendarPickerView;
 import com.squareup.timessquare.CalendarPickerView.SelectionMode;
@@ -11,6 +13,7 @@ import com.squareup.timessquare.CalendarPickerView.SelectionMode;
 import java.util.Calendar;
 import java.util.Date;
 
+import bupt.icyicarus.nevernote.EditNote;
 import bupt.icyicarus.nevernote.R;
 import bupt.icyicarus.nevernote.init.SetPortrait;
 
@@ -47,6 +50,16 @@ public class CalenderView extends SetPortrait {
             public void onDateUnselected(Date date) {
             }
         });
+
+        FloatingActionButton fabAddNoteCalender = (FloatingActionButton) findViewById(R.id.fabAddNoteCalender);
+        if (fabAddNoteCalender != null) {
+            fabAddNoteCalender.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivity(new Intent(CalenderView.this, EditNote.class));
+                }
+            });
+        }
     }
 
     @Override

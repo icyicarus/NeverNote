@@ -19,6 +19,8 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import com.facebook.drawee.backends.pipeline.Fresco;
+
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -101,6 +103,8 @@ public class EditNote extends SetPortrait {
                     i.putExtra(AudioRecorder.EXTRA_PATH, currentPath);
                     startActivityForResult(i, REQUEST_CODE_GET_AUDIO);
                     break;
+                case R.id.btnAddNotification:
+                    break;
                 default:
                     break;
             }
@@ -111,6 +115,7 @@ public class EditNote extends SetPortrait {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+        Fresco.initialize(this);
         setContentView(R.layout.aty_edit_note);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
@@ -196,6 +201,7 @@ public class EditNote extends SetPortrait {
         findViewById(R.id.btnAddPhoto).setOnClickListener(btnClickHandler);
         findViewById(R.id.btnAddVideo).setOnClickListener(btnClickHandler);
         findViewById(R.id.btnAddAudio).setOnClickListener(btnClickHandler);
+        findViewById(R.id.btnAddNotification).setOnClickListener(btnClickHandler);
     }
 
     public void saveMedia(int noteID) {
