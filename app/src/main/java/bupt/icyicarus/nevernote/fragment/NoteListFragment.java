@@ -46,8 +46,8 @@ public class NoteListFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_overview, container, false);
-        mlvOverView = (MaterialListView) root.findViewById(R.id.mlvOverView);
+        View root = inflater.inflate(R.layout.fragment_note_list, container, false);
+        mlvOverView = (MaterialListView) root.findViewById(R.id.mlvNoteListFragment);
 
         db = new NeverNoteDB(getContext());
         dbRead = db.getReadableDatabase();

@@ -46,12 +46,12 @@ public class NoteList extends SetPortrait {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.aty_overview);
+        setContentView(R.layout.aty_note_list);
 
-        Toolbar tbMain = (Toolbar) findViewById(R.id.tbOverView);
+        Toolbar tbMain = (Toolbar) findViewById(R.id.tbNoteList);
         setSupportActionBar(tbMain);
 
-        mlvOverView = (MaterialListView) findViewById(R.id.mlvOverView);
+        mlvOverView = (MaterialListView) findViewById(R.id.mlvNoteList);
 
         db = new NeverNoteDB(this);
         dbRead = db.getReadableDatabase();
@@ -59,9 +59,9 @@ public class NoteList extends SetPortrait {
 
         noteDate = getIntent().getLongExtra("noteDate", -1);
 
-        FloatingActionButton fabAddNote = (FloatingActionButton) findViewById(R.id.fabAddNote);
-        if (fabAddNote != null) {
-            fabAddNote.setOnClickListener(new OnClickListener() {
+        FloatingActionButton fabNoteList = (FloatingActionButton) findViewById(R.id.fabNoteList);
+        if (fabNoteList != null) {
+            fabNoteList.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     startActivity(new Intent(NoteList.this, NoteView.class));
@@ -226,9 +226,9 @@ public class NoteList extends SetPortrait {
         super.onResume();
         refreshNoteArrayList();
         if (customBackground) {
-            findViewById(R.id.containerMainView).setBackgroundColor(Integer.parseInt(backgroundColor));
+            findViewById(R.id.cNoteList).setBackgroundColor(Integer.parseInt(backgroundColor));
         } else {
-            findViewById(R.id.containerMainView).setBackgroundColor(Color.WHITE);
+            findViewById(R.id.cNoteList).setBackgroundColor(Color.WHITE);
         }
     }
 }

@@ -24,18 +24,18 @@ public class MergeView extends SetPortrait {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.aty_debug);
-        Toolbar dvToolbar = (Toolbar) findViewById(R.id.dvToolbar);
+        setContentView(R.layout.aty_merge_view);
+        Toolbar dvToolbar = (Toolbar) findViewById(R.id.tbMergeView);
         setSupportActionBar(dvToolbar);
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
-        mViewPager = (ViewPager) findViewById(R.id.dvContainer);
+        mViewPager = (ViewPager) findViewById(R.id.vpMergeView);
         mViewPager.setAdapter(mSectionsPagerAdapter);
-        TabLayout dvTabLayout = (TabLayout) findViewById(R.id.dvTabLayout);
+        TabLayout dvTabLayout = (TabLayout) findViewById(R.id.tlMergeView);
         dvTabLayout.setupWithViewPager(mViewPager);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        assert fab != null;
-        fab.setOnClickListener(new View.OnClickListener() {
+        FloatingActionButton fabMergeView = (FloatingActionButton) findViewById(R.id.fabMergeView);
+        assert fabMergeView != null;
+        fabMergeView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
