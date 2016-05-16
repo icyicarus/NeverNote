@@ -1,8 +1,7 @@
 package bupt.icyicarus.nevernote.view;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -10,6 +9,8 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+
+import com.github.clans.fab.FloatingActionButton;
 
 import bupt.icyicarus.nevernote.R;
 import bupt.icyicarus.nevernote.fragment.CalenderFragment;
@@ -20,6 +21,19 @@ public class MergeView extends SetPortrait {
     private SectionsPagerAdapter mSectionsPagerAdapter;
 
     private ViewPager mViewPager;
+
+    private View.OnClickListener clickHandlerMergeView = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()) {
+                case R.id.fabmNoteListAddNote:
+                    startActivity(new Intent(MergeView.this, NoteView.class));
+                    break;
+                default:
+                    break;
+            }
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,15 +47,19 @@ public class MergeView extends SetPortrait {
         TabLayout dvTabLayout = (TabLayout) findViewById(R.id.tlMergeView);
         dvTabLayout.setupWithViewPager(mViewPager);
 
-        FloatingActionButton fabMergeView = (FloatingActionButton) findViewById(R.id.fabMergeView);
-        assert fabMergeView != null;
-        fabMergeView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+
+        FloatingActionButton fabmMergeViewAddNote = (FloatingActionButton) findViewById(R.id.fabmMergeViewAddNote);
+        fabmMergeViewAddNote.setOnClickListener(clickHandlerMergeView);
+
+//        FloatingActionButton fabMergeView = (FloatingActionButton) findViewById(R.id.fabmMergeView);
+//        assert fabMergeView != null;
+//        fabMergeView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+//            }
+//        });
     }
 
     public class SectionsPagerAdapter extends FragmentPagerAdapter {

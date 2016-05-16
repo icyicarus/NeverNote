@@ -11,7 +11,6 @@ import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
@@ -22,6 +21,7 @@ import com.dexafree.materialList.card.CardProvider;
 import com.dexafree.materialList.card.OnActionClickListener;
 import com.dexafree.materialList.card.action.TextViewAction;
 import com.dexafree.materialList.view.MaterialListView;
+import com.github.clans.fab.FloatingActionButton;
 import com.squareup.picasso.RequestCreator;
 
 import java.io.File;
@@ -43,6 +43,19 @@ public class NoteList extends SetPortrait {
     private long noteDate = -1;
     private long noteAddDate = -1;
 
+    private OnClickListener clickHandlerNoteList = new OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()) {
+                case R.id.fabmNoteListAddNote:
+                    startActivity(new Intent(NoteList.this, NoteView.class));
+                    break;
+                default:
+                    break;
+            }
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,15 +72,18 @@ public class NoteList extends SetPortrait {
 
         noteDate = getIntent().getLongExtra("noteDate", -1);
 
-        FloatingActionButton fabNoteList = (FloatingActionButton) findViewById(R.id.fabNoteList);
-        if (fabNoteList != null) {
-            fabNoteList.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    startActivity(new Intent(NoteList.this, NoteView.class));
-                }
-            });
-        }
+        FloatingActionButton fabmNoteListAddNote = (FloatingActionButton) findViewById(R.id.fabmNoteListAddNote);
+        fabmNoteListAddNote.setOnClickListener(clickHandlerNoteList);
+
+//        FloatingActionButton fabNoteList = (FloatingActionButton) findViewById(R.id.fabNoteList);
+//        if (fabNoteList != null) {
+//            fabNoteList.setOnClickListener(new OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    startActivity(new Intent(NoteList.this, NoteView.class));
+//                }
+//            });
+//        }
     }
 
     public void refreshNoteArrayList() {

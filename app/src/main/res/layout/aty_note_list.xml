@@ -1,5 +1,6 @@
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fab="http://schemas.android.com/tools"
     android:id="@+id/cNoteList"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -30,13 +31,50 @@
             android:layout_height="match_parent" />
     </LinearLayout>
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fabNoteList"
+    <com.github.clans.fab.FloatingActionMenu
+        android:id="@+id/fabmMergeView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_margin="16dp"
-        android:src="@drawable/btn_add_note"
-        app:backgroundTint="#007700" />
+        android:layout_marginBottom="10dp"
+        android:layout_marginRight="10dp"
+        fab:menu_fab_hide_animation="@anim/hide_to_bottom"
+        fab:menu_fab_label="your_label_here"
+        fab:menu_fab_show_animation="@anim/show_from_bottom"
+        fab:menu_fab_size="normal">
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/fabmNoteListAddVideo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_video"
+            fab:fab_label="New Video"
+            fab:fab_size="normal" />
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/fabmNoteListAddAudio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_audio"
+            fab:fab_label="New Audio"
+            fab:fab_size="normal" />
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/fabmNoteListAddPhoto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_camera"
+            fab:fab_label="New Photo"
+            fab:fab_size="normal" />
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/fabmNoteListAddNote"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_edit"
+            fab:fab_label="New Note"
+            fab:fab_size="normal" />
+
+    </com.github.clans.fab.FloatingActionMenu>
 
 </android.support.design.widget.CoordinatorLayout>

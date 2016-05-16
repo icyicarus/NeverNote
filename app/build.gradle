@@ -39,5 +39,6 @@ dependencies {
     compile 'com.github.dexafree:materiallist:3.2.1'
     compile 'com.github.vajro:MaterialDesignLibrary:1.6'
     compile 'com.roomorama:caldroid:3.0.1'
+    compile 'com.github.clans:fab:1.6.3'
     compile 'com.github.arcadefire:nice-spinner:-SNAPSHOT'
 }
