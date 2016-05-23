@@ -27,6 +27,7 @@ import com.squareup.picasso.RequestCreator;
 import java.io.File;
 import java.util.ArrayList;
 
+import bupt.icyicarus.nevernote.PublicVariableAndMethods;
 import bupt.icyicarus.nevernote.R;
 import bupt.icyicarus.nevernote.db.NeverNoteDB;
 import bupt.icyicarus.nevernote.noteList.NoteListCellData;
@@ -49,11 +50,6 @@ public class NoteListFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_note_list, container, false);
         mlvOverView = (MaterialListView) root.findViewById(R.id.mlvNoteListFragment);
 
-        db = new NeverNoteDB(getContext());
-        dbRead = db.getReadableDatabase();
-        dbWrite = db.getWritableDatabase();
-
-        refreshNoteArrayList();
         return root;
     }
 
@@ -61,7 +57,7 @@ public class NoteListFragment extends Fragment {
         Card card;
         if (noteListCellData.havePic) {
 
-            Bitmap bitmap = BitmapFactory.decodeFile(noteListCellData.picturePath, getBitmapOption(16));
+            Bitmap bitmap = BitmapFactory.decodeFile(noteListCellData.picturePath, PublicVariableAndMethods.getBitmapOption(16));
 
             card = new Card.Builder(getContext())
                     .setTag(noteListCellData)
@@ -177,14 +173,6 @@ public class NoteListFragment extends Fragment {
         mlvOverView.getAdapter().add(card);
     }
 
-    public BitmapFactory.Options getBitmapOption(int size) {
-        System.gc();
-        BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inPurgeable = true;
-        options.inSampleSize = size;
-        return options;
-    }
-
     public void refreshNoteArrayList() {
         mlvOverView.getAdapter().clearAll();
         if (noteListCellDataArrayList != null) {
@@ -206,5 +194,15 @@ public class NoteListFragment extends Fragment {
             addCard(noteListCellData);
         }
         c.close();
+    }
+
+    @Override
+    public void onResume() {
+        db = new NeverNoteDB(getContext());
+        dbRead = db.getReadableDatabase();
+        dbWrite = db.getWritableDatabase();
+
+        refreshNoteArrayList();
+        super.onResume();
     }
 }

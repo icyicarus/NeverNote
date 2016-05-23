@@ -13,18 +13,19 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.util.Properties;
 
+import bupt.icyicarus.nevernote.PublicVariableAndMethods;
 import bupt.icyicarus.nevernote.R;
 import bupt.icyicarus.nevernote.config.Settings;
 
-public class SetPortrait extends AppCompatActivity {
+public class Initialization extends AppCompatActivity {
 
     public final int PERMISSION_REQUEST_RECORD_AUDIO = 1;
 
     public Properties p = null;
     public Boolean customBackground = false;
     public String backgroundColor = "#000000";
-    public String launchView = "Overview";
     public Boolean showOKButton = false;
+    public int haveTodayNote = -1;
 
     public String mediaDirectory = null;
     public String configFileName = null;
@@ -49,6 +50,7 @@ public class SetPortrait extends AppCompatActivity {
         customBackground = Boolean.parseBoolean(p.get("CUSTOM_BACKGROUND").toString());
         backgroundColor = p.get("BACKGROUND_COLOR").toString();
         showOKButton = Boolean.parseBoolean(p.get("SHOW_OK").toString());
+        haveTodayNote = PublicVariableAndMethods.haveTodayNote(this);
         super.onResume();
     }
 

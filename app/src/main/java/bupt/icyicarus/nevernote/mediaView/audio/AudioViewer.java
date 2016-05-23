@@ -15,9 +15,9 @@ import java.io.IOException;
 
 import bupt.icyicarus.nevernote.R;
 import bupt.icyicarus.nevernote.font.FontManager;
-import bupt.icyicarus.nevernote.init.SetPortrait;
+import bupt.icyicarus.nevernote.init.Initialization;
 
-public class AudioViewer extends SetPortrait {
+public class AudioViewer extends Initialization {
 
     public static final String EXTRA_PATH = "path";
     private MediaPlayer mpAudio;

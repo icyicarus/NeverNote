@@ -1,14 +1,17 @@
 package bupt.icyicarus.nevernote.mediaView.photo;
 
-import java.io.File;
-
 import android.net.Uri;
 import android.os.Bundle;
 import android.widget.ImageView;
 
-import bupt.icyicarus.nevernote.init.SetPortrait;
+import java.io.File;
 
-public class PhotoViewer extends SetPortrait {
+import bupt.icyicarus.nevernote.init.Initialization;
+
+public class PhotoViewer extends Initialization {
+
+	public static final String EXTRA_PATH = "path";
+	private ImageView iv;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -24,9 +27,5 @@ public class PhotoViewer extends SetPortrait {
 			finish();
 		}
 	}
-
-	private ImageView iv;
-
-	public static final String EXTRA_PATH = "path";
 
 }

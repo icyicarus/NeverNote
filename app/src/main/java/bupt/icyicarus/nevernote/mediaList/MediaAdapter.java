@@ -14,7 +14,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-import bupt.icyicarus.nevernote.PublicMethods;
+import bupt.icyicarus.nevernote.PublicVariableAndMethods;
 import bupt.icyicarus.nevernote.R;
 
 public class MediaAdapter extends BaseAdapter {
@@ -64,7 +64,7 @@ public class MediaAdapter extends BaseAdapter {
         TextView tvPath = (TextView) convertView.findViewById(R.id.tvPath);
 
         if (data.iconID == R.drawable.img_photo) {
-            Bitmap bitmap = BitmapFactory.decodeFile(data.path, PublicMethods.getBitmapOption(16));
+            Bitmap bitmap = BitmapFactory.decodeFile(data.path, PublicVariableAndMethods.getBitmapOption(16));
             ivIcon.setImageDrawable(new BitmapDrawable(bitmap));
         } else {
             ivIcon.setImageResource(data.iconID);

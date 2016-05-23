@@ -9,9 +9,9 @@ import android.view.animation.ScaleAnimation;
 import android.widget.ImageView;
 
 import bupt.icyicarus.nevernote.R;
-import bupt.icyicarus.nevernote.init.SetPortrait;
+import bupt.icyicarus.nevernote.init.Initialization;
 
-public class LaunchView extends SetPortrait {
+public class LaunchView extends Initialization {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

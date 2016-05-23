@@ -1,6 +1,7 @@
 package bupt.icyicarus.nevernote.noteList;
 
 import android.app.AlertDialog;
+import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -9,7 +10,9 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -25,30 +28,69 @@ import com.github.clans.fab.FloatingActionButton;
 import com.squareup.picasso.RequestCreator;
 
 import java.io.File;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
-import bupt.icyicarus.nevernote.PublicMethods;
+import bupt.icyicarus.nevernote.PublicVariableAndMethods;
 import bupt.icyicarus.nevernote.R;
 import bupt.icyicarus.nevernote.db.NeverNoteDB;
-import bupt.icyicarus.nevernote.init.SetPortrait;
+import bupt.icyicarus.nevernote.init.Initialization;
+import bupt.icyicarus.nevernote.mediaView.audio.AudioRecorder;
 import bupt.icyicarus.nevernote.view.NoteView;
 
-public class NoteList extends SetPortrait {
+public class NoteList extends Initialization {
     private MaterialListView mlvOverView;
     private ArrayList<NoteListCellData> noteListCellDataArrayList = null;
     private NeverNoteDB db;
     private SQLiteDatabase dbRead, dbWrite;
     private long noteDate = -1;
     private long noteAddDate = -1;
+    private String currentPath = null;
+    private File f = null;
 
     private OnClickListener clickHandlerNoteList = new OnClickListener() {
         @Override
         public void onClick(View v) {
+            Intent i;
             switch (v.getId()) {
                 case R.id.fabmNoteListAddNote:
                     startActivity(new Intent(NoteList.this, NoteView.class));
+                    break;
+                case R.id.fabmNoteListAddPhoto:
+                    i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    f = new File(mediaDirectory, System.currentTimeMillis() + ".jpg");
+                    if (!f.exists()) {
+                        try {
+                            f.createNewFile();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    currentPath = f.getAbsolutePath();
+                    i.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(f));
+                    startActivityForResult(i, PublicVariableAndMethods.REQUEST_CODE_GET_PHOTO);
+                    break;
+                case R.id.fabmNoteListAddAudio:
+                    i = new Intent(NoteList.this, AudioRecorder.class);
+                    currentPath = mediaDirectory + "/" + System.currentTimeMillis() + ".amr";
+                    i.putExtra(AudioRecorder.EXTRA_PATH, currentPath);
+                    startActivityForResult(i, PublicVariableAndMethods.REQUEST_CODE_GET_AUDIO);
+                    break;
+                case R.id.fabmNoteListAddVideo:
+                    i = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+                    f = new File(mediaDirectory, System.currentTimeMillis() + ".mp4");
+                    if (!f.exists()) {
+                        try {
+                            f.createNewFile();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    currentPath = f.getAbsolutePath();
+                    i.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(f));
+                    startActivityForResult(i, PublicVariableAndMethods.REQUEST_CODE_GET_VIDEO);
                     break;
                 default:
                     break;
@@ -73,17 +115,13 @@ public class NoteList extends SetPortrait {
         noteDate = getIntent().getLongExtra("noteDate", -1);
 
         FloatingActionButton fabmNoteListAddNote = (FloatingActionButton) findViewById(R.id.fabmNoteListAddNote);
+        FloatingActionButton fabmNoteListAddPhoto = (FloatingActionButton) findViewById(R.id.fabmNoteListAddPhoto);
+        FloatingActionButton fabmNoteListAddAudio = (FloatingActionButton) findViewById(R.id.fabmNoteListAddAudio);
+        FloatingActionButton fabmNoteListAddVideo = (FloatingActionButton) findViewById(R.id.fabmNoteListAddVideo);
         fabmNoteListAddNote.setOnClickListener(clickHandlerNoteList);
-
-//        FloatingActionButton fabNoteList = (FloatingActionButton) findViewById(R.id.fabNoteList);
-//        if (fabNoteList != null) {
-//            fabNoteList.setOnClickListener(new OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    startActivity(new Intent(NoteList.this, NoteView.class));
-//                }
-//            });
-//        }
+        fabmNoteListAddPhoto.setOnClickListener(clickHandlerNoteList);
+        fabmNoteListAddAudio.setOnClickListener(clickHandlerNoteList);
+        fabmNoteListAddVideo.setOnClickListener(clickHandlerNoteList);
     }
 
     public void refreshNoteArrayList() {
@@ -121,7 +159,7 @@ public class NoteList extends SetPortrait {
         Card card;
         if (noteListCellData.havePic) {
 
-            Bitmap bitmap = BitmapFactory.decodeFile(noteListCellData.picturePath, PublicMethods.getBitmapOption(16));
+            Bitmap bitmap = BitmapFactory.decodeFile(noteListCellData.picturePath, PublicVariableAndMethods.getBitmapOption(16));
 
             card = new Card.Builder(this)
                     .setTag(noteListCellData)
@@ -158,6 +196,7 @@ public class NoteList extends SetPortrait {
                                             dbWrite.delete(NeverNoteDB.TABLE_NAME_NOTES, NeverNoteDB.COLUMN_ID + "=?", new String[]{data.id + ""});
                                             c.close();
                                             refreshNoteArrayList();
+                                            haveTodayNote = PublicVariableAndMethods.haveTodayNote(NoteList.this);
                                         }
                                     }).setNegativeButton("No", null).show();
                                 }
@@ -246,5 +285,42 @@ public class NoteList extends SetPortrait {
         } else {
             findViewById(R.id.cNoteList).setBackgroundColor(Color.WHITE);
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case PublicVariableAndMethods.REQUEST_CODE_GET_PHOTO:
+            case PublicVariableAndMethods.REQUEST_CODE_GET_VIDEO:
+            case PublicVariableAndMethods.REQUEST_CODE_GET_AUDIO:
+                if (resultCode == RESULT_OK) {
+                    if (haveTodayNote != -1) {
+                        ContentValues cv = new ContentValues();
+                        cv.put(NeverNoteDB.COLUMN_NAME_MEDIA_OWNER_NOTE_ID, haveTodayNote);
+                        cv.put(NeverNoteDB.COLUMN_NAME_MEDIA_PATH, f.getAbsolutePath());
+                        dbWrite.insert(NeverNoteDB.TABLE_NAME_MEDIA, null, cv);
+                    } else {
+//                        ContentValues cv = new ContentValues();
+//                        String newNoteDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+//                        cv.put(NeverNoteDB.COLUMN_NAME_NOTE_DATE, newNoteDate);
+//                        Cursor c = dbRead.query(NeverNoteDB.TABLE_NAME_NOTES, null, NeverNoteDB.COLUMN_NAME_NOTE_DATE + "=?", new String[]{newNoteDate + ""}, null, null, null, null);
+//                        int id = -1;
+//                        while (c.moveToNext()) {
+//                            id = c.getInt(c.getColumnIndex(NeverNoteDB.COLUMN_ID));
+//                        }
+//                        cv.put(NeverNoteDB.COLUMN_NAME_MEDIA_OWNER_NOTE_ID, id);
+//                        cv.put(NeverNoteDB.COLUMN_NAME_MEDIA_PATH, f.getAbsolutePath());
+//                        dbWrite.insert(NeverNoteDB.TABLE_NAME_NOTES, null, cv);
+                        Log.e("haveTodayNote", "-1");
+                    }
+                } else if (f != null) {
+                    f.delete();
+                }
+                break;
+
+            default:
+                break;
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

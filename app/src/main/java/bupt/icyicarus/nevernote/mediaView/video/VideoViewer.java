@@ -16,9 +16,9 @@ import java.io.IOException;
 
 import bupt.icyicarus.nevernote.R;
 import bupt.icyicarus.nevernote.font.FontManager;
-import bupt.icyicarus.nevernote.init.SetPortrait;
+import bupt.icyicarus.nevernote.init.Initialization;
 
-public class VideoViewer extends SetPortrait {
+public class VideoViewer extends Initialization {
 
     public static final String EXTRA_PATH = "path";
     private Button btnVideoStart, btnVideoPause, btnVideoStop;

@@ -26,10 +26,11 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import bupt.icyicarus.nevernote.PublicVariableAndMethods;
 import bupt.icyicarus.nevernote.R;
 import bupt.icyicarus.nevernote.db.NeverNoteDB;
 import bupt.icyicarus.nevernote.font.FontManager;
-import bupt.icyicarus.nevernote.init.SetPortrait;
+import bupt.icyicarus.nevernote.init.Initialization;
 import bupt.icyicarus.nevernote.mediaList.MediaAdapter;
 import bupt.icyicarus.nevernote.mediaList.MediaListCellData;
 import bupt.icyicarus.nevernote.mediaList.MediaType;
@@ -38,14 +39,11 @@ import bupt.icyicarus.nevernote.mediaView.audio.AudioViewer;
 import bupt.icyicarus.nevernote.mediaView.photo.PhotoViewer;
 import bupt.icyicarus.nevernote.mediaView.video.VideoViewer;
 
-public class NoteView extends SetPortrait {
+public class NoteView extends Initialization {
 
     public static final String EXTRA_NOTE_ID = "noteID";
     public static final String EXTRA_NOTE_NAME = "noteName";
     public static final String EXTRA_NOTE_CONTENT = "noteContent";
-    public static final int REQUEST_CODE_GET_PHOTO = 1;
-    public static final int REQUEST_CODE_GET_VIDEO = 2;
-    public static final int REQUEST_CODE_GET_AUDIO = 3;
     private ListView enListView;
     private File f;
     private int noteID = -1;
@@ -80,7 +78,7 @@ public class NoteView extends SetPortrait {
                     }
                     currentPath = f.getAbsolutePath();
                     i.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(f));
-                    startActivityForResult(i, REQUEST_CODE_GET_PHOTO);
+                    startActivityForResult(i, PublicVariableAndMethods.REQUEST_CODE_GET_PHOTO);
                     break;
                 case R.id.btnAddVideo:
                     i = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
@@ -94,13 +92,13 @@ public class NoteView extends SetPortrait {
                     }
                     currentPath = f.getAbsolutePath();
                     i.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(f));
-                    startActivityForResult(i, REQUEST_CODE_GET_VIDEO);
+                    startActivityForResult(i, PublicVariableAndMethods.REQUEST_CODE_GET_VIDEO);
                     break;
                 case R.id.btnAddAudio:
                     i = new Intent(NoteView.this, AudioRecorder.class);
                     currentPath = mediaDirectory + "/" + System.currentTimeMillis() + ".amr";
                     i.putExtra(AudioRecorder.EXTRA_PATH, currentPath);
-                    startActivityForResult(i, REQUEST_CODE_GET_AUDIO);
+                    startActivityForResult(i, PublicVariableAndMethods.REQUEST_CODE_GET_AUDIO);
                     break;
                 case R.id.btnAddNotification:
                     break;
@@ -239,9 +237,9 @@ public class NoteView extends SetPortrait {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
-            case REQUEST_CODE_GET_PHOTO:
-            case REQUEST_CODE_GET_VIDEO:
-            case REQUEST_CODE_GET_AUDIO:
+            case PublicVariableAndMethods.REQUEST_CODE_GET_PHOTO:
+            case PublicVariableAndMethods.REQUEST_CODE_GET_VIDEO:
+            case PublicVariableAndMethods.REQUEST_CODE_GET_AUDIO:
                 if (resultCode == RESULT_OK) {
                     adapter.Add(new MediaListCellData(currentPath));
                     adapter.notifyDataSetChanged();

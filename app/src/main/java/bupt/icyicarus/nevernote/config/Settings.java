@@ -10,9 +10,9 @@ import com.gc.materialdesign.views.Switch;
 import com.gc.materialdesign.widgets.ColorSelector;
 
 import bupt.icyicarus.nevernote.R;
-import bupt.icyicarus.nevernote.init.SetPortrait;
+import bupt.icyicarus.nevernote.init.Initialization;
 
-public class Settings extends SetPortrait {
+public class Settings extends Initialization {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
