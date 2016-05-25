@@ -3,9 +3,7 @@ package bupt.icyicarus.nevernote.view;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -13,14 +11,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.View;
 
-import com.github.clans.fab.FloatingActionButton;
-
-import java.io.File;
-import java.io.IOException;
-
-import bupt.icyicarus.nevernote.AudioRecorder;
 import bupt.icyicarus.nevernote.PublicVariableAndMethods;
 import bupt.icyicarus.nevernote.R;
 import bupt.icyicarus.nevernote.db.NeverNoteDB;
@@ -31,56 +22,6 @@ import bupt.icyicarus.nevernote.init.Initialization;
 public class MergeView extends Initialization {
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
-    private String currentPath = null;
-    private File f = null;
-
-    private View.OnClickListener clickHandlerMergeView = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            Intent i;
-            switch (v.getId()) {
-                case R.id.fabmMergeViewAddNote:
-                    startActivity(new Intent(MergeView.this, NoteView.class));
-                    break;
-                case R.id.fabmMergeViewAddPhoto:
-                    i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    f = new File(mediaDirectory, System.currentTimeMillis() + ".jpg");
-                    if (!f.exists()) {
-                        try {
-                            f.createNewFile();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                    currentPath = f.getAbsolutePath();
-                    i.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(f));
-                    startActivityForResult(i, PublicVariableAndMethods.REQUEST_CODE_GET_PHOTO);
-                    break;
-                case R.id.fabmMergeViewAddAudio:
-                    i = new Intent(MergeView.this, AudioRecorder.class);
-                    currentPath = mediaDirectory + "/" + System.currentTimeMillis() + ".amr";
-                    i.putExtra(AudioRecorder.EXTRA_PATH, currentPath);
-                    startActivityForResult(i, PublicVariableAndMethods.REQUEST_CODE_GET_AUDIO);
-                    break;
-                case R.id.fabmMergeViewAddVideo:
-                    i = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
-                    f = new File(mediaDirectory, System.currentTimeMillis() + ".mp4");
-                    if (!f.exists()) {
-                        try {
-                            f.createNewFile();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                    currentPath = f.getAbsolutePath();
-                    i.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(f));
-                    startActivityForResult(i, PublicVariableAndMethods.REQUEST_CODE_GET_VIDEO);
-                    break;
-                default:
-                    break;
-            }
-        }
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,8 +36,10 @@ public class MergeView extends Initialization {
         dvTabLayout.setupWithViewPager(mViewPager);
 
 
-        FloatingActionButton fabmMergeViewAddNote = (FloatingActionButton) findViewById(R.id.fabmMergeViewAddNote);
-        fabmMergeViewAddNote.setOnClickListener(clickHandlerMergeView);
+        findViewById(R.id.fabmMergeViewAddNote).setOnClickListener(fabClickHandler);
+        findViewById(R.id.fabmMergeViewAddPhoto).setOnClickListener(fabClickHandler);
+        findViewById(R.id.fabmMergeViewAddAudio).setOnClickListener(fabClickHandler);
+        findViewById(R.id.fabmMergeViewAddVideo).setOnClickListener(fabClickHandler);
     }
 
     @Override

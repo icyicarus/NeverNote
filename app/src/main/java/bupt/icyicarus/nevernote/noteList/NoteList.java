@@ -10,30 +10,24 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
-import android.view.View.OnClickListener;
 
 import com.dexafree.materialList.card.Card;
 import com.dexafree.materialList.card.CardProvider;
 import com.dexafree.materialList.card.OnActionClickListener;
 import com.dexafree.materialList.card.action.TextViewAction;
 import com.dexafree.materialList.view.MaterialListView;
-import com.github.clans.fab.FloatingActionButton;
 import com.squareup.picasso.RequestCreator;
 
 import java.io.File;
-import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
-import bupt.icyicarus.nevernote.AudioRecorder;
 import bupt.icyicarus.nevernote.PublicVariableAndMethods;
 import bupt.icyicarus.nevernote.R;
 import bupt.icyicarus.nevernote.db.NeverNoteDB;
@@ -47,56 +41,6 @@ public class NoteList extends Initialization {
     private SQLiteDatabase dbRead, dbWrite;
     private long noteDate = -1;
     private long noteAddDate = -1;
-    private String currentPath = null;
-    private File f = null;
-
-    private OnClickListener clickHandlerNoteList = new OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            Intent i;
-            switch (v.getId()) {
-                case R.id.fabmNoteListAddNote:
-                    startActivity(new Intent(NoteList.this, NoteView.class));
-                    break;
-                case R.id.fabmNoteListAddPhoto:
-                    i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    f = new File(mediaDirectory, System.currentTimeMillis() + ".jpg");
-                    if (!f.exists()) {
-                        try {
-                            f.createNewFile();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                    currentPath = f.getAbsolutePath();
-                    i.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(f));
-                    startActivityForResult(i, PublicVariableAndMethods.REQUEST_CODE_GET_PHOTO);
-                    break;
-                case R.id.fabmNoteListAddAudio:
-                    i = new Intent(NoteList.this, AudioRecorder.class);
-                    currentPath = mediaDirectory + "/" + System.currentTimeMillis() + ".amr";
-                    i.putExtra(AudioRecorder.EXTRA_PATH, currentPath);
-                    startActivityForResult(i, PublicVariableAndMethods.REQUEST_CODE_GET_AUDIO);
-                    break;
-                case R.id.fabmNoteListAddVideo:
-                    i = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
-                    f = new File(mediaDirectory, System.currentTimeMillis() + ".mp4");
-                    if (!f.exists()) {
-                        try {
-                            f.createNewFile();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                    currentPath = f.getAbsolutePath();
-                    i.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(f));
-                    startActivityForResult(i, PublicVariableAndMethods.REQUEST_CODE_GET_VIDEO);
-                    break;
-                default:
-                    break;
-            }
-        }
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,14 +58,10 @@ public class NoteList extends Initialization {
 
         noteDate = getIntent().getLongExtra("noteDate", -1);
 
-        FloatingActionButton fabmNoteListAddNote = (FloatingActionButton) findViewById(R.id.fabmNoteListAddNote);
-        FloatingActionButton fabmNoteListAddPhoto = (FloatingActionButton) findViewById(R.id.fabmNoteListAddPhoto);
-        FloatingActionButton fabmNoteListAddAudio = (FloatingActionButton) findViewById(R.id.fabmNoteListAddAudio);
-        FloatingActionButton fabmNoteListAddVideo = (FloatingActionButton) findViewById(R.id.fabmNoteListAddVideo);
-        fabmNoteListAddNote.setOnClickListener(clickHandlerNoteList);
-        fabmNoteListAddPhoto.setOnClickListener(clickHandlerNoteList);
-        fabmNoteListAddAudio.setOnClickListener(clickHandlerNoteList);
-        fabmNoteListAddVideo.setOnClickListener(clickHandlerNoteList);
+        findViewById(R.id.fabmNoteListAddNote).setOnClickListener(fabClickHandler);
+        findViewById(R.id.fabmNoteListAddPhoto).setOnClickListener(fabClickHandler);
+        findViewById(R.id.fabmNoteListAddAudio).setOnClickListener(fabClickHandler);
+        findViewById(R.id.fabmNoteListAddVideo).setOnClickListener(fabClickHandler);
     }
 
     public void refreshNoteArrayList() {
