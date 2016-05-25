@@ -108,8 +108,8 @@ public class AudioRecorder extends Initialization {
     private void recordAudio() {
         myRecorder = new MediaRecorder();
         myRecorder.setAudioSource(MediaRecorder.AudioSource.DEFAULT);
-        myRecorder.setOutputFormat(MediaRecorder.OutputFormat.DEFAULT);
-        myRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.DEFAULT);
+        myRecorder.setOutputFormat(MediaRecorder.OutputFormat.AAC_ADTS);
+        myRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
         String path = getIntent().getStringExtra(EXTRA_PATH);
         try {
             savedFile = new File(path);

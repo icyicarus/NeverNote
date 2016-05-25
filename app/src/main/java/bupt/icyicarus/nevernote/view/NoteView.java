@@ -35,9 +35,6 @@ import bupt.icyicarus.nevernote.mediaList.MediaAdapter;
 import bupt.icyicarus.nevernote.mediaList.MediaListCellData;
 import bupt.icyicarus.nevernote.mediaList.MediaType;
 import bupt.icyicarus.nevernote.mediaView.audio.AudioRecorder;
-import bupt.icyicarus.nevernote.mediaView.audio.AudioViewer;
-import bupt.icyicarus.nevernote.mediaView.photo.PhotoViewer;
-import bupt.icyicarus.nevernote.mediaView.video.VideoViewer;
 
 public class NoteView extends Initialization {
 
@@ -96,7 +93,7 @@ public class NoteView extends Initialization {
                     break;
                 case R.id.btnAddAudio:
                     i = new Intent(NoteView.this, AudioRecorder.class);
-                    currentPath = mediaDirectory + "/" + System.currentTimeMillis() + ".amr";
+                    currentPath = mediaDirectory + "/" + System.currentTimeMillis() + ".aac";
                     i.putExtra(AudioRecorder.EXTRA_PATH, currentPath);
                     startActivityForResult(i, PublicVariableAndMethods.REQUEST_CODE_GET_AUDIO);
                     break;
@@ -134,21 +131,25 @@ public class NoteView extends Initialization {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 MediaListCellData data = adapter.getItem(position);
                 Intent i;
+                Uri uri;
 
                 switch (data.type) {
                     case MediaType.PHOTO:
-                        i = new Intent(NoteView.this, PhotoViewer.class);
-                        i.putExtra(PhotoViewer.EXTRA_PATH, data.path);
+                        i = new Intent(Intent.ACTION_VIEW);
+                        uri = Uri.fromFile(new File(data.path));
+                        i.setDataAndType(uri, "image/jpg");
                         startActivity(i);
                         break;
                     case MediaType.VIDEO:
-                        i = new Intent(NoteView.this, VideoViewer.class);
-                        i.putExtra(VideoViewer.EXTRA_PATH, data.path);
+                        i = new Intent(Intent.ACTION_VIEW);
+                        uri = Uri.fromFile(new File(data.path));
+                        i.setDataAndType(uri, "video/mp4");
                         startActivity(i);
                         break;
                     case MediaType.AUDIO:
-                        i = new Intent(NoteView.this, AudioViewer.class);
-                        i.putExtra(AudioViewer.EXTRA_PATH, data.path);
+                        i = new Intent(Intent.ACTION_VIEW);
+                        uri = Uri.fromFile(new File(data.path));
+                        i.setDataAndType(uri, "audio/amr");
                         startActivity(i);
                         break;
                     default:
