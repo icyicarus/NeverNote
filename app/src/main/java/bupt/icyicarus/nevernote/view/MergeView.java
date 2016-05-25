@@ -20,13 +20,13 @@ import com.github.clans.fab.FloatingActionButton;
 import java.io.File;
 import java.io.IOException;
 
+import bupt.icyicarus.nevernote.AudioRecorder;
 import bupt.icyicarus.nevernote.PublicVariableAndMethods;
 import bupt.icyicarus.nevernote.R;
 import bupt.icyicarus.nevernote.db.NeverNoteDB;
 import bupt.icyicarus.nevernote.fragment.CalenderFragment;
 import bupt.icyicarus.nevernote.fragment.NoteListFragment;
 import bupt.icyicarus.nevernote.init.Initialization;
-import bupt.icyicarus.nevernote.mediaView.audio.AudioRecorder;
 
 public class MergeView extends Initialization {
     private SectionsPagerAdapter mSectionsPagerAdapter;

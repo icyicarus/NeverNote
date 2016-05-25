@@ -26,6 +26,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import bupt.icyicarus.nevernote.AudioRecorder;
 import bupt.icyicarus.nevernote.PublicVariableAndMethods;
 import bupt.icyicarus.nevernote.R;
 import bupt.icyicarus.nevernote.db.NeverNoteDB;
@@ -34,7 +35,6 @@ import bupt.icyicarus.nevernote.init.Initialization;
 import bupt.icyicarus.nevernote.mediaList.MediaAdapter;
 import bupt.icyicarus.nevernote.mediaList.MediaListCellData;
 import bupt.icyicarus.nevernote.mediaList.MediaType;
-import bupt.icyicarus.nevernote.mediaView.audio.AudioRecorder;
 
 public class NoteView extends Initialization {
 

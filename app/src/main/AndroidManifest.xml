@@ -31,20 +31,9 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".mediaView.photo.PhotoViewer"
-            android:configChanges="keyboardHidden|orientation|screenSize" />
-        <activity
-            android:name=".mediaView.video.VideoViewer"
-            android:configChanges="keyboardHidden|orientation|screenSize" />
-        <activity
-            android:name=".mediaView.audio.AudioRecorder"
+            android:name=".AudioRecorder"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="Audio Recorder"
-            android:theme="@style/Theme.AppCompat.Light.Dialog" />
-        <activity
-            android:name=".mediaView.audio.AudioViewer"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:label="Audio Viewer"
             android:theme="@style/Theme.AppCompat.Light.Dialog" />
         <activity
             android:name=".config.Settings"

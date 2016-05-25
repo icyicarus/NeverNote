@@ -33,11 +33,11 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
+import bupt.icyicarus.nevernote.AudioRecorder;
 import bupt.icyicarus.nevernote.PublicVariableAndMethods;
 import bupt.icyicarus.nevernote.R;
 import bupt.icyicarus.nevernote.db.NeverNoteDB;
 import bupt.icyicarus.nevernote.init.Initialization;
-import bupt.icyicarus.nevernote.mediaView.audio.AudioRecorder;
 import bupt.icyicarus.nevernote.view.NoteView;
 
 public class NoteList extends Initialization {

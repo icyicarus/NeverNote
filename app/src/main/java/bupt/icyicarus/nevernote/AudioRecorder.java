@@ -1,4 +1,4 @@
-package bupt.icyicarus.nevernote.mediaView.audio;
+package bupt.icyicarus.nevernote;
 
 import android.Manifest;
 import android.app.AlertDialog;
@@ -16,7 +16,6 @@ import android.widget.Toast;
 import java.io.File;
 import java.io.IOException;
 
-import bupt.icyicarus.nevernote.R;
 import bupt.icyicarus.nevernote.font.FontManager;
 import bupt.icyicarus.nevernote.init.Initialization;
 
