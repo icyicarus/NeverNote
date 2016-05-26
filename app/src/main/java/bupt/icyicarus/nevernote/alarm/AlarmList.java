@@ -1,5 +1,8 @@
 package bupt.icyicarus.nevernote.alarm;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -18,6 +21,7 @@ import java.util.ArrayList;
 import bupt.icyicarus.nevernote.R;
 import bupt.icyicarus.nevernote.db.NeverNoteDB;
 import bupt.icyicarus.nevernote.init.Initialization;
+import bupt.icyicarus.nevernote.receiver.NeverNoteAlarmReceiver;
 
 public class AlarmList extends Initialization {
 
@@ -84,18 +88,23 @@ public class AlarmList extends Initialization {
                             .setListener(new OnActionClickListener() {
                                 @Override
                                 public void onActionClicked(View view, Card card) {
-//                                    Toast.makeText(AlarmList.this, "You have pressed the left button", Toast.LENGTH_SHORT).show();
                                     dbWrite.delete(NeverNoteDB.TABLE_NAME_ALARM, NeverNoteDB.COLUMN_ID + "=?", new String[]{alarmInfo.getId() + ""});
                                     refreshAlarmList();
+
+                                    Intent i = new Intent(getApplicationContext(), NeverNoteAlarmReceiver.class);
+                                    PendingIntent pi = PendingIntent.getBroadcast(getApplicationContext(), 0, i, 0);
+                                    AlarmManager am = (AlarmManager) getSystemService(ALARM_SERVICE);
+                                    am.cancel(pi);
                                 }
                             }))
                     .addAction(R.id.right_text_button, new TextViewAction(this)
                             .setText("Edit")
-                            .setTextResourceColor(R.color.accent_material_dark)
+                            .setTextResourceColor(R.color.orange_button)
                             .setListener(new OnActionClickListener() {
                                 @Override
                                 public void onActionClicked(View view, Card card) {
-                                    Toast.makeText(AlarmList.this, "You have pressed the right button", Toast.LENGTH_SHORT).show();
+                                    //TODO
+                                    Toast.makeText(AlarmList.this, "EDIT", Toast.LENGTH_SHORT).show();
                                 }
                             }))
                     .endConfig()

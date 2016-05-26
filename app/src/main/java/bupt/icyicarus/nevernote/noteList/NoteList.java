@@ -5,6 +5,7 @@ import android.app.PendingIntent;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -18,6 +19,8 @@ import com.dexafree.materialList.card.Card;
 import com.dexafree.materialList.listeners.RecyclerItemClickListener;
 import com.dexafree.materialList.view.MaterialListView;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -67,28 +70,34 @@ public class NoteList extends Initialization {
                                         .setOnTimeSetListener(new RadialTimePickerDialogFragment.OnTimeSetListener() {
                                             @Override
                                             public void onTimeSet(RadialTimePickerDialogFragment dialog, int hourOfDay, int minute) {
-                                                sb.append(hourOfDay).append(":").append(minute).append(":00");
-                                                AlarmManager am = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-                                                Intent i = new Intent(NoteList.this, NeverNoteAlarmReceiver.class);
-                                                i.putExtra(NeverNoteDB.COLUMN_NAME_NOTE_NAME, data.name);
-                                                i.putExtra(NeverNoteDB.COLUMN_NAME_NOTE_DATE, data.date);
-                                                i.putExtra(NeverNoteDB.COLUMN_NAME_NOTE_CONTENT, data.content);
-                                                PendingIntent pi = PendingIntent.getBroadcast(NoteList.this, 0, i, 0);
-
                                                 cv.put(NeverNoteDB.COLUMN_NAME_ALARM_HOUR, hourOfDay + "");
                                                 cv.put(NeverNoteDB.COLUMN_NAME_ALARM_MINUTE, minute + "");
                                                 cv.put(NeverNoteDB.COLUMN_NAME_ALARM_NAME, data.name);
                                                 cv.put(NeverNoteDB.COLUMN_NAME_ALARM_CONTENT, data.content);
 
-                                                NeverNoteDB db = new NeverNoteDB(NoteList.this);
+                                                NeverNoteDB db = new NeverNoteDB(getApplicationContext());
                                                 SQLiteDatabase dbWrite = db.getWritableDatabase();
+                                                SQLiteDatabase dbRead = db.getReadableDatabase();
                                                 dbWrite.insert(NeverNoteDB.TABLE_NAME_ALARM, null, cv);
-//                                                try {
-//                                                    am.set(AlarmManager.RTC_WAKEUP, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(sb.toString()).getTime(), pi);
-//                                                } catch (ParseException e) {
-//                                                    e.printStackTrace();
-//                                                }
-                                                am.set(AlarmManager.RTC_WAKEUP, Calendar.getInstance().getTimeInMillis() + 10000, pi);
+                                                Cursor c = dbRead.rawQuery("SELECT last_insert_rowid()", null);
+                                                c.moveToFirst();
+                                                int alarmID = c.getInt(0);
+                                                c.close();
+
+                                                sb.append(hourOfDay).append(":").append(minute).append(":00");
+                                                AlarmManager am = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+                                                Intent i = new Intent(getApplicationContext(), NeverNoteAlarmReceiver.class);
+                                                i.putExtra("alarmID", alarmID);
+                                                i.putExtra("noteID", data.id);
+                                                i.putExtra("noteName", data.name);
+                                                i.putExtra("noteContent", data.content);
+                                                PendingIntent pi = PendingIntent.getBroadcast(getApplicationContext(), 0, i, 0);
+
+                                                try {
+                                                    am.set(AlarmManager.RTC_WAKEUP, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(sb.toString()).getTime(), pi);
+                                                } catch (ParseException e) {
+                                                    e.printStackTrace();
+                                                }
                                             }
                                         })
                                         .setStartTime(new Date().getHours(), new Date().getMinutes());

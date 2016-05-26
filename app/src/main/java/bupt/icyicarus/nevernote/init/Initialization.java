@@ -155,13 +155,12 @@ public class Initialization extends AppCompatActivity {
                         cv.put(NeverNoteDB.COLUMN_NAME_NOTE_DATE, newNoteDate);
                         cv.put(NeverNoteDB.COLUMN_NAME_NOTE_NAME, "Created on " + newNoteDate);
                         dbWrite.insert(NeverNoteDB.TABLE_NAME_NOTES, null, cv);
-                        Cursor c = dbRead.query(NeverNoteDB.TABLE_NAME_NOTES, null, NeverNoteDB.COLUMN_NAME_NOTE_DATE + "=?", new String[]{newNoteDate + ""}, null, null, null, null);
-                        int id = -1;
-                        while (c.moveToNext()) {
-                            id = c.getInt(c.getColumnIndex(NeverNoteDB.COLUMN_ID));
-                        }
+                        Cursor c = dbRead.rawQuery("SELECT last_insert_rowid()", null);
+                        c.moveToFirst();
+                        int noteID = c.getInt(0);
+                        c.close();
                         cv.clear();
-                        cv.put(NeverNoteDB.COLUMN_NAME_MEDIA_OWNER_NOTE_ID, id);
+                        cv.put(NeverNoteDB.COLUMN_NAME_MEDIA_OWNER_NOTE_ID, noteID);
                         cv.put(NeverNoteDB.COLUMN_NAME_MEDIA_PATH, currentPath);
                         dbWrite.insert(NeverNoteDB.TABLE_NAME_MEDIA, null, cv);
                     }
