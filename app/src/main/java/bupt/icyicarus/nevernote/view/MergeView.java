@@ -29,7 +29,6 @@ public class MergeView extends Initialization {
         TabLayout dvTabLayout = (TabLayout) findViewById(R.id.tlMergeView);
         dvTabLayout.setupWithViewPager(mViewPager);
 
-
         findViewById(R.id.fabmMergeViewAddNote).setOnClickListener(fabClickHandler);
         findViewById(R.id.fabmMergeViewAddPhoto).setOnClickListener(fabClickHandler);
         findViewById(R.id.fabmMergeViewAddAudio).setOnClickListener(fabClickHandler);

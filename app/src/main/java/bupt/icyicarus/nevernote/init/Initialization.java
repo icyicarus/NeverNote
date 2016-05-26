@@ -45,6 +45,7 @@ public class Initialization extends AppCompatActivity {
 
     public String currentPath = null;
     public File f = null;
+
     public View.OnClickListener fabClickHandler = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -82,8 +83,6 @@ public class Initialization extends AppCompatActivity {
                     }
                     currentPath = f.getAbsolutePath();
                     i.putExtra(AudioRecorder.EXTRA_PATH, currentPath);
-//                    currentPath = mediaDirectory + "/" + System.currentTimeMillis() + ".amr";
-//                    i.putExtra(AudioRecorder.EXTRA_PATH, currentPath);
                     startActivityForResult(i, PublicVariableAndMethods.REQUEST_CODE_GET_AUDIO);
                     break;
                 case R.id.fabmMergeViewAddVideo:
