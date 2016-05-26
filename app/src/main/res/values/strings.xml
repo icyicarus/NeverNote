@@ -38,5 +38,6 @@
     <string name="copyRight">By IcyIcarus@BUPT</string>
     <string name="showOKButton">Show OK Button</string>
     <string name="backgroundColor">Background Color</string>
-    <string name="changeColor">Change</string>>
+    <string name="changeColor">Change</string>
+    <string name="alarm_list">Alarm List</string>>
 </resources>

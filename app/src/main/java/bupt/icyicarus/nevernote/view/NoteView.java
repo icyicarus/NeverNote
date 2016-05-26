@@ -97,8 +97,6 @@ public class NoteView extends Initialization {
                     i.putExtra(AudioRecorder.EXTRA_PATH, currentPath);
                     startActivityForResult(i, PublicVariableAndMethods.REQUEST_CODE_GET_AUDIO);
                     break;
-                case R.id.btnAddNotification:
-                    break;
                 default:
                     break;
             }
@@ -198,7 +196,6 @@ public class NoteView extends Initialization {
         findViewById(R.id.btnAddPhoto).setOnClickListener(btnClickHandler);
         findViewById(R.id.btnAddVideo).setOnClickListener(btnClickHandler);
         findViewById(R.id.btnAddAudio).setOnClickListener(btnClickHandler);
-        findViewById(R.id.btnAddNotification).setOnClickListener(btnClickHandler);
     }
 
     public void saveMedia(int noteID) {

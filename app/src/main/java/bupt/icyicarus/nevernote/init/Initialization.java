@@ -10,7 +10,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,6 +25,7 @@ import java.util.Properties;
 import bupt.icyicarus.nevernote.AudioRecorder;
 import bupt.icyicarus.nevernote.PublicVariableAndMethods;
 import bupt.icyicarus.nevernote.R;
+import bupt.icyicarus.nevernote.alarm.AlarmList;
 import bupt.icyicarus.nevernote.config.Settings;
 import bupt.icyicarus.nevernote.db.NeverNoteDB;
 import bupt.icyicarus.nevernote.view.NoteView;
@@ -144,11 +144,10 @@ public class Initialization extends AppCompatActivity {
             case PublicVariableAndMethods.REQUEST_CODE_GET_VIDEO:
             case PublicVariableAndMethods.REQUEST_CODE_GET_AUDIO:
                 if (resultCode == RESULT_OK) {
-                    Log.e("haveTodayNote", haveTodayNote + "");
                     if (haveTodayNote != -1) {
                         ContentValues cv = new ContentValues();
                         cv.put(NeverNoteDB.COLUMN_NAME_MEDIA_OWNER_NOTE_ID, haveTodayNote);
-                        cv.put(NeverNoteDB.COLUMN_NAME_MEDIA_PATH, f.getAbsolutePath());
+                        cv.put(NeverNoteDB.COLUMN_NAME_MEDIA_PATH, currentPath);
                         dbWrite.insert(NeverNoteDB.TABLE_NAME_MEDIA, null, cv);
                     } else {
                         ContentValues cv = new ContentValues();
@@ -163,7 +162,7 @@ public class Initialization extends AppCompatActivity {
                         }
                         cv.clear();
                         cv.put(NeverNoteDB.COLUMN_NAME_MEDIA_OWNER_NOTE_ID, id);
-                        cv.put(NeverNoteDB.COLUMN_NAME_MEDIA_PATH, f.getAbsolutePath());
+                        cv.put(NeverNoteDB.COLUMN_NAME_MEDIA_PATH, currentPath);
                         dbWrite.insert(NeverNoteDB.TABLE_NAME_MEDIA, null, cv);
                     }
                 } else if (f != null) {
@@ -220,8 +219,15 @@ public class Initialization extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.settings) {
-            startActivity(new Intent(this, Settings.class));
+        switch (id) {
+            case R.id.settings:
+                startActivity(new Intent(this, Settings.class));
+                break;
+            case R.id.alarmList:
+                startActivity(new Intent(this, AlarmList.class));
+                break;
+            default:
+                break;
         }
         return super.onOptionsItemSelected(item);
     }

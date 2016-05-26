@@ -21,8 +21,8 @@ public class MergeView extends Initialization {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.aty_merge_view);
-        Toolbar dvToolbar = (Toolbar) findViewById(R.id.tbMergeView);
-        setSupportActionBar(dvToolbar);
+        Toolbar tbMergeView = (Toolbar) findViewById(R.id.tbMergeView);
+        setSupportActionBar(tbMergeView);
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
         mViewPager = (ViewPager) findViewById(R.id.vpMergeView);
         mViewPager.setAdapter(mSectionsPagerAdapter);
