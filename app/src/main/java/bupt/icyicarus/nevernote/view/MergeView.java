@@ -7,6 +7,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
+import android.widget.Toast;
 
 import bupt.icyicarus.nevernote.R;
 import bupt.icyicarus.nevernote.fragment.CalenderFragment;
@@ -16,6 +18,7 @@ import bupt.icyicarus.nevernote.init.Initialization;
 public class MergeView extends Initialization {
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
+    private long exitTime = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +36,25 @@ public class MergeView extends Initialization {
         findViewById(R.id.fabmMergeViewAddPhoto).setOnClickListener(fabClickHandler);
         findViewById(R.id.fabmMergeViewAddAudio).setOnClickListener(fabClickHandler);
         findViewById(R.id.fabmMergeViewAddVideo).setOnClickListener(fabClickHandler);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            exit();
+            return false;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    public void exit() {
+        if ((System.currentTimeMillis() - exitTime) > 1000) {
+            Toast.makeText(this, "Press again to exit", Toast.LENGTH_SHORT).show();
+            exitTime = System.currentTimeMillis();
+        } else {
+            finish();
+            System.exit(0);
+        }
     }
 
     public class SectionsPagerAdapter extends FragmentPagerAdapter {

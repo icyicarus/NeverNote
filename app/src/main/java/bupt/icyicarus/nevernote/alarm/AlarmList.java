@@ -92,7 +92,8 @@ public class AlarmList extends Initialization {
                                     refreshAlarmList();
 
                                     Intent i = new Intent(getApplicationContext(), NeverNoteAlarmReceiver.class);
-                                    PendingIntent pi = PendingIntent.getBroadcast(getApplicationContext(), 0, i, 0);
+                                    i.setFlags(alarmInfo.getId());
+                                    PendingIntent pi = PendingIntent.getBroadcast(getApplicationContext(), alarmInfo.getId(), i, 0);
                                     AlarmManager am = (AlarmManager) getSystemService(ALARM_SERVICE);
                                     am.cancel(pi);
                                 }

@@ -95,14 +95,13 @@ public class NoteListFragment extends Fragment {
                                                 i.putExtra("noteID", data.id);
                                                 i.putExtra("noteName", data.name);
                                                 i.putExtra("noteContent", data.content);
-                                                PendingIntent pi = PendingIntent.getBroadcast(getContext(), 0, i, 0);
+                                                PendingIntent pi = PendingIntent.getBroadcast(getContext(), alarmID, i, 0);
 
                                                 try {
                                                     am.set(AlarmManager.RTC_WAKEUP, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(sb.toString()).getTime(), pi);
                                                 } catch (ParseException e) {
                                                     e.printStackTrace();
                                                 }
-//                                                am.set(AlarmManager.RTC_WAKEUP, Calendar.getInstance().getTimeInMillis() + 10000, pi);
                                             }
                                         })
                                         .setStartTime(new Date().getHours(), new Date().getMinutes());

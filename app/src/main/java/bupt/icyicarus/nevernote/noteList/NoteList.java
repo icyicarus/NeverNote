@@ -91,7 +91,7 @@ public class NoteList extends Initialization {
                                                 i.putExtra("noteID", data.id);
                                                 i.putExtra("noteName", data.name);
                                                 i.putExtra("noteContent", data.content);
-                                                PendingIntent pi = PendingIntent.getBroadcast(getApplicationContext(), 0, i, 0);
+                                                PendingIntent pi = PendingIntent.getBroadcast(getApplicationContext(), alarmID, i, 0);
 
                                                 try {
                                                     am.set(AlarmManager.RTC_WAKEUP, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(sb.toString()).getTime(), pi);
