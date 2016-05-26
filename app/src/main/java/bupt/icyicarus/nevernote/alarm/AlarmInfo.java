@@ -10,16 +10,18 @@ public class AlarmInfo {
     private String day = "";
     private String hour = "";
     private String minute = "";
+    private int noteid = -1;
     private String name = "";
     private String content = "";
 
-    public AlarmInfo(int id, String year, String month, String day, String hour, String minute, String name, String content) {
+    public AlarmInfo(int id, String year, String month, String day, String hour, String minute, int noteid, String name, String content) {
         this.id = id;
         this.year = year;
         this.month = month;
         this.day = day;
         this.hour = hour;
         this.minute = minute;
+        this.noteid = noteid;
         this.name = name;
         this.content = content;
     }
@@ -46,6 +48,10 @@ public class AlarmInfo {
 
     public String getMinute() {
         return minute;
+    }
+
+    public int getNoteid() {
+        return noteid;
     }
 
     public String getName() {

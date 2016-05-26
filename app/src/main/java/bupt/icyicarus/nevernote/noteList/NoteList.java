@@ -72,6 +72,7 @@ public class NoteList extends Initialization {
                                             public void onTimeSet(RadialTimePickerDialogFragment dialog, int hourOfDay, int minute) {
                                                 cv.put(NeverNoteDB.COLUMN_NAME_ALARM_HOUR, hourOfDay + "");
                                                 cv.put(NeverNoteDB.COLUMN_NAME_ALARM_MINUTE, minute + "");
+                                                cv.put(NeverNoteDB.COLUMN_NAME_ALARM_NOTEID, data.id + "");
                                                 cv.put(NeverNoteDB.COLUMN_NAME_ALARM_NAME, data.name);
                                                 cv.put(NeverNoteDB.COLUMN_NAME_ALARM_CONTENT, data.content);
 

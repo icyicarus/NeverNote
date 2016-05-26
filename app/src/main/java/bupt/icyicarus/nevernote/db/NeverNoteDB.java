@@ -20,6 +20,7 @@ public class NeverNoteDB extends SQLiteOpenHelper {
     public static final String COLUMN_NAME_ALARM_DAY = "day";
     public static final String COLUMN_NAME_ALARM_HOUR = "hour";
     public static final String COLUMN_NAME_ALARM_MINUTE = "minute";
+    public static final String COLUMN_NAME_ALARM_NOTEID = "noteid";
     public static final String COLUMN_NAME_ALARM_NAME = "name";
     public static final String COLUMN_NAME_ALARM_CONTENT = "content";
 
@@ -41,6 +42,7 @@ public class NeverNoteDB extends SQLiteOpenHelper {
                 + COLUMN_NAME_ALARM_DAY + " TEXT NOT NULL DEFAULT \"\","
                 + COLUMN_NAME_ALARM_HOUR + " TEXT NOT NULL DEFAULT \"\","
                 + COLUMN_NAME_ALARM_MINUTE + " TEXT NOT NULL DEFAULT \"\","
+                + COLUMN_NAME_ALARM_NOTEID + " TEXT NOT NULL DEFAULT \"\","
                 + COLUMN_NAME_ALARM_NAME + " TEXT NOT NULL DEFAULT \"\","
                 + COLUMN_NAME_ALARM_CONTENT + " TEXT NOT NULL DEFAULT \"\"" + ")");
     }

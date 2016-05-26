@@ -68,6 +68,7 @@ public class AlarmList extends Initialization {
                     c.getString(c.getColumnIndex(NeverNoteDB.COLUMN_NAME_ALARM_DAY)),
                     c.getString(c.getColumnIndex(NeverNoteDB.COLUMN_NAME_ALARM_HOUR)),
                     c.getString(c.getColumnIndex(NeverNoteDB.COLUMN_NAME_ALARM_MINUTE)),
+                    c.getInt(c.getColumnIndex(NeverNoteDB.COLUMN_NAME_ALARM_NOTEID)),
                     c.getString(c.getColumnIndex(NeverNoteDB.COLUMN_NAME_ALARM_NAME)),
                     c.getString(c.getColumnIndex(NeverNoteDB.COLUMN_NAME_ALARM_CONTENT))
             ));

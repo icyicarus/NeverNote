@@ -3,6 +3,7 @@
     package="bupt.icyicarus.nevernote">
 
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
         android:allowBackup="true"
@@ -47,6 +48,11 @@
             android:theme="@style/NoDisplayTheme" />
 
         <receiver android:name=".receiver.NeverNoteAlarmReceiver" />
+        <receiver android:name=".receiver.BootReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>
