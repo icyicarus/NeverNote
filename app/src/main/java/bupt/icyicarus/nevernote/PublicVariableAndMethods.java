@@ -80,7 +80,12 @@ public class PublicVariableAndMethods {
         return haveTodayNote;
     }
 
-    public static void refreshNoteArrayList(Context context, MaterialListView materialListView, Resources resources, ArrayList<NoteListCellData> noteListCellDataArrayList, final SQLiteDatabase dbRead, final SQLiteDatabase dbWrite, long noteDate) {
+    public static void refreshNoteArrayList(Context context, MaterialListView materialListView, Resources resources, ArrayList<NoteListCellData> noteListCellDataArrayList, long noteDate) {
+        NeverNoteDB db;
+        SQLiteDatabase dbRead;
+        db = new NeverNoteDB(context);
+        dbRead = db.getReadableDatabase();
+
         long noteAddDate = -1;
         materialListView.getAdapter().clearAll();
         if (noteListCellDataArrayList != null) {
@@ -107,12 +112,17 @@ public class PublicVariableAndMethods {
             }
         }
         for (NoteListCellData noteListCellData : noteListCellDataArrayList) {
-            addCard(context, materialListView, noteListCellDataArrayList, resources, dbRead, dbWrite, noteListCellData, noteDate);
+            addCard(context, materialListView, noteListCellDataArrayList, resources, noteListCellData, noteDate);
         }
         c.close();
     }
 
-    public static void addCard(final Context context, final MaterialListView materialListView, final ArrayList<NoteListCellData> noteListCellDataArrayList, final Resources resources, final SQLiteDatabase dbRead, final SQLiteDatabase dbWrite, NoteListCellData noteListCellData, final long noteDate) {
+    public static void addCard(final Context context, final MaterialListView materialListView, final ArrayList<NoteListCellData> noteListCellDataArrayList, final Resources resources, NoteListCellData noteListCellData, final long noteDate) {
+        NeverNoteDB db;
+        final SQLiteDatabase dbRead, dbWrite;
+        db = new NeverNoteDB(context);
+        dbRead = db.getReadableDatabase();
+        dbWrite = db.getWritableDatabase();
         Card card;
         if (noteListCellData.havePic) {
 
@@ -152,7 +162,7 @@ public class PublicVariableAndMethods {
                                             dbWrite.delete(NeverNoteDB.TABLE_NAME_MEDIA, NeverNoteDB.COLUMN_NAME_MEDIA_OWNER_NOTE_ID + "=?", new String[]{data.id + ""});
                                             dbWrite.delete(NeverNoteDB.TABLE_NAME_NOTES, NeverNoteDB.COLUMN_ID + "=?", new String[]{data.id + ""});
                                             c.close();
-                                            refreshNoteArrayList(context, materialListView, resources, noteListCellDataArrayList, dbRead, dbWrite, noteDate);
+                                            refreshNoteArrayList(context, materialListView, resources, noteListCellDataArrayList, noteDate);
                                         }
                                     }).setNegativeButton("No", null).show();
                                 }
@@ -204,7 +214,7 @@ public class PublicVariableAndMethods {
                                             dbWrite.delete(NeverNoteDB.TABLE_NAME_MEDIA, NeverNoteDB.COLUMN_NAME_MEDIA_OWNER_NOTE_ID + "=?", new String[]{data.id + ""});
                                             dbWrite.delete(NeverNoteDB.TABLE_NAME_NOTES, NeverNoteDB.COLUMN_ID + "=?", new String[]{data.id + ""});
                                             c.close();
-                                            refreshNoteArrayList(context, materialListView, resources, noteListCellDataArrayList, dbRead, dbWrite, noteDate);
+                                            refreshNoteArrayList(context, materialListView, resources, noteListCellDataArrayList, noteDate);
                                         }
                                     }).setNegativeButton("No", null).show();
                                 }

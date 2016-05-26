@@ -1,12 +1,15 @@
 package bupt.icyicarus.nevernote.init;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,6 +24,7 @@ import bupt.icyicarus.nevernote.AudioRecorder;
 import bupt.icyicarus.nevernote.PublicVariableAndMethods;
 import bupt.icyicarus.nevernote.R;
 import bupt.icyicarus.nevernote.config.Settings;
+import bupt.icyicarus.nevernote.db.NeverNoteDB;
 import bupt.icyicarus.nevernote.view.NoteView;
 
 public class Initialization extends AppCompatActivity {
@@ -112,6 +116,49 @@ public class Initialization extends AppCompatActivity {
         showOKButton = Boolean.parseBoolean(p.get("SHOW_OK").toString());
         haveTodayNote = PublicVariableAndMethods.haveTodayNote(this);
         super.onResume();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        NeverNoteDB db;
+        final SQLiteDatabase dbRead, dbWrite;
+        db = new NeverNoteDB(this);
+        dbRead = db.getReadableDatabase();
+        dbWrite = db.getWritableDatabase();
+
+        switch (requestCode) {
+            case PublicVariableAndMethods.REQUEST_CODE_GET_PHOTO:
+            case PublicVariableAndMethods.REQUEST_CODE_GET_VIDEO:
+            case PublicVariableAndMethods.REQUEST_CODE_GET_AUDIO:
+                if (resultCode == RESULT_OK) {
+                    if (haveTodayNote != -1) {
+                        ContentValues cv = new ContentValues();
+                        cv.put(NeverNoteDB.COLUMN_NAME_MEDIA_OWNER_NOTE_ID, haveTodayNote);
+                        cv.put(NeverNoteDB.COLUMN_NAME_MEDIA_PATH, f.getAbsolutePath());
+                        dbWrite.insert(NeverNoteDB.TABLE_NAME_MEDIA, null, cv);
+                    } else {
+//                        ContentValues cv = new ContentValues();
+//                        String newNoteDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+//                        cv.put(NeverNoteDB.COLUMN_NAME_NOTE_DATE, newNoteDate);
+//                        Cursor c = dbRead.query(NeverNoteDB.TABLE_NAME_NOTES, null, NeverNoteDB.COLUMN_NAME_NOTE_DATE + "=?", new String[]{newNoteDate + ""}, null, null, null, null);
+//                        int id = -1;
+//                        while (c.moveToNext()) {
+//                            id = c.getInt(c.getColumnIndex(NeverNoteDB.COLUMN_ID));
+//                        }
+//                        cv.put(NeverNoteDB.COLUMN_NAME_MEDIA_OWNER_NOTE_ID, id);
+//                        cv.put(NeverNoteDB.COLUMN_NAME_MEDIA_PATH, f.getAbsolutePath());
+//                        dbWrite.insert(NeverNoteDB.TABLE_NAME_NOTES, null, cv);
+                        Log.e("haveTodayNote", "-1");
+                    }
+                } else if (f != null) {
+                    f.delete();
+                }
+                break;
+
+            default:
+                break;
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     public void setMediaDir(Context context) {
