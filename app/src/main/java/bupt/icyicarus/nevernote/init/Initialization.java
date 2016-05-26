@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
@@ -18,6 +19,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Properties;
 
 import bupt.icyicarus.nevernote.AudioRecorder;
@@ -69,8 +72,18 @@ public class Initialization extends AppCompatActivity {
                 case R.id.fabmMergeViewAddAudio:
                 case R.id.fabmNoteListAddAudio:
                     i = new Intent(getApplicationContext(), AudioRecorder.class);
-                    currentPath = mediaDirectory + "/" + System.currentTimeMillis() + ".amr";
+                    f = new File(mediaDirectory, System.currentTimeMillis() + ".aac");
+                    if (!f.exists()) {
+                        try {
+                            f.createNewFile();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    currentPath = f.getAbsolutePath();
                     i.putExtra(AudioRecorder.EXTRA_PATH, currentPath);
+//                    currentPath = mediaDirectory + "/" + System.currentTimeMillis() + ".amr";
+//                    i.putExtra(AudioRecorder.EXTRA_PATH, currentPath);
                     startActivityForResult(i, PublicVariableAndMethods.REQUEST_CODE_GET_AUDIO);
                     break;
                 case R.id.fabmMergeViewAddVideo:
@@ -125,30 +138,34 @@ public class Initialization extends AppCompatActivity {
         db = new NeverNoteDB(this);
         dbRead = db.getReadableDatabase();
         dbWrite = db.getWritableDatabase();
+        haveTodayNote = PublicVariableAndMethods.haveTodayNote(this);
 
         switch (requestCode) {
             case PublicVariableAndMethods.REQUEST_CODE_GET_PHOTO:
             case PublicVariableAndMethods.REQUEST_CODE_GET_VIDEO:
             case PublicVariableAndMethods.REQUEST_CODE_GET_AUDIO:
                 if (resultCode == RESULT_OK) {
+                    Log.e("haveTodayNote", haveTodayNote + "");
                     if (haveTodayNote != -1) {
                         ContentValues cv = new ContentValues();
                         cv.put(NeverNoteDB.COLUMN_NAME_MEDIA_OWNER_NOTE_ID, haveTodayNote);
                         cv.put(NeverNoteDB.COLUMN_NAME_MEDIA_PATH, f.getAbsolutePath());
                         dbWrite.insert(NeverNoteDB.TABLE_NAME_MEDIA, null, cv);
                     } else {
-//                        ContentValues cv = new ContentValues();
-//                        String newNoteDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
-//                        cv.put(NeverNoteDB.COLUMN_NAME_NOTE_DATE, newNoteDate);
-//                        Cursor c = dbRead.query(NeverNoteDB.TABLE_NAME_NOTES, null, NeverNoteDB.COLUMN_NAME_NOTE_DATE + "=?", new String[]{newNoteDate + ""}, null, null, null, null);
-//                        int id = -1;
-//                        while (c.moveToNext()) {
-//                            id = c.getInt(c.getColumnIndex(NeverNoteDB.COLUMN_ID));
-//                        }
-//                        cv.put(NeverNoteDB.COLUMN_NAME_MEDIA_OWNER_NOTE_ID, id);
-//                        cv.put(NeverNoteDB.COLUMN_NAME_MEDIA_PATH, f.getAbsolutePath());
-//                        dbWrite.insert(NeverNoteDB.TABLE_NAME_NOTES, null, cv);
-                        Log.e("haveTodayNote", "-1");
+                        ContentValues cv = new ContentValues();
+                        String newNoteDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+                        cv.put(NeverNoteDB.COLUMN_NAME_NOTE_DATE, newNoteDate);
+                        cv.put(NeverNoteDB.COLUMN_NAME_NOTE_NAME, "Created on " + newNoteDate);
+                        dbWrite.insert(NeverNoteDB.TABLE_NAME_NOTES, null, cv);
+                        Cursor c = dbRead.query(NeverNoteDB.TABLE_NAME_NOTES, null, NeverNoteDB.COLUMN_NAME_NOTE_DATE + "=?", new String[]{newNoteDate + ""}, null, null, null, null);
+                        int id = -1;
+                        while (c.moveToNext()) {
+                            id = c.getInt(c.getColumnIndex(NeverNoteDB.COLUMN_ID));
+                        }
+                        cv.clear();
+                        cv.put(NeverNoteDB.COLUMN_NAME_MEDIA_OWNER_NOTE_ID, id);
+                        cv.put(NeverNoteDB.COLUMN_NAME_MEDIA_PATH, f.getAbsolutePath());
+                        dbWrite.insert(NeverNoteDB.TABLE_NAME_MEDIA, null, cv);
                     }
                 } else if (f != null) {
                     f.delete();

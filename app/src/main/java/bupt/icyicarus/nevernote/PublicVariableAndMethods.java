@@ -53,30 +53,21 @@ public class PublicVariableAndMethods {
         db = new NeverNoteDB(context);
         dbRead = db.getReadableDatabase();
 
-        ArrayList<NoteListCellData> noteListCellDataArrayList = new ArrayList<>();
         Cursor c = dbRead.query(NeverNoteDB.TABLE_NAME_NOTES, null, null, null, null, null, null, null);
-        while (c.moveToNext()) {
-            noteListCellDataArrayList.add(new NoteListCellData(
-                    c.getString(c.getColumnIndex(NeverNoteDB.COLUMN_NAME_NOTE_NAME)),
-                    c.getString(c.getColumnIndex(NeverNoteDB.COLUMN_NAME_NOTE_DATE)),
-                    c.getString(c.getColumnIndex(NeverNoteDB.COLUMN_NAME_NOTE_CONTENT)),
-                    c.getInt(c.getColumnIndex(NeverNoteDB.COLUMN_ID)),
-                    context
-            ));
-        }
-
-        Date noteDate = new Date();
         Date todayDate = new Date(System.currentTimeMillis());
-        for (NoteListCellData noteListCellData : noteListCellDataArrayList) {
+        Date noteDate;
+
+        while (c.moveToNext()) {
             try {
-                noteDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(noteListCellData.date);
+                noteDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(c.getString(c.getColumnIndex(NeverNoteDB.COLUMN_NAME_NOTE_DATE)));
+                if (noteDate.getYear() == todayDate.getYear() && noteDate.getMonth() == todayDate.getMonth() && noteDate.getDate() == todayDate.getDate()) {
+                    haveTodayNote = c.getInt(c.getColumnIndex(NeverNoteDB.COLUMN_ID));
+                }
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-            if (noteDate.getMonth() == todayDate.getMonth() && noteDate.getDate() == todayDate.getDate()) {
-                haveTodayNote = noteListCellData.id;
-            }
         }
+
         return haveTodayNote;
     }
 
@@ -101,7 +92,7 @@ public class PublicVariableAndMethods {
                 e.printStackTrace();
             }
 
-            if (noteDate == -1 || (noteDate != -1 && noteAddDate >= noteDate && noteAddDate < (noteDate + 86400000))) {
+            if (noteDate == -1 || (noteAddDate >= noteDate && noteAddDate < (noteDate + 86400000))) {
                 noteListCellDataArrayList.add(new NoteListCellData(
                         c.getString(c.getColumnIndex(NeverNoteDB.COLUMN_NAME_NOTE_NAME)),
                         c.getString(c.getColumnIndex(NeverNoteDB.COLUMN_NAME_NOTE_DATE)),

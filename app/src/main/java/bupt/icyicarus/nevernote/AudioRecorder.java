@@ -112,7 +112,7 @@ public class AudioRecorder extends Initialization {
         String path = getIntent().getStringExtra(EXTRA_PATH);
         try {
             savedFile = new File(path);
-            myRecorder.setOutputFile(savedFile.getAbsolutePath());
+            myRecorder.setOutputFile(path);
             savedFile.createNewFile();
             myRecorder.prepare();
             myRecorder.start();

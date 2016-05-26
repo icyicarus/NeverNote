@@ -1,6 +1,5 @@
 package bupt.icyicarus.nevernote.fragment;
 
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -14,15 +13,12 @@ import java.util.ArrayList;
 
 import bupt.icyicarus.nevernote.PublicVariableAndMethods;
 import bupt.icyicarus.nevernote.R;
-import bupt.icyicarus.nevernote.db.NeverNoteDB;
 import bupt.icyicarus.nevernote.noteList.NoteListCellData;
 
 public class NoteListFragment extends Fragment {
 
     private MaterialListView mlvOverView;
     private ArrayList<NoteListCellData> noteListCellDataArrayList = null;
-    private NeverNoteDB db;
-    private SQLiteDatabase dbRead, dbWrite;
 
     public static NoteListFragment newInstance() {
         return new NoteListFragment();
@@ -39,11 +35,7 @@ public class NoteListFragment extends Fragment {
 
     @Override
     public void onResume() {
-        db = new NeverNoteDB(getContext());
-        dbRead = db.getReadableDatabase();
-        dbWrite = db.getWritableDatabase();
-
-        PublicVariableAndMethods.refreshNoteArrayList(getContext(), mlvOverView, getResources(), noteListCellDataArrayList, dbRead, dbWrite, -1);
+        PublicVariableAndMethods.refreshNoteArrayList(getContext(), mlvOverView, getResources(), noteListCellDataArrayList, -1);
         super.onResume();
     }
 }
