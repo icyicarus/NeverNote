@@ -34,6 +34,7 @@ public class NeverNoteAlarm extends AppCompatActivity {
                 .setContentTitle(getIntent().getStringExtra("noteName"))
                 .setContentText(getIntent().getStringExtra("noteContent"));
         Notification notification = builder.getNotification();
+        notification.defaults = Notification.DEFAULT_SOUND;
         nm.notify(1, notification);
         NeverNoteDB db = new NeverNoteDB(this);
         SQLiteDatabase dbWrite = db.getWritableDatabase();

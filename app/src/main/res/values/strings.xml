@@ -39,5 +39,7 @@
     <string name="showOKButton">Show OK Button</string>
     <string name="backgroundColor">Background Color</string>
     <string name="changeColor">Change</string>
-    <string name="alarm_list">Alarm List</string>>
+    <string name="alarm_list">Alarm List</string>
+    <string name="title_here">Title here...</string>
+    <string name="content_here">Content here...</string>>
 </resources>
