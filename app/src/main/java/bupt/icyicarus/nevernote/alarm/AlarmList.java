@@ -2,21 +2,29 @@ package bupt.icyicarus.nevernote.alarm;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
+import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.Toast;
 
+import com.codetroopers.betterpickers.calendardatepicker.CalendarDatePickerDialogFragment;
+import com.codetroopers.betterpickers.calendardatepicker.MonthAdapter;
+import com.codetroopers.betterpickers.radialtimepicker.RadialTimePickerDialogFragment;
 import com.dexafree.materialList.card.Card;
 import com.dexafree.materialList.card.CardProvider;
 import com.dexafree.materialList.card.OnActionClickListener;
 import com.dexafree.materialList.card.action.TextViewAction;
 import com.dexafree.materialList.view.MaterialListView;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 import bupt.icyicarus.nevernote.R;
 import bupt.icyicarus.nevernote.db.NeverNoteDB;
@@ -93,7 +101,6 @@ public class AlarmList extends Initialization {
                                     refreshAlarmList();
 
                                     Intent i = new Intent(getApplicationContext(), NeverNoteAlarmReceiver.class);
-                                    i.setFlags(alarmInfo.getId());
                                     PendingIntent pi = PendingIntent.getBroadcast(getApplicationContext(), alarmInfo.getId(), i, 0);
                                     AlarmManager am = (AlarmManager) getSystemService(ALARM_SERVICE);
                                     am.cancel(pi);
@@ -105,8 +112,57 @@ public class AlarmList extends Initialization {
                             .setListener(new OnActionClickListener() {
                                 @Override
                                 public void onActionClicked(View view, Card card) {
-                                    //TODO
-                                    Toast.makeText(AlarmList.this, "EDIT", Toast.LENGTH_SHORT).show();
+                                    final StringBuilder sb = new StringBuilder();
+                                    final ContentValues cv = new ContentValues();
+                                    Intent i = new Intent(AlarmList.this, NeverNoteAlarmReceiver.class);
+                                    PendingIntent pi = PendingIntent.getBroadcast(getApplicationContext(), alarmInfo.getId(), i, 0);
+                                    AlarmManager am = (AlarmManager) getSystemService(ALARM_SERVICE);
+                                    am.cancel(pi);
+                                    CalendarDatePickerDialogFragment cdp = new CalendarDatePickerDialogFragment().setOnDateSetListener(new CalendarDatePickerDialogFragment.OnDateSetListener() {
+                                        @Override
+                                        public void onDateSet(CalendarDatePickerDialogFragment dialog, int year, int monthOfYear, int dayOfMonth) {
+                                            sb.append(year).append("-").append(monthOfYear + 1).append("-").append(dayOfMonth).append(" ");
+                                            cv.put(NeverNoteDB.COLUMN_NAME_ALARM_YEAR, year + "");
+                                            int tmp = monthOfYear + 1;
+                                            cv.put(NeverNoteDB.COLUMN_NAME_ALARM_MONTH, tmp + "");
+                                            cv.put(NeverNoteDB.COLUMN_NAME_ALARM_DAY, dayOfMonth + "");
+
+                                            RadialTimePickerDialogFragment rtpd = new RadialTimePickerDialogFragment().setOnTimeSetListener(new RadialTimePickerDialogFragment.OnTimeSetListener() {
+                                                @Override
+                                                public void onTimeSet(RadialTimePickerDialogFragment dialog, int hourOfDay, int minute) {
+                                                    cv.put(NeverNoteDB.COLUMN_NAME_ALARM_HOUR, hourOfDay + "");
+                                                    cv.put(NeverNoteDB.COLUMN_NAME_ALARM_MINUTE, minute + "");
+                                                    cv.put(NeverNoteDB.COLUMN_NAME_ALARM_NOTEID, alarmInfo.getNoteid() + "");
+                                                    cv.put(NeverNoteDB.COLUMN_NAME_ALARM_NAME, alarmInfo.getName());
+                                                    cv.put(NeverNoteDB.COLUMN_NAME_ALARM_CONTENT, alarmInfo.getContent());
+
+                                                    NeverNoteDB db = new NeverNoteDB(AlarmList.this);
+                                                    SQLiteDatabase dbWrite = db.getWritableDatabase();
+                                                    dbWrite.update(NeverNoteDB.TABLE_NAME_ALARM, cv, NeverNoteDB.COLUMN_ID + "=?", new String[]{alarmInfo.getId() + ""});
+
+                                                    sb.append(hourOfDay).append(":").append(minute).append(":00");
+                                                    AlarmManager am = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+                                                    Intent i = new Intent(AlarmList.this, NeverNoteAlarmReceiver.class);
+                                                    i.putExtra("alarmID", alarmInfo.getId());
+                                                    i.putExtra("noteID", alarmInfo.getNoteid());
+                                                    i.putExtra("noteName", alarmInfo.getName());
+                                                    i.putExtra("noteContent", alarmInfo.getContent());
+                                                    PendingIntent pi = PendingIntent.getBroadcast(AlarmList.this, alarmInfo.getId(), i, 0);
+
+                                                    try {
+                                                        am.set(AlarmManager.RTC_WAKEUP, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(sb.toString()).getTime(), pi);
+                                                    } catch (ParseException e) {
+                                                        e.printStackTrace();
+                                                    }
+                                                }
+                                            })
+                                                    .setStartTime(new Date().getHours(), new Date().getMinutes());
+                                            rtpd.show(getSupportFragmentManager(), "Time Picker Fragment");
+                                        }
+                                    })
+                                            .setFirstDayOfWeek(Calendar.MONDAY)
+                                            .setDateRange(new MonthAdapter.CalendarDay(), null);
+                                    cdp.show(getSupportFragmentManager(), "Date Picker Fragment");
                                 }
                             }))
                     .endConfig()
