@@ -181,9 +181,12 @@ public class NoteView extends Initialization {
             etName.setText(getIntent().getStringExtra(EXTRA_NOTE_NAME));
             etContent.setText(getIntent().getStringExtra(EXTRA_NOTE_CONTENT));
 
-            Cursor c = dbRead.query(NeverNoteDB.TABLE_NAME_MEDIA, null, NeverNoteDB.COLUMN_NAME_MEDIA_OWNER_NOTE_ID + "=?", new String[]{noteID + ""}, null, null, null);
+            Cursor c = dbRead.query(NeverNoteDB.TABLE_NAME_MEDIA, null,
+                    NeverNoteDB.COLUMN_NAME_MEDIA_OWNER_NOTE_ID + "=?", new String[]{noteID + ""}, null, null, null);
             while (c.moveToNext()) {
-                adapter.Add(new MediaListCellData(c.getString(c.getColumnIndex(NeverNoteDB.COLUMN_NAME_MEDIA_PATH)), c.getInt(c.getColumnIndex(NeverNoteDB.COLUMN_ID))));
+                adapter.Add(new MediaListCellData(
+                        c.getString(c.getColumnIndex(NeverNoteDB.COLUMN_NAME_MEDIA_PATH)),
+                        c.getInt(c.getColumnIndex(NeverNoteDB.COLUMN_ID))));
             }
             adapter.notifyDataSetChanged();
             c.close();

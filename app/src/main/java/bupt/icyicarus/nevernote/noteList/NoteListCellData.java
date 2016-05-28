@@ -35,7 +35,8 @@ public class NoteListCellData {
         SQLiteDatabase dbRead;
         dbRead = db.getReadableDatabase();
 
-        Cursor c = dbRead.query(NeverNoteDB.TABLE_NAME_MEDIA, null, NeverNoteDB.COLUMN_NAME_MEDIA_OWNER_NOTE_ID + "=?", new String[]{id + ""}, null, null, null);
+        Cursor c = dbRead.query(NeverNoteDB.TABLE_NAME_MEDIA, null,
+                NeverNoteDB.COLUMN_NAME_MEDIA_OWNER_NOTE_ID + "=?", new String[]{id + ""}, null, null, null);
         while (c.moveToNext()) {
             if (c.getString(c.getColumnIndex(NeverNoteDB.COLUMN_NAME_MEDIA_PATH)).endsWith(".jpg")) {
                 this.picturePath = c.getString(c.getColumnIndex(NeverNoteDB.COLUMN_NAME_MEDIA_PATH));

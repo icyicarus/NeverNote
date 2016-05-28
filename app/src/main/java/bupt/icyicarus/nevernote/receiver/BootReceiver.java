@@ -24,7 +24,13 @@ public class BootReceiver extends BroadcastReceiver {
             StringBuilder sb = new StringBuilder();
             AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
             while (c.moveToNext()) {
-                sb.append(c.getString(c.getColumnIndex(NeverNoteDB.COLUMN_NAME_ALARM_YEAR))).append("-").append(c.getString(c.getColumnIndex(NeverNoteDB.COLUMN_NAME_ALARM_MONTH))).append("-").append(c.getString(c.getColumnIndex(NeverNoteDB.COLUMN_NAME_ALARM_DAY))).append(" ").append(c.getString(c.getColumnIndex(NeverNoteDB.COLUMN_NAME_ALARM_HOUR))).append(":").append(c.getString(c.getColumnIndex(NeverNoteDB.COLUMN_NAME_ALARM_MINUTE))).append(":00");
+                sb.append(c.getString(c.getColumnIndex(NeverNoteDB.COLUMN_NAME_ALARM_YEAR)))
+                        .append("-")
+                        .append(c.getString(c.getColumnIndex(NeverNoteDB.COLUMN_NAME_ALARM_MONTH)))
+                        .append("-").append(c.getString(c.getColumnIndex(NeverNoteDB.COLUMN_NAME_ALARM_DAY)))
+                        .append(" ").append(c.getString(c.getColumnIndex(NeverNoteDB.COLUMN_NAME_ALARM_HOUR)))
+                        .append(":").append(c.getString(c.getColumnIndex(NeverNoteDB.COLUMN_NAME_ALARM_MINUTE)))
+                        .append(":00");
                 Intent i = new Intent(context, NeverNoteAlarmReceiver.class);
                 int alarmID = Integer.parseInt(c.getString(c.getColumnIndex(NeverNoteDB.COLUMN_ID)));
                 int noteID = Integer.parseInt(c.getString(c.getColumnIndex(NeverNoteDB.COLUMN_NAME_ALARM_NOTEID)));

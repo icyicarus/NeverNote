@@ -30,13 +30,19 @@ public class NeverNoteDB extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE " + TABLE_NAME_NOTES + "(" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-                + COLUMN_NAME_NOTE_NAME + " TEXT NOT NULL DEFAULT \"\"," + COLUMN_NAME_NOTE_CONTENT
-                + " TEXT NOT NULL DEFAULT \"\"," + COLUMN_NAME_NOTE_DATE + " TEXT NOT NULL DEFAULT \"\"" + ")");
-        db.execSQL("CREATE TABLE " + TABLE_NAME_MEDIA + "(" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-                + COLUMN_NAME_MEDIA_PATH + " TEXT NOT NULL DEFAULT \"\"," + COLUMN_NAME_MEDIA_OWNER_NOTE_ID
-                + " INTEGER NOT NULL DEFAULT 0" + ")");
-        db.execSQL("CREATE TABLE " + TABLE_NAME_ALARM + "(" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+        db.execSQL("CREATE TABLE " + TABLE_NAME_NOTES + "("
+                + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + COLUMN_NAME_NOTE_NAME + " TEXT NOT NULL DEFAULT \"\","
+                + COLUMN_NAME_NOTE_CONTENT + " TEXT NOT NULL DEFAULT \"\","
+                + COLUMN_NAME_NOTE_DATE + " TEXT NOT NULL DEFAULT \"\""
+                + ")");
+        db.execSQL("CREATE TABLE " + TABLE_NAME_MEDIA + "("
+                + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + COLUMN_NAME_MEDIA_PATH + " TEXT NOT NULL DEFAULT \"\","
+                + COLUMN_NAME_MEDIA_OWNER_NOTE_ID + " INTEGER NOT NULL DEFAULT 0"
+                + ")");
+        db.execSQL("CREATE TABLE " + TABLE_NAME_ALARM + "("
+                + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + COLUMN_NAME_ALARM_YEAR + " TEXT NOT NULL DEFAULT \"\","
                 + COLUMN_NAME_ALARM_MONTH + " TEXT NOT NULL DEFAULT \"\","
                 + COLUMN_NAME_ALARM_DAY + " TEXT NOT NULL DEFAULT \"\","
@@ -44,7 +50,8 @@ public class NeverNoteDB extends SQLiteOpenHelper {
                 + COLUMN_NAME_ALARM_MINUTE + " TEXT NOT NULL DEFAULT \"\","
                 + COLUMN_NAME_ALARM_NOTEID + " TEXT NOT NULL DEFAULT \"\","
                 + COLUMN_NAME_ALARM_NAME + " TEXT NOT NULL DEFAULT \"\","
-                + COLUMN_NAME_ALARM_CONTENT + " TEXT NOT NULL DEFAULT \"\"" + ")");
+                + COLUMN_NAME_ALARM_CONTENT + " TEXT NOT NULL DEFAULT \"\""
+                + ")");
     }
 
     @Override
