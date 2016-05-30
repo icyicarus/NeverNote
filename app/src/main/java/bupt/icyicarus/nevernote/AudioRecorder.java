@@ -55,7 +55,7 @@ public class AudioRecorder extends Initialization {
                             }
                         }).show();
                     }
-                    btnRecordStart.setText(R.string.startRecord_t);
+                    btnRecordStart.setText(R.string.start_record);
                     btnRecordStart.setEnabled(true);
                     btnRecordStop.setEnabled(false);
                     break;
@@ -116,7 +116,7 @@ public class AudioRecorder extends Initialization {
             savedFile.createNewFile();
             myRecorder.prepare();
             myRecorder.start();
-            btnRecordStart.setText(R.string.recording_t);
+            btnRecordStart.setText(R.string.recording);
             btnRecordStart.setEnabled(false);
             btnRecordStop.setEnabled(true);
         } catch (IOException e) {

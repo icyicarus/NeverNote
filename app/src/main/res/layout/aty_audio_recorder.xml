@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-    android:id="@+id/containerAudioRecorder"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/containerAudioRecorder"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal">
@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="@string/startRecord_t"/>
+        android:text="@string/start_record" />
 
     <Button
         android:id="@+id/btnRecordStop"
@@ -21,5 +21,5 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:enabled="false"
-        android:text="@string/stopRecord_t"/>
+        android:text="@string/stop_record" />
 </LinearLayout>

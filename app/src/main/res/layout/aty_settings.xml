@@ -33,7 +33,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="start|center_vertical"
-                android:text="@string/showOKButton"
+                android:text="@string/show_okbutton"
                 android:textAlignment="center"
                 android:textSize="20sp" />
 
@@ -54,7 +54,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="start|center_vertical"
-                android:text="@string/customBackground"
+                android:text="@string/custom_background"
                 android:textAlignment="center"
                 android:textSize="20sp" />
 
@@ -76,7 +76,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="start|center_vertical"
-                android:text="@string/backgroundColor"
+                android:text="@string/background_color"
                 android:textAlignment="center"
                 android:textSize="20sp" />
 
@@ -85,7 +85,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end|center_vertical"
-                android:text="@string/changeColor" />
+                android:text="@string/change_color" />
         </FrameLayout>
     </LinearLayout>
 </android.support.design.widget.CoordinatorLayout>

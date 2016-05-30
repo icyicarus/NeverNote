@@ -1,45 +1,28 @@
 <resources>
     <string name="app_name">NeverNote</string>
-    <string name="play">Play</string>
-    <string name="pause">Pause</string>
-    <string name="stop">Stop</string>
-    <string name="addNote">Add Note</string>
-    <string name="save">Save</string>
-    <string name="cancel">Cancel</string>
-    <string name="addPhoto">Add Photo</string>
-    <string name="addVideo">Add Video</string>
-    <string name="addAudio">Add Audio</string>
-    <string name="startRecord">Start Record</string>
-    <string name="stopRecord">Stop Record</string>
-    <string name="recording">Recording</string>
-    <string name="settings">Settings</string>
 
-    <string name="play_t">&#xf04b;</string>
-    <string name="pause_t">&#xf04c;</string>
-    <string name="stop_t">&#xf04d;</string>
-    <string name="addNote_t">&#xf055;</string>
-    <string name="save_t">&#xf00c;</string>
-    <string name="cancel_t">&#xf00d;</string>
-    <string name="addPhoto_t">&#xf030;</string>
-    <string name="addVideo_t">&#xf03d;</string>
-    <string name="addAudio_t">&#xf130;</string>
-    <string name="addNotification_t">&#xf017;</string>
-    <string name="startRecord_t">&#xf04b;</string>
-    <string name="stopRecord_t">&#xf04d;</string>
-    <string name="recording_t">&#xf110;</string>
-    <string name="repeat_t">&#xf01e;</string>
+    <string name="play">&#xf04b;</string>
+    <string name="pause">&#xf04c;</string>
+    <string name="stop">&#xf04d;</string>
+    <string name="addNote">&#xf055;</string>
+    <string name="save">&#xf00c;</string>
+    <string name="cancel">&#xf00d;</string>
+    <string name="add_photo">&#xf030;</string>
+    <string name="add_video">&#xf03d;</string>
+    <string name="add_audio">&#xf130;</string>
+    <string name="add_notification">&#xf017;</string>
+    <string name="start_record">&#xf04b;</string>
+    <string name="stop_record">&#xf04d;</string>
+    <string name="recording">&#xf110;</string>
+    <string name="repeat">&#xf01e;</string>
 
-    <string name="day_name_format">EEE</string>
-    <string name="invalid_date">Date must be between %1$s and %2$s.</string>
-    <string name="month_name_format">MMMM yyyy</string>
-
-    <string name="customBackground">Custom Background</string>
-    <string name="launchView">LaunchView</string>
-    <string name="copyRight">By IcyIcarus@BUPT</string>
-    <string name="showOKButton">Show OK Button</string>
-    <string name="backgroundColor">Background Color</string>
-    <string name="changeColor">Change</string>
+    <string name="custom_background">Custom Background</string>
+    <string name="launch_view">LaunchView</string>
+    <string name="copyright">By IcyIcarus@BUPT</string>
+    <string name="show_okbutton">Show OK Button</string>
+    <string name="background_color">Background Color</string>
+    <string name="change_color">Change</string>
     <string name="alarm_list">Alarm List</string>
-    <string name="title_here">Title here...</string>
-    <string name="content_here">Content here...</string>>
+    <string name="title_here">Title here…</string>
+    <string name="content_here">Content here…</string>
 </resources>
