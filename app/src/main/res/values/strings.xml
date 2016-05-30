@@ -16,6 +16,7 @@
     <string name="recording">&#xf110;</string>
     <string name="repeat">&#xf01e;</string>
 
+    <string name="settings">Settings</string>
     <string name="custom_background">Custom Background</string>
     <string name="launch_view">LaunchView</string>
     <string name="copyright">By IcyIcarus@BUPT</string>
