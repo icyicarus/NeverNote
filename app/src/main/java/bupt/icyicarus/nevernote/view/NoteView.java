@@ -34,7 +34,6 @@ import bupt.icyicarus.nevernote.font.FontManager;
 import bupt.icyicarus.nevernote.init.Initialization;
 import bupt.icyicarus.nevernote.mediaList.MediaAdapter;
 import bupt.icyicarus.nevernote.mediaList.MediaListCellData;
-import bupt.icyicarus.nevernote.mediaList.MediaType;
 
 public class NoteView extends Initialization {
 
@@ -132,19 +131,19 @@ public class NoteView extends Initialization {
                 Uri uri;
 
                 switch (data.type) {
-                    case MediaType.PHOTO:
+                    case PublicVariableAndMethods.REQUEST_CODE_GET_PHOTO:
                         i = new Intent(Intent.ACTION_VIEW);
                         uri = Uri.fromFile(new File(data.path));
                         i.setDataAndType(uri, "image/jpg");
                         startActivity(i);
                         break;
-                    case MediaType.VIDEO:
+                    case PublicVariableAndMethods.REQUEST_CODE_GET_AUDIO:
                         i = new Intent(Intent.ACTION_VIEW);
                         uri = Uri.fromFile(new File(data.path));
                         i.setDataAndType(uri, "video/mp4");
                         startActivity(i);
                         break;
-                    case MediaType.AUDIO:
+                    case PublicVariableAndMethods.REQUEST_CODE_GET_VIDEO:
                         i = new Intent(Intent.ACTION_VIEW);
                         uri = Uri.fromFile(new File(data.path));
                         i.setDataAndType(uri, "audio/amr");
