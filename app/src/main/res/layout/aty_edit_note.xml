@@ -27,29 +27,41 @@
 
         </android.support.design.widget.AppBarLayout>
 
-        <EditText
-            android:id="@+id/etName"
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="@string/title_here"
-            android:inputType="text"
-            android:labelFor="@id/etName"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:singleLine="true" />
+            android:layout_marginTop="5dp"
+            android:hint="@string/title">
 
-        <EditText
-            android:id="@+id/etContent"
+            <EditText
+                android:id="@+id/etName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="text"
+                android:labelFor="@id/etName"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:singleLine="true" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:gravity="top"
-            android:hint="@string/content_here"
-            android:inputType="text"
-            android:labelFor="@id/etContent"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp" />
+            android:layout_marginTop="5dp"
+            android:hint="@string/content">
+
+            <EditText
+                android:id="@+id/etContent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:gravity="top"
+                android:inputType="text"
+                android:labelFor="@id/etContent"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp" />
+        </android.support.design.widget.TextInputLayout>
 
         <ListView
             android:id="@+id/enMediaList"

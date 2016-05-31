@@ -7,7 +7,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.Toolbar;
@@ -123,10 +122,5 @@ public class NoteList extends Initialization {
     protected void onResume() {
         super.onResume();
         PublicVariableAndMethods.refreshNoteArrayList(NoteList.this, mlvNoteList, getResources(), noteListCellDataArrayList, noteDate);
-        if (customBackground) {
-            findViewById(R.id.cNoteList).setBackgroundColor(Integer.parseInt(backgroundColor));
-        } else {
-            findViewById(R.id.cNoteList).setBackgroundColor(Color.WHITE);
-        }
     }
 }

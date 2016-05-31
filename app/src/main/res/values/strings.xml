@@ -24,6 +24,6 @@
     <string name="background_color">Background Color</string>
     <string name="change_color">Change</string>
     <string name="alarm_list">Alarm List</string>
-    <string name="title_here">Title here…</string>
-    <string name="content_here">Content here…</string>
+    <string name="title">Title</string>
+    <string name="content">Content</string>
 </resources>
