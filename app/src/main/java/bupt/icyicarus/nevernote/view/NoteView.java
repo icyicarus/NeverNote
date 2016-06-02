@@ -47,7 +47,6 @@ public class NoteView extends Initialization {
     private MediaAdapter adapter;
     private NeverNoteDB db;
     private SQLiteDatabase dbRead, dbWrite;
-    private String currentPath = null;
     private Map operationQueue = null;
 
     private OnClickListener btnClickHandler = new OnClickListener() {

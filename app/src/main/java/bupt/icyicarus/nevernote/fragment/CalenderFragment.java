@@ -1,6 +1,9 @@
 package bupt.icyicarus.nevernote.fragment;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -12,10 +15,13 @@ import android.view.ViewGroup;
 import com.roomorama.caldroid.CaldroidFragment;
 import com.roomorama.caldroid.CaldroidListener;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
 import bupt.icyicarus.nevernote.R;
+import bupt.icyicarus.nevernote.db.NeverNoteDB;
 import bupt.icyicarus.nevernote.noteList.NoteList;
 
 public class CalenderFragment extends Fragment {
@@ -33,6 +39,21 @@ public class CalenderFragment extends Fragment {
         args.putInt(CaldroidFragment.MONTH, calendar.get(Calendar.MONTH) + 1);
         args.putInt(CaldroidFragment.YEAR, calendar.get(Calendar.YEAR));
         caldroidFragment.setArguments(args);
+
+        NeverNoteDB db = new NeverNoteDB(getContext());
+        SQLiteDatabase dbRead = db.getReadableDatabase();
+        Cursor c = dbRead.query(NeverNoteDB.TABLE_NAME_NOTES, null, null, null, null, null, null, null);
+        while (c.moveToNext()) {
+            String dateString = c.getString(c.getColumnIndex(NeverNoteDB.COLUMN_NAME_NOTE_DATE));
+            try {
+                Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(dateString);
+                ColorDrawable blue = new ColorDrawable(getResources().getColor(R.color.blue));
+                caldroidFragment.setBackgroundDrawableForDate(blue, date);
+                caldroidFragment.setTextColorForDate(R.color.white, date);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
 
         FragmentTransaction t = getChildFragmentManager().beginTransaction();
         t.replace(R.id.mainCalenderView, caldroidFragment);
