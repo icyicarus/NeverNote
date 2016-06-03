@@ -13,6 +13,15 @@ import bupt.icyicarus.nevernote.init.Initialization;
 
 public class LaunchView extends Initialization {
 
+    private Handler handler = new Handler();
+    private Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            startActivity(new Intent(LaunchView.this, MergeView.class));
+            finish();
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
@@ -31,13 +40,14 @@ public class LaunchView extends Initialization {
         ivLaunch.setAnimation(scaleAnimation);
         scaleAnimation.startNow();
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                startActivity(new Intent(LaunchView.this, MergeView.class));
-                finish();
-            }
-        }, 2000);
+        handler.postDelayed(runnable, 2000);
+
         super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        handler.removeCallbacks(runnable);
     }
 }
