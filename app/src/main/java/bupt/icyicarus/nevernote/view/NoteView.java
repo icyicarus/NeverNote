@@ -41,7 +41,6 @@ public class NoteView extends Initialization {
     public static final String EXTRA_NOTE_NAME = "noteName";
     public static final String EXTRA_NOTE_CONTENT = "noteContent";
     private ListView enListView;
-    //    private File f;
     private int noteID = -1;
     private EditText etName, etContent;
     private MediaAdapter adapter;
