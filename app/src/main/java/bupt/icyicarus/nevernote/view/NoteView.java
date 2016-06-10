@@ -109,6 +109,7 @@ public class NoteView extends Initialization {
 
         Toolbar tbMain = (Toolbar) findViewById(R.id.tbEditNote);
         setSupportActionBar(tbMain);
+        needMenu = true;
 
         Typeface iconFont = FontManager.getTypeface(getApplicationContext(), FontManager.FONTAWESOME);
         FontManager.markAsIconContainer(findViewById(R.id.containerEditNote), iconFont);

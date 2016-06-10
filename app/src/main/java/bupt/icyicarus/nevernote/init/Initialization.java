@@ -46,6 +46,8 @@ public class Initialization extends AppCompatActivity {
     public String currentPath = null;
     public File f = null;
 
+    public Boolean needMenu = false;
+
     public View.OnClickListener fabClickHandler = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -211,23 +213,27 @@ public class Initialization extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
+        if (needMenu) {
+            getMenuInflater().inflate(R.menu.menu_main, menu);
+            return true;
+        } else return false;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        switch (id) {
-            case R.id.settings:
-                startActivity(new Intent(this, Settings.class));
-                break;
-            case R.id.alarmList:
-                startActivity(new Intent(this, AlarmList.class));
-                break;
-            default:
-                break;
-        }
-        return super.onOptionsItemSelected(item);
+        if (needMenu) {
+            int id = item.getItemId();
+            switch (id) {
+                case R.id.settings:
+                    startActivity(new Intent(this, Settings.class));
+                    break;
+                case R.id.alarmList:
+                    startActivity(new Intent(this, AlarmList.class));
+                    break;
+                default:
+                    break;
+            }
+            return super.onOptionsItemSelected(item);
+        } else return false;
     }
 }

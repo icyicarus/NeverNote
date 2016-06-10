@@ -42,6 +42,7 @@ public class NoteList extends Initialization {
 
         Toolbar tbNoteList = (Toolbar) findViewById(R.id.tbNoteList);
         setSupportActionBar(tbNoteList);
+        needMenu = true;
 
         mlvNoteList = (MaterialListView) findViewById(R.id.mlvNoteList);
         mlvNoteList.addOnItemTouchListener(new RecyclerItemClickListener.OnItemClickListener() {

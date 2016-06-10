@@ -26,6 +26,8 @@ public class MergeView extends Initialization {
         setContentView(R.layout.aty_merge_view);
         Toolbar tbMergeView = (Toolbar) findViewById(R.id.tbMergeView);
         setSupportActionBar(tbMergeView);
+        needMenu = true;
+
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
         mViewPager = (ViewPager) findViewById(R.id.vpMergeView);
         mViewPager.setAdapter(mSectionsPagerAdapter);

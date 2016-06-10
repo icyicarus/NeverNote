@@ -45,6 +45,7 @@ public class AlarmList extends Initialization {
 
         Toolbar tbAlarmList = (Toolbar) findViewById(R.id.tbAlarmList);
         setSupportActionBar(tbAlarmList);
+        needMenu = true;
 
         mlvAlarmList = (MaterialListView) findViewById(R.id.mlvAlarmList);
         db = new NeverNoteDB(this);
