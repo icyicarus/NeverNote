@@ -30,6 +30,7 @@
         <activity
             android:name=".view.NoteView"
             android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label="Edit Note"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".AudioRecorder"

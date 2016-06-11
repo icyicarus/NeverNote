@@ -112,6 +112,8 @@ public class NoteList extends Initialization {
         });
 
         noteDate = getIntent().getLongExtra("noteDate", -1);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        setTitle("Notes on " + sdf.format(new Date(noteDate)));
 
         findViewById(R.id.fabmNoteListAddNote).setOnClickListener(fabClickHandler);
         findViewById(R.id.fabmNoteListAddPhoto).setOnClickListener(fabClickHandler);
