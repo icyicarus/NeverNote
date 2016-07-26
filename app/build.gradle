@@ -6,12 +6,12 @@ android {
             storeFile file('/Users/Icarus/Downloads/AndroidSDK/icyicarus_key.jks')
         }
     }
-    compileSdkVersion 23
+    compileSdkVersion 24
     buildToolsVersion '24.0.1'
     defaultConfig {
         applicationId "bupt.icyicarus.nevernote"
-        minSdkVersion 17
-        targetSdkVersion 23
+        minSdkVersion 19
+        targetSdkVersion 24
         versionCode 1
         versionName "1.0"
     }
@@ -34,12 +34,12 @@ repositories {
 
 dependencies {
 //    compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.android.support:appcompat-v7:23.4.0'
-    compile 'com.android.support:design:23.4.0'
+    compile 'com.android.support:appcompat-v7:24.1.1'
+    compile 'com.android.support:design:24.1.1'
     compile 'com.github.dexafree:materiallist:3.2.1'
     compile 'com.github.vajro:MaterialDesignLibrary:1.6'
     compile 'com.roomorama:caldroid:3.0.1'
-    compile 'com.github.clans:fab:1.6.3'
+    compile 'com.github.clans:fab:1.6.4'
     compile 'com.code-troopers.betterpickers:library:2.5.5'
     compile 'com.github.arcadefire:nice-spinner:-SNAPSHOT'
 }
