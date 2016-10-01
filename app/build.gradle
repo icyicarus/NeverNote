@@ -7,13 +7,13 @@ android {
         }
     }
     compileSdkVersion 24
-    buildToolsVersion '24.0.1'
+    buildToolsVersion '24.0.3'
     defaultConfig {
         applicationId "bupt.icyicarus.nevernote"
         minSdkVersion 19
         targetSdkVersion 24
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "2.1"
     }
     buildTypes {
         release {
@@ -34,8 +34,8 @@ repositories {
 
 dependencies {
 //    compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.android.support:appcompat-v7:24.2.0'
-    compile 'com.android.support:design:24.2.0'
+    compile 'com.android.support:appcompat-v7:24.2.1'
+    compile 'com.android.support:design:24.2.1'
     compile 'com.github.dexafree:materiallist:3.2.1'
     compile 'com.github.vajro:MaterialDesignLibrary:1.6'
     compile 'com.roomorama:caldroid:3.0.1'
