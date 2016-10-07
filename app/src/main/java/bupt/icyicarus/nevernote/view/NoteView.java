@@ -11,6 +11,7 @@ import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.v4.content.FileProvider;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -27,6 +28,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import bupt.icyicarus.nevernote.AudioRecorder;
+import bupt.icyicarus.nevernote.BuildConfig;
 import bupt.icyicarus.nevernote.PublicVariableAndMethods;
 import bupt.icyicarus.nevernote.R;
 import bupt.icyicarus.nevernote.db.NeverNoteDB;
@@ -71,7 +73,7 @@ public class NoteView extends Initialization {
                         }
                     }
                     currentPath = f.getAbsolutePath();
-                    i.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(f));
+                    i.putExtra(MediaStore.EXTRA_OUTPUT, FileProvider.getUriForFile(NoteView.this, BuildConfig.APPLICATION_ID + ".provider", f));
                     startActivityForResult(i, PublicVariableAndMethods.REQUEST_CODE_GET_PHOTO);
                     break;
                 case R.id.btnAddVideo:
@@ -85,7 +87,7 @@ public class NoteView extends Initialization {
                         }
                     }
                     currentPath = f.getAbsolutePath();
-                    i.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(f));
+                    i.putExtra(MediaStore.EXTRA_OUTPUT, FileProvider.getUriForFile(NoteView.this, BuildConfig.APPLICATION_ID + ".provider", f));
                     startActivityForResult(i, PublicVariableAndMethods.REQUEST_CODE_GET_VIDEO);
                     break;
                 case R.id.btnAddAudio:

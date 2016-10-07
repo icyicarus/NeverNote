@@ -1,8 +1,5 @@
 package bupt.icyicarus.nevernote.alarm;
 
-/**
- * Created by IcyIcarus on 2016/5/26.
- */
 public class AlarmInfo {
     private int id = -1;
     private String year = "";

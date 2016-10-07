@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,6 +24,7 @@ import java.util.Date;
 import java.util.Properties;
 
 import bupt.icyicarus.nevernote.AudioRecorder;
+import bupt.icyicarus.nevernote.BuildConfig;
 import bupt.icyicarus.nevernote.PublicVariableAndMethods;
 import bupt.icyicarus.nevernote.R;
 import bupt.icyicarus.nevernote.alarm.AlarmList;
@@ -69,7 +71,8 @@ public class Initialization extends AppCompatActivity {
                         }
                     }
                     currentPath = f.getAbsolutePath();
-                    i.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(f));
+//                    i.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(f));
+                    i.putExtra(MediaStore.EXTRA_OUTPUT, FileProvider.getUriForFile(Initialization.this, BuildConfig.APPLICATION_ID + ".provider", f));
                     startActivityForResult(i, PublicVariableAndMethods.REQUEST_CODE_GET_PHOTO);
                     break;
                 case R.id.fabmMergeViewAddAudio:
@@ -99,7 +102,8 @@ public class Initialization extends AppCompatActivity {
                         }
                     }
                     currentPath = f.getAbsolutePath();
-                    i.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(f));
+//                    i.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(f));
+                    i.putExtra(MediaStore.EXTRA_OUTPUT, FileProvider.getUriForFile(Initialization.this, BuildConfig.APPLICATION_ID + ".provider", f));
                     startActivityForResult(i, PublicVariableAndMethods.REQUEST_CODE_GET_VIDEO);
                     break;
                 default:

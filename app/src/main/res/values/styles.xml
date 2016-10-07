@@ -19,4 +19,9 @@
         <item name="android:windowDisablePreview">true</item>
         <item name="android:windowNoDisplay">true</item>
     </style>
+
+    <style name="LocationButton" parent="Theme.AppCompat.Light">
+        <item name="colorControlHighlight">@color/indigo</item>
+        <item name="colorButtonNormal">@color/pink</item>
+    </style>
 </resources>
