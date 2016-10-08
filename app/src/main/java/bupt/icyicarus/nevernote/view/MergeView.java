@@ -55,7 +55,6 @@ public class MergeView extends Initialization {
             exitTime = System.currentTimeMillis();
         } else {
             finish();
-            System.exit(0);
         }
     }
 

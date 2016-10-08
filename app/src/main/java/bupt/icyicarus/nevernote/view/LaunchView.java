@@ -30,6 +30,7 @@ public class LaunchView extends Initialization {
             //透明导航栏
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
         }
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.aty_launch);
 
         ImageView ivLaunch = (ImageView) findViewById(R.id.ivLaunch);
