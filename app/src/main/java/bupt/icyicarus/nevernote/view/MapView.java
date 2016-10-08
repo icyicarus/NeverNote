@@ -30,18 +30,24 @@ import com.yanzhenjie.permission.PermissionListener;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Objects;
+
 import bupt.icyicarus.nevernote.R;
 import bupt.icyicarus.nevernote.http.HTTPTool;
 import bupt.icyicarus.nevernote.http.HttpCallbackListener;
 
+import static bupt.icyicarus.nevernote.view.NoteView.EXTRA_NOTE_LATITUDE;
+import static bupt.icyicarus.nevernote.view.NoteView.EXTRA_NOTE_LONGITUDE;
+
 public class MapView extends FragmentActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, GoogleMap.OnMapClickListener, GoogleMap.OnMarkerDragListener {
 
-    public static String EXTRA_LOCATION = "location";
     protected Marker oldMarker = null;
     protected GoogleMap mGoogleMap;
     protected GoogleApiClient mGoogleApiClient;
     protected Location mLastLocation;
     protected MaterialSearchBar addressSearchBar;
+    protected String extraLatitude = " ";
+    protected String extraLongitude = " ";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -51,7 +57,6 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
 
         setContentView(R.layout.aty_map);
         addressSearchBar = (MaterialSearchBar) findViewById(R.id.addressSearchBar);
-        addressSearchBar.setText("111");
         addressSearchBar.setOnSearchActionListener(new MaterialSearchBar.OnSearchActionListener() {
             @Override
             public void onSearchStateChanged(boolean b) {
@@ -74,6 +79,9 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
                 }
             }
         });
+
+        extraLatitude = getIntent().getStringExtra(EXTRA_NOTE_LATITUDE);
+        extraLongitude = getIntent().getStringExtra(EXTRA_NOTE_LONGITUDE);
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(MapView.this);
@@ -139,6 +147,13 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 AndPermission.with(MapView.this).requestCode(1).permission(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION).send();
             } else {
+                if (oldMarker != null) {
+                    oldMarker.remove();
+                }
+                if (!Objects.equals(extraLatitude, " ") && !Objects.equals(extraLongitude, " ")) {
+                    oldMarker = mGoogleMap.addMarker(new MarkerOptions().position(new LatLng(Double.parseDouble(extraLatitude), Double.parseDouble(extraLongitude))).draggable(true).flat(false));
+                    mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(oldMarker.getPosition(), 16));
+                }
                 mGoogleMap.setMyLocationEnabled(true);
             }
         }
@@ -151,9 +166,7 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
             AndPermission.with(MapView.this).requestCode(1).permission(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION).send();
         } else {
             mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-            if (mLastLocation != null) {
-                mGoogleMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude())));
-            } else {
+            if (mLastLocation == null) {
                 Toast.makeText(MapView.this, "Unable to locate, please check location service status", Toast.LENGTH_SHORT).show();
             }
         }

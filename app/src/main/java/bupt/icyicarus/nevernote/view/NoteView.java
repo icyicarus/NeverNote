@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
@@ -27,6 +28,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import bupt.icyicarus.nevernote.AudioRecorder;
 import bupt.icyicarus.nevernote.BuildConfig;
@@ -41,8 +43,6 @@ import bupt.icyicarus.nevernote.mediaList.MediaListCellData;
 public class NoteView extends Initialization {
 
     public static final String EXTRA_NOTE_ID = "noteID";
-    public static final String EXTRA_NOTE_NAME = "noteName";
-    public static final String EXTRA_NOTE_CONTENT = "noteContent";
     public static final String EXTRA_NOTE_LATITUDE = "noteLatitude";
     public static final String EXTRA_NOTE_LONGITUDE = "noteLongitude";
     private ListView enListView;
@@ -50,6 +50,7 @@ public class NoteView extends Initialization {
     private String noteLatitude = " ";
     private String noteLongitude = " ";
     private EditText etName, etContent;
+    private Button btnAddLocation;
     private MediaAdapter adapter;
     private NeverNoteDB db;
     private SQLiteDatabase dbRead, dbWrite;
@@ -103,8 +104,8 @@ public class NoteView extends Initialization {
                     break;
                 case R.id.btnAddLocation:
                     i = new Intent(NoteView.this, MapView.class);
-//                    if (Objects.equals(noteLatitude, " ") || Objects.equals(noteLongitude, " "))
-//                        i.putExtra(MapView.EXTRA_LOCATION, new LatLng(Double.parseDouble(noteLatitude), Double.parseDouble(noteLongitude)));
+                    i.putExtra(EXTRA_NOTE_LATITUDE, noteLatitude);
+                    i.putExtra(EXTRA_NOTE_LONGITUDE, noteLongitude);
                     startActivityForResult(i, PublicVariableAndMethods.REQUEST_CODE_GET_LOCATION);
                 default:
                     break;
@@ -182,20 +183,17 @@ public class NoteView extends Initialization {
 
         etName = (EditText) findViewById(R.id.etName);
         etContent = (EditText) findViewById(R.id.etContent);
+        btnAddLocation = (Button) findViewById(R.id.btnAddLocation);
 
         noteID = getIntent().getIntExtra(EXTRA_NOTE_ID, -1);
 
         if (noteID > -1) {// edit note
-//            etName.setText(getIntent().getStringExtra(EXTRA_NOTE_NAME));
-//            etContent.setText(getIntent().getStringExtra(EXTRA_NOTE_CONTENT));
-            Cursor c = dbRead.query(NeverNoteDB.TABLE_NAME_NOTES, null,
-                    NeverNoteDB.COLUMN_ID + "=?", new String[]{noteID + ""}, null, null, null);
+            Cursor c = dbRead.query(NeverNoteDB.TABLE_NAME_NOTES, null, NeverNoteDB.COLUMN_ID + "=?", new String[]{noteID + ""}, null, null, null);
             c.moveToNext();
             etName.setText(c.getString(c.getColumnIndex(NeverNoteDB.COLUMN_NAME_NOTE_NAME)));
             etContent.setText(c.getString(c.getColumnIndex(NeverNoteDB.COLUMN_NAME_NOTE_CONTENT)));
             noteLatitude = c.getString(c.getColumnIndex(NeverNoteDB.COLUMN_NAME_NOTE_LATITUDE));
             noteLongitude = c.getString(c.getColumnIndex(NeverNoteDB.COLUMN_NAME_NOTE_LONGITUDE));
-            Log.e("log", c.getString(c.getColumnIndex(NeverNoteDB.COLUMN_NAME_NOTE_LATITUDE)) + ":" + c.getString(c.getColumnIndex(NeverNoteDB.COLUMN_NAME_NOTE_LONGITUDE)));
 
             c = dbRead.query(NeverNoteDB.TABLE_NAME_MEDIA, null,
                     NeverNoteDB.COLUMN_NAME_MEDIA_OWNER_NOTE_ID + "=?", new String[]{noteID + ""}, null, null, null);
@@ -207,10 +205,6 @@ public class NoteView extends Initialization {
             adapter.notifyDataSetChanged();
             c.close();
         }
-
-//        noteLatitude = getIntent().getStringExtra(EXTRA_NOTE_LATITUDE);
-//        noteLongitude = getIntent().getStringExtra(EXTRA_NOTE_LONGITUDE);
-//        Log.e("extra", noteLatitude + " " + noteLongitude);
 
         WindowManager wm = this.getWindowManager();
         ((EditText) findViewById(R.id.etContent)).setMaxHeight(wm.getDefaultDisplay().getHeight() * 35 / 100);
@@ -244,6 +238,8 @@ public class NoteView extends Initialization {
         ContentValues cv = new ContentValues();
         cv.put(NeverNoteDB.COLUMN_NAME_NOTE_NAME, etName.getText().toString());
         cv.put(NeverNoteDB.COLUMN_NAME_NOTE_CONTENT, etContent.getText().toString());
+        cv.put(NeverNoteDB.COLUMN_NAME_NOTE_LATITUDE, noteLatitude);
+        cv.put(NeverNoteDB.COLUMN_NAME_NOTE_LONGITUDE, noteLongitude);
         if (noteID == -1) {
             cv.put(NeverNoteDB.COLUMN_NAME_NOTE_DATE, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
         }
@@ -271,13 +267,10 @@ public class NoteView extends Initialization {
                 }
                 break;
             case PublicVariableAndMethods.REQUEST_CODE_GET_LOCATION:
-                Log.e("onar", String.valueOf(resultCode));
                 if (data != null) {
-                    String lat = data.getStringExtra("latitude");
-                    String lng = data.getStringExtra("longitude");
-                    Log.e("onar", ":" + lat + ":" + lng + ":");
-                } else {
-                    Log.e("onar", "data == null");
+                    noteLatitude = data.getStringExtra("latitude");
+                    noteLongitude = data.getStringExtra("longitude");
+                    Log.e("onar", ":" + noteLatitude + ":" + noteLongitude + ":");
                 }
                 break;
             default:
@@ -302,6 +295,10 @@ public class NoteView extends Initialization {
         } else {
             findViewById(R.id.containerEditNote).setBackgroundColor(Color.WHITE);
         }
+        if (!Objects.equals(noteLatitude, " ") && !Objects.equals(noteLongitude, " "))
+            btnAddLocation.setTextColor(getResources().getColor(R.color.royalblue));
+        else
+            btnAddLocation.setTextColor(Color.GRAY);
     }
 
     @Override
