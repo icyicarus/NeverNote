@@ -98,6 +98,8 @@ public class PublicVariableAndMethods {
                         c.getString(c.getColumnIndex(NeverNoteDB.COLUMN_NAME_NOTE_DATE)),
                         c.getString(c.getColumnIndex(NeverNoteDB.COLUMN_NAME_NOTE_CONTENT)),
                         c.getInt(c.getColumnIndex(NeverNoteDB.COLUMN_ID)),
+                        c.getString(c.getColumnIndex(NeverNoteDB.COLUMN_ID)),
+                        c.getString(c.getColumnIndex(NeverNoteDB.COLUMN_ID)),
                         context
                 ));
             }
@@ -169,8 +171,10 @@ public class PublicVariableAndMethods {
 
                                     if (data != null) {
                                         i.putExtra(NoteView.EXTRA_NOTE_ID, data.id);
-                                        i.putExtra(NoteView.EXTRA_NOTE_NAME, data.name);
-                                        i.putExtra(NoteView.EXTRA_NOTE_CONTENT, data.content);
+//                                        i.putExtra(NoteView.EXTRA_NOTE_NAME, data.name);
+//                                        i.putExtra(NoteView.EXTRA_NOTE_CONTENT, data.content);
+//                                        i.putExtra(NoteView.EXTRA_NOTE_LATITUDE, data.latitude);
+//                                        i.putExtra(NoteView.EXTRA_NOTE_LONGITUDE, data.longitude);
                                     }
                                     context.startActivity(i);
                                 }
@@ -221,8 +225,10 @@ public class PublicVariableAndMethods {
 
                                     if (data != null) {
                                         i.putExtra(NoteView.EXTRA_NOTE_ID, data.id);
-                                        i.putExtra(NoteView.EXTRA_NOTE_NAME, data.name);
-                                        i.putExtra(NoteView.EXTRA_NOTE_CONTENT, data.content);
+//                                        i.putExtra(NoteView.EXTRA_NOTE_NAME, data.name);
+//                                        i.putExtra(NoteView.EXTRA_NOTE_CONTENT, data.content);
+//                                        i.putExtra(NoteView.EXTRA_NOTE_LATITUDE, data.latitude);
+//                                        i.putExtra(NoteView.EXTRA_NOTE_LONGITUDE, data.longitude);
                                     }
                                     context.startActivity(i);
                                 }

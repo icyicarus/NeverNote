@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
@@ -42,8 +43,12 @@ public class NoteView extends Initialization {
     public static final String EXTRA_NOTE_ID = "noteID";
     public static final String EXTRA_NOTE_NAME = "noteName";
     public static final String EXTRA_NOTE_CONTENT = "noteContent";
+    public static final String EXTRA_NOTE_LATITUDE = "noteLatitude";
+    public static final String EXTRA_NOTE_LONGITUDE = "noteLongitude";
     private ListView enListView;
     private int noteID = -1;
+    private String noteLatitude = " ";
+    private String noteLongitude = " ";
     private EditText etName, etContent;
     private MediaAdapter adapter;
     private NeverNoteDB db;
@@ -96,6 +101,10 @@ public class NoteView extends Initialization {
                     i.putExtra(AudioRecorder.EXTRA_PATH, currentPath);
                     startActivityForResult(i, PublicVariableAndMethods.REQUEST_CODE_GET_AUDIO);
                     break;
+                case R.id.btnAddLocation:
+                    //TODO add extra here
+                    i = new Intent(NoteView.this, MapView.class);
+                    startActivity(i);
                 default:
                     break;
             }
@@ -178,10 +187,16 @@ public class NoteView extends Initialization {
         noteID = getIntent().getIntExtra(EXTRA_NOTE_ID, -1);
 
         if (noteID > -1) {// edit note
-            etName.setText(getIntent().getStringExtra(EXTRA_NOTE_NAME));
-            etContent.setText(getIntent().getStringExtra(EXTRA_NOTE_CONTENT));
+//            etName.setText(getIntent().getStringExtra(EXTRA_NOTE_NAME));
+//            etContent.setText(getIntent().getStringExtra(EXTRA_NOTE_CONTENT));
+            Cursor c = dbRead.query(NeverNoteDB.TABLE_NAME_NOTES, null,
+                    NeverNoteDB.COLUMN_ID + "=?", new String[]{noteID + ""}, null, null, null);
+            c.moveToNext();
+            etName.setText(c.getString(c.getColumnIndex(NeverNoteDB.COLUMN_NAME_NOTE_NAME)));
+            etContent.setText(c.getString(c.getColumnIndex(NeverNoteDB.COLUMN_NAME_NOTE_CONTENT)));
+            Log.e("log", c.getString(c.getColumnIndex(NeverNoteDB.COLUMN_NAME_NOTE_LATITUDE)) + ":" + c.getString(c.getColumnIndex(NeverNoteDB.COLUMN_NAME_NOTE_LONGITUDE)));
 
-            Cursor c = dbRead.query(NeverNoteDB.TABLE_NAME_MEDIA, null,
+            c = dbRead.query(NeverNoteDB.TABLE_NAME_MEDIA, null,
                     NeverNoteDB.COLUMN_NAME_MEDIA_OWNER_NOTE_ID + "=?", new String[]{noteID + ""}, null, null, null);
             while (c.moveToNext()) {
                 adapter.Add(new MediaListCellData(
@@ -191,6 +206,11 @@ public class NoteView extends Initialization {
             adapter.notifyDataSetChanged();
             c.close();
         }
+
+//        noteLatitude = getIntent().getStringExtra(EXTRA_NOTE_LATITUDE);
+//        noteLongitude = getIntent().getStringExtra(EXTRA_NOTE_LONGITUDE);
+//        Log.e("extra", noteLatitude + " " + noteLongitude);
+
         WindowManager wm = this.getWindowManager();
         ((EditText) findViewById(R.id.etContent)).setMaxHeight(wm.getDefaultDisplay().getHeight() * 35 / 100);
         ((EditText) findViewById(R.id.etContent)).setMinHeight(wm.getDefaultDisplay().getHeight() * 20 / 100);
@@ -199,6 +219,7 @@ public class NoteView extends Initialization {
         findViewById(R.id.btnAddPhoto).setOnClickListener(btnClickHandler);
         findViewById(R.id.btnAddVideo).setOnClickListener(btnClickHandler);
         findViewById(R.id.btnAddAudio).setOnClickListener(btnClickHandler);
+        findViewById(R.id.btnAddLocation).setOnClickListener(btnClickHandler);
     }
 
     public void saveMedia(int noteID) {

@@ -14,13 +14,17 @@ public class NoteListCellData {
     public int id;
     public Boolean havePic;
     public String picturePath;
+    public String latitude;
+    public String longitude;
 
-    public NoteListCellData(String name, String date, String content, int id, Context context) {
+    public NoteListCellData(String name, String date, String content, int id, String latitude, String longitude, Context context) {
         this.name = name;
         this.date = date;
         this.content = content;
         this.id = id;
         this.havePic = checkMedia(id, context);
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     private Boolean checkMedia(int id, Context context) {
