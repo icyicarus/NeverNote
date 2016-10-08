@@ -36,6 +36,7 @@ public class PublicVariableAndMethods {
     public static final int REQUEST_CODE_GET_PHOTO = 2;
     public static final int REQUEST_CODE_GET_VIDEO = 3;
     public static final int REQUEST_CODE_GET_AUDIO = 4;
+    public static final int REQUEST_CODE_GET_LOCATION = 5;
 
     public static BitmapFactory.Options getBitmapOption(int size) {
         System.gc();

@@ -102,9 +102,10 @@ public class NoteView extends Initialization {
                     startActivityForResult(i, PublicVariableAndMethods.REQUEST_CODE_GET_AUDIO);
                     break;
                 case R.id.btnAddLocation:
-                    //TODO add extra here
                     i = new Intent(NoteView.this, MapView.class);
-                    startActivity(i);
+//                    if (Objects.equals(noteLatitude, " ") || Objects.equals(noteLongitude, " "))
+//                        i.putExtra(MapView.EXTRA_LOCATION, new LatLng(Double.parseDouble(noteLatitude), Double.parseDouble(noteLongitude)));
+                    startActivityForResult(i, PublicVariableAndMethods.REQUEST_CODE_GET_LOCATION);
                 default:
                     break;
             }
@@ -137,25 +138,23 @@ public class NoteView extends Initialization {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 MediaListCellData data = adapter.getItem(position);
-                Intent i;
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                 Uri uri;
 
                 switch (data.type) {
                     case PublicVariableAndMethods.REQUEST_CODE_GET_PHOTO:
-                        i = new Intent(Intent.ACTION_VIEW);
-                        uri = Uri.fromFile(new File(data.path));
+                        uri = FileProvider.getUriForFile(NoteView.this, BuildConfig.APPLICATION_ID + ".provider", new File(data.path));
                         i.setDataAndType(uri, "image/jpg");
                         startActivity(i);
                         break;
                     case PublicVariableAndMethods.REQUEST_CODE_GET_AUDIO:
-                        i = new Intent(Intent.ACTION_VIEW);
-                        uri = Uri.fromFile(new File(data.path));
+                        uri = FileProvider.getUriForFile(NoteView.this, BuildConfig.APPLICATION_ID + ".provider", new File(data.path));
                         i.setDataAndType(uri, "video/mp4");
                         startActivity(i);
                         break;
                     case PublicVariableAndMethods.REQUEST_CODE_GET_VIDEO:
-                        i = new Intent(Intent.ACTION_VIEW);
-                        uri = Uri.fromFile(new File(data.path));
+                        uri = FileProvider.getUriForFile(NoteView.this, BuildConfig.APPLICATION_ID + ".provider", new File(data.path));
                         i.setDataAndType(uri, "audio/amr");
                         startActivity(i);
                         break;
@@ -194,6 +193,8 @@ public class NoteView extends Initialization {
             c.moveToNext();
             etName.setText(c.getString(c.getColumnIndex(NeverNoteDB.COLUMN_NAME_NOTE_NAME)));
             etContent.setText(c.getString(c.getColumnIndex(NeverNoteDB.COLUMN_NAME_NOTE_CONTENT)));
+            noteLatitude = c.getString(c.getColumnIndex(NeverNoteDB.COLUMN_NAME_NOTE_LATITUDE));
+            noteLongitude = c.getString(c.getColumnIndex(NeverNoteDB.COLUMN_NAME_NOTE_LONGITUDE));
             Log.e("log", c.getString(c.getColumnIndex(NeverNoteDB.COLUMN_NAME_NOTE_LATITUDE)) + ":" + c.getString(c.getColumnIndex(NeverNoteDB.COLUMN_NAME_NOTE_LONGITUDE)));
 
             c = dbRead.query(NeverNoteDB.TABLE_NAME_MEDIA, null,
@@ -269,7 +270,16 @@ public class NoteView extends Initialization {
                     f.delete();
                 }
                 break;
-
+            case PublicVariableAndMethods.REQUEST_CODE_GET_LOCATION:
+                Log.e("onar", String.valueOf(resultCode));
+                if (data != null) {
+                    String lat = data.getStringExtra("latitude");
+                    String lng = data.getStringExtra("longitude");
+                    Log.e("onar", ":" + lat + ":" + lng + ":");
+                } else {
+                    Log.e("onar", "data == null");
+                }
+                break;
             default:
                 break;
         }

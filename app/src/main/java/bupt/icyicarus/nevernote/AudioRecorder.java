@@ -84,6 +84,10 @@ public class AudioRecorder extends Initialization {
         if (result != RESULT_OK && savedFile != null) {
             savedFile.delete();
         }
+        if (myRecorder != null) {
+            myRecorder.stop();
+            myRecorder = null;
+        }
         super.onDestroy();
     }
 

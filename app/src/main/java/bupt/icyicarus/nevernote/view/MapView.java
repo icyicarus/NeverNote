@@ -1,6 +1,7 @@
 package bupt.icyicarus.nevernote.view;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
@@ -35,6 +36,7 @@ import bupt.icyicarus.nevernote.http.HttpCallbackListener;
 
 public class MapView extends FragmentActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, GoogleMap.OnMapClickListener, GoogleMap.OnMarkerDragListener {
 
+    public static String EXTRA_LOCATION = "location";
     protected Marker oldMarker = null;
     protected GoogleMap mGoogleMap;
     protected GoogleApiClient mGoogleApiClient;
@@ -94,6 +96,19 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
         if (mGoogleApiClient.isConnected()) {
             mGoogleApiClient.disconnect();
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (oldMarker != null) {
+            Intent i = getIntent();
+            i.putExtra("latitude", String.valueOf(oldMarker.getPosition().latitude));
+            i.putExtra("longitude", String.valueOf(oldMarker.getPosition().longitude));
+            setResult(RESULT_OK, i);
+        } else {
+            setResult(RESULT_CANCELED);
+        }
+        finish();
     }
 
     @Override
