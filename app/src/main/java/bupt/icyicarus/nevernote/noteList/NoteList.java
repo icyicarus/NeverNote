@@ -40,11 +40,11 @@ public class NoteList extends Initialization {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_note_list);
 
-        Toolbar tbNoteList = (Toolbar) findViewById(R.id.tbNoteList);
+        Toolbar tbNoteList = (Toolbar) findViewById(R.id.toolBarNoteListView);
         setSupportActionBar(tbNoteList);
         needMenu = true;
 
-        mlvNoteList = (MaterialListView) findViewById(R.id.mlvNoteList);
+        mlvNoteList = (MaterialListView) findViewById(R.id.materialListViewNoteListView);
         mlvNoteList.addOnItemTouchListener(new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(@NonNull Card card, int position) {
@@ -115,10 +115,10 @@ public class NoteList extends Initialization {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         setTitle("Notes on " + sdf.format(new Date(noteDate)));
 
-        findViewById(R.id.fabmNoteListAddNote).setOnClickListener(fabClickHandler);
-        findViewById(R.id.fabmNoteListAddPhoto).setOnClickListener(fabClickHandler);
-        findViewById(R.id.fabmNoteListAddAudio).setOnClickListener(fabClickHandler);
-        findViewById(R.id.fabmNoteListAddVideo).setOnClickListener(fabClickHandler);
+        findViewById(R.id.floatActionMenuNoteListViewAddNote).setOnClickListener(fabClickHandler);
+        findViewById(R.id.floatActionMenuNoteListViewAddPhoto).setOnClickListener(fabClickHandler);
+        findViewById(R.id.floatActionMenuNoteListViewAddAudio).setOnClickListener(fabClickHandler);
+        findViewById(R.id.floatActionMenuNoteListViewAddVideo).setOnClickListener(fabClickHandler);
     }
 
     @Override

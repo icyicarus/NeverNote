@@ -56,7 +56,7 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setContentView(R.layout.view_map);
-        addressSearchBar = (MaterialSearchBar) findViewById(R.id.addressSearchBar);
+        addressSearchBar = (MaterialSearchBar) findViewById(R.id.materialSearchBarSearchAddress);
         addressSearchBar.setOnSearchActionListener(new MaterialSearchBar.OnSearchActionListener() {
             @Override
             public void onSearchStateChanged(boolean b) {
@@ -83,7 +83,7 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
         extraLatitude = getIntent().getStringExtra(EXTRA_NOTE_LATITUDE);
         extraLongitude = getIntent().getStringExtra(EXTRA_NOTE_LONGITUDE);
 
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentGoogleMap);
         mapFragment.getMapAsync(MapView.this);
     }
 
@@ -124,7 +124,6 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
         AndPermission.onRequestPermissionsResult(this, requestCode, permissions, grantResults, new PermissionListener() {
             @Override
             public void onSucceed(int requestCode) {
-                Toast.makeText(MapView.this, "Permission Granted", Toast.LENGTH_SHORT).show();
                 onMapReady(mGoogleMap);
             }
 

@@ -60,8 +60,8 @@ public class MediaAdapter extends BaseAdapter {
         }
 
         MediaListCellData data = getItem(position);
-        ImageView ivIcon = (ImageView) convertView.findViewById(R.id.ivIcon);
-        TextView tvPath = (TextView) convertView.findViewById(R.id.tvPath);
+        ImageView ivIcon = (ImageView) convertView.findViewById(R.id.imageViewMediaCellIcon);
+        TextView tvPath = (TextView) convertView.findViewById(R.id.textViewMediaCellPath);
 
         if (data.iconID == R.drawable.img_photo) {
             Bitmap bitmap = BitmapFactory.decodeFile(data.path, PublicVariableAndMethods.getBitmapOption(16));

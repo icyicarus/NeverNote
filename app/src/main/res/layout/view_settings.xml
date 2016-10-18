@@ -16,7 +16,7 @@
             android:theme="@style/AppTheme.AppBarOverlay">
 
             <android.support.v7.widget.Toolbar
-                android:id="@+id/tbSettings"
+                android:id="@+id/toolBarSettingsView"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:background="?attr/colorPrimary"
@@ -38,7 +38,7 @@
                 android:textSize="20sp" />
 
             <android.support.v7.widget.SwitchCompat
-                android:id="@+id/scShowOKButton"
+                android:id="@+id/switchCompatSettingsViewShowSaveButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end|center_vertical" />
@@ -59,7 +59,7 @@
                 android:textSize="20sp" />
 
             <android.support.v7.widget.SwitchCompat
-                android:id="@+id/scCustomBackground"
+                android:id="@+id/switchCompatSettingsViewCustomBackground"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end|center_vertical" />
@@ -67,7 +67,7 @@
         </FrameLayout>
 
         <FrameLayout
-            android:id="@+id/containerBackgroundColor"
+            android:id="@+id/frameLayoutSettingsViewSampleBackgroundColor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -82,7 +82,7 @@
                 android:textSize="20sp" />
 
             <com.gc.materialdesign.views.ButtonRectangle
-                android:id="@+id/sampleBackgroundColor"
+                android:id="@+id/buttonRectangleSampleBackgroundColor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end|center_vertical"

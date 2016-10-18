@@ -23,21 +23,21 @@ public class MergeView extends Initialization {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.view_merge);
-        Toolbar tbMergeView = (Toolbar) findViewById(R.id.tbMergeView);
+        setContentView(R.layout.view_main);
+        Toolbar tbMergeView = (Toolbar) findViewById(R.id.toolBarMainView);
         setSupportActionBar(tbMergeView);
         needMenu = true;
 
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
-        mViewPager = (ViewPager) findViewById(R.id.vpMergeView);
+        mViewPager = (ViewPager) findViewById(R.id.viewPagerMainView);
         mViewPager.setAdapter(mSectionsPagerAdapter);
-        TabLayout dvTabLayout = (TabLayout) findViewById(R.id.tlMergeView);
+        TabLayout dvTabLayout = (TabLayout) findViewById(R.id.tabLayoutMainView);
         dvTabLayout.setupWithViewPager(mViewPager);
 
-        findViewById(R.id.fabmMergeViewAddNote).setOnClickListener(fabClickHandler);
-        findViewById(R.id.fabmMergeViewAddPhoto).setOnClickListener(fabClickHandler);
-        findViewById(R.id.fabmMergeViewAddAudio).setOnClickListener(fabClickHandler);
-        findViewById(R.id.fabmMergeViewAddVideo).setOnClickListener(fabClickHandler);
+        findViewById(R.id.floatingActionMenuMainViewAddNote).setOnClickListener(fabClickHandler);
+        findViewById(R.id.floatingActionMenuMainViewAddPhoto).setOnClickListener(fabClickHandler);
+        findViewById(R.id.floatingActionMenuMainViewAddAudio).setOnClickListener(fabClickHandler);
+        findViewById(R.id.floatingActionMenuMainViewAddVideo).setOnClickListener(fabClickHandler);
     }
 
     @Override

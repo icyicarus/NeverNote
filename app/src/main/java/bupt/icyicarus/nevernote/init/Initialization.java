@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
@@ -55,12 +54,12 @@ public class Initialization extends AppCompatActivity {
         public void onClick(View v) {
             Intent i;
             switch (v.getId()) {
-                case R.id.fabmMergeViewAddNote:
-                case R.id.fabmNoteListAddNote:
+                case R.id.floatingActionMenuMainViewAddNote:
+                case R.id.floatActionMenuNoteListViewAddNote:
                     startActivity(new Intent(getApplicationContext(), NoteView.class));
                     break;
-                case R.id.fabmMergeViewAddPhoto:
-                case R.id.fabmNoteListAddPhoto:
+                case R.id.floatingActionMenuMainViewAddPhoto:
+                case R.id.floatActionMenuNoteListViewAddPhoto:
                     i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                     f = new File(mediaDirectory, System.currentTimeMillis() + ".jpg");
                     if (!f.exists()) {
@@ -75,8 +74,8 @@ public class Initialization extends AppCompatActivity {
                     i.putExtra(MediaStore.EXTRA_OUTPUT, FileProvider.getUriForFile(Initialization.this, BuildConfig.APPLICATION_ID + ".provider", f));
                     startActivityForResult(i, PublicVariableAndMethods.REQUEST_CODE_GET_PHOTO);
                     break;
-                case R.id.fabmMergeViewAddAudio:
-                case R.id.fabmNoteListAddAudio:
+                case R.id.floatingActionMenuMainViewAddAudio:
+                case R.id.floatActionMenuNoteListViewAddAudio:
                     i = new Intent(getApplicationContext(), AudioRecorder.class);
                     f = new File(mediaDirectory, System.currentTimeMillis() + ".aac");
                     if (!f.exists()) {
@@ -90,8 +89,8 @@ public class Initialization extends AppCompatActivity {
                     i.putExtra(AudioRecorder.EXTRA_PATH, currentPath);
                     startActivityForResult(i, PublicVariableAndMethods.REQUEST_CODE_GET_AUDIO);
                     break;
-                case R.id.fabmMergeViewAddVideo:
-                case R.id.fabmNoteListAddVideo:
+                case R.id.floatingActionMenuMainViewAddVideo:
+                case R.id.floatActionMenuNoteListViewAddVideo:
                     i = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
                     f = new File(mediaDirectory, System.currentTimeMillis() + ".mp4");
                     if (!f.exists()) {

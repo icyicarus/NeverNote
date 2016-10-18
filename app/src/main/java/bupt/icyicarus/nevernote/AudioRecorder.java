@@ -7,8 +7,10 @@ import android.content.pm.PackageManager;
 import android.graphics.Typeface;
 import android.media.MediaRecorder;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -30,14 +32,14 @@ public class AudioRecorder extends Initialization {
         @Override
         public void onClick(View v) {
             switch (v.getId()) {
-                case R.id.btnRecordStart:
+                case R.id.buttonStartRecording:
                     if (ContextCompat.checkSelfPermission(AudioRecorder.this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
                         ActivityCompat.requestPermissions(AudioRecorder.this, new String[]{Manifest.permission.RECORD_AUDIO}, PERMISSION_REQUEST_RECORD_AUDIO);
                     } else {
                         recordAudio();
                     }
                     break;
-                case R.id.btnRecordStop:
+                case R.id.buttonStopRecording:
                     if (savedFile.exists() && savedFile != null) {
                         myRecorder.stop();
                         myRecorder.release();
@@ -51,7 +53,8 @@ public class AudioRecorder extends Initialization {
                         }).setNegativeButton("No", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                savedFile.delete();
+                                if (!savedFile.delete())
+                                    Toast.makeText(AudioRecorder.this, "Delete File Error", Toast.LENGTH_SHORT).show();
                             }
                         }).show();
                     }
@@ -73,8 +76,8 @@ public class AudioRecorder extends Initialization {
         Typeface iconFont = FontManager.getTypeface(getApplicationContext(), FontManager.FONTAWESOME);
         FontManager.markAsIconContainer(findViewById(R.id.containerAudioRecorder), iconFont);
 
-        btnRecordStart = (Button) findViewById(R.id.btnRecordStart);
-        btnRecordStop = (Button) findViewById(R.id.btnRecordStop);
+        btnRecordStart = (Button) findViewById(R.id.buttonStartRecording);
+        btnRecordStop = (Button) findViewById(R.id.buttonStopRecording);
         btnRecordStart.setOnClickListener(btnClickHandler);
         btnRecordStop.setOnClickListener(btnClickHandler);
     }
@@ -82,7 +85,8 @@ public class AudioRecorder extends Initialization {
     @Override
     protected void onDestroy() {
         if (result != RESULT_OK && savedFile != null) {
-            savedFile.delete();
+            if (!savedFile.delete())
+                Toast.makeText(AudioRecorder.this, "Delete File Error", Toast.LENGTH_SHORT).show();
         }
         if (myRecorder != null) {
             myRecorder.stop();
@@ -92,7 +96,7 @@ public class AudioRecorder extends Initialization {
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         switch (requestCode) {
             case PERMISSION_REQUEST_RECORD_AUDIO:
@@ -117,13 +121,14 @@ public class AudioRecorder extends Initialization {
         try {
             savedFile = new File(path);
             myRecorder.setOutputFile(path);
-            savedFile.createNewFile();
+            if (!savedFile.createNewFile())
+                throw new Exception("Create New File Error!");
             myRecorder.prepare();
             myRecorder.start();
             btnRecordStart.setText(R.string.recording);
             btnRecordStart.setEnabled(false);
             btnRecordStop.setEnabled(true);
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

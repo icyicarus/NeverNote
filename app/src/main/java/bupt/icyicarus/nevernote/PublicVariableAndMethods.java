@@ -26,6 +26,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 
 import bupt.icyicarus.nevernote.db.NeverNoteDB;
 import bupt.icyicarus.nevernote.noteList.NoteListCellData;
@@ -41,7 +42,6 @@ public class PublicVariableAndMethods {
     public static BitmapFactory.Options getBitmapOption(int size) {
         System.gc();
         BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inPurgeable = true;
         options.inSampleSize = size;
         return options;
     }
@@ -60,7 +60,7 @@ public class PublicVariableAndMethods {
 
         while (c.moveToNext()) {
             try {
-                noteDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(c.getString(c.getColumnIndex(NeverNoteDB.COLUMN_NAME_NOTE_DATE)));
+                noteDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).parse(c.getString(c.getColumnIndex(NeverNoteDB.COLUMN_NAME_NOTE_DATE)));
                 if (noteDate.getYear() == todayDate.getYear() && noteDate.getMonth() == todayDate.getMonth() && noteDate.getDate() == todayDate.getDate()) {
                     haveTodayNote = c.getInt(c.getColumnIndex(NeverNoteDB.COLUMN_ID));
                 }
@@ -68,7 +68,7 @@ public class PublicVariableAndMethods {
                 e.printStackTrace();
             }
         }
-
+        c.close();
         return haveTodayNote;
     }
 
@@ -88,7 +88,7 @@ public class PublicVariableAndMethods {
         Cursor c = dbRead.query(NeverNoteDB.TABLE_NAME_NOTES, null, null, null, null, null, null, null);
         while (c.moveToNext()) {
             try {
-                noteAddDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(c.getString(c.getColumnIndex(NeverNoteDB.COLUMN_NAME_NOTE_DATE))).getTime();
+                noteAddDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).parse(c.getString(c.getColumnIndex(NeverNoteDB.COLUMN_NAME_NOTE_DATE))).getTime();
             } catch (ParseException e) {
                 e.printStackTrace();
             }
@@ -99,8 +99,8 @@ public class PublicVariableAndMethods {
                         c.getString(c.getColumnIndex(NeverNoteDB.COLUMN_NAME_NOTE_DATE)),
                         c.getString(c.getColumnIndex(NeverNoteDB.COLUMN_NAME_NOTE_CONTENT)),
                         c.getInt(c.getColumnIndex(NeverNoteDB.COLUMN_ID)),
-                        c.getString(c.getColumnIndex(NeverNoteDB.COLUMN_ID)),
-                        c.getString(c.getColumnIndex(NeverNoteDB.COLUMN_ID)),
+                        c.getString(c.getColumnIndex(NeverNoteDB.COLUMN_NAME_NOTE_LATITUDE)),
+                        c.getString(c.getColumnIndex(NeverNoteDB.COLUMN_NAME_NOTE_LONGITUDE)),
                         context
                 ));
             }
@@ -111,13 +111,55 @@ public class PublicVariableAndMethods {
         c.close();
     }
 
-    public static void addCard(final Context context, final MaterialListView materialListView, final ArrayList<NoteListCellData> noteListCellDataArrayList, final Resources resources, NoteListCellData noteListCellData, final long noteDate) {
+    private static void addCard(final Context context, final MaterialListView materialListView, final ArrayList<NoteListCellData> noteListCellDataArrayList, final Resources resources, NoteListCellData noteListCellData, final long noteDate) {
         NeverNoteDB db;
         final SQLiteDatabase dbRead, dbWrite;
         db = new NeverNoteDB(context);
         dbRead = db.getReadableDatabase();
         dbWrite = db.getWritableDatabase();
         Card card;
+
+        TextViewAction actionDelete = new TextViewAction(context)
+                .setText("Delete")
+                .setTextResourceColor(R.color.black_button)
+                .setListener(new OnActionClickListener() {
+                    @Override
+                    public void onActionClicked(View view, final Card card) {
+                        new AlertDialog.Builder(context).setTitle("Delete this note?").setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                NoteListCellData data = (NoteListCellData) card.getTag();
+                                File f;
+                                if (data != null) {
+                                    Cursor c = dbRead.query(NeverNoteDB.TABLE_NAME_MEDIA, null, NeverNoteDB.COLUMN_NAME_MEDIA_OWNER_NOTE_ID + "=?", new String[]{data.id + ""}, null, null, null);
+                                    while (c.moveToNext()) {
+                                        f = new File(c.getString(c.getColumnIndex(NeverNoteDB.COLUMN_NAME_MEDIA_PATH)));
+                                        if (!f.delete())
+                                            Log.e("file", "delete error");
+                                    }
+                                    dbWrite.delete(NeverNoteDB.TABLE_NAME_MEDIA, NeverNoteDB.COLUMN_NAME_MEDIA_OWNER_NOTE_ID + "=?", new String[]{data.id + ""});
+                                    dbWrite.delete(NeverNoteDB.TABLE_NAME_NOTES, NeverNoteDB.COLUMN_ID + "=?", new String[]{data.id + ""});
+                                    c.close();
+                                    refreshNoteArrayList(context, materialListView, resources, noteListCellDataArrayList, noteDate);
+                                }
+                            }
+                        }).setNegativeButton("No", null).show();
+                    }
+                });
+        TextViewAction actionEdit = new TextViewAction(context)
+                .setText("Edit")
+                .setTextResourceColor(R.color.orange_button)
+                .setListener(new OnActionClickListener() {
+                    @Override
+                    public void onActionClicked(View view, Card card) {
+                        NoteListCellData data = (NoteListCellData) card.getTag();
+                        Intent i = new Intent(context, NoteView.class);
+                        if (data != null)
+                            i.putExtra(NoteView.EXTRA_NOTE_ID, data.id);
+                        context.startActivity(i);
+                    }
+                });
+
         if (noteListCellData.havePic) {
 
             Bitmap bitmap = BitmapFactory.decodeFile(noteListCellData.picturePath, PublicVariableAndMethods.getBitmapOption(16));
@@ -135,51 +177,8 @@ public class PublicVariableAndMethods {
                             requestCreator.fit();
                         }
                     })
-                    .addAction(R.id.left_text_button, new TextViewAction(context)
-                            .setText("Delete")
-                            .setTextResourceColor(R.color.black_button)
-                            .setListener(new OnActionClickListener() {
-                                @Override
-                                public void onActionClicked(View view, final Card card) {
-                                    new AlertDialog.Builder(context).setTitle("Delete this note?").setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            NoteListCellData data = (NoteListCellData) card.getTag();
-                                            File f;
-
-                                            Cursor c = dbRead.query(NeverNoteDB.TABLE_NAME_MEDIA, null, NeverNoteDB.COLUMN_NAME_MEDIA_OWNER_NOTE_ID + "=?", new String[]{data.id + ""}, null, null, null);
-                                            while (c.moveToNext()) {
-                                                f = new File(c.getString(c.getColumnIndex(NeverNoteDB.COLUMN_NAME_MEDIA_PATH)));
-                                                if (!f.delete())
-                                                    Log.e("file", "delete error");
-                                            }
-                                            dbWrite.delete(NeverNoteDB.TABLE_NAME_MEDIA, NeverNoteDB.COLUMN_NAME_MEDIA_OWNER_NOTE_ID + "=?", new String[]{data.id + ""});
-                                            dbWrite.delete(NeverNoteDB.TABLE_NAME_NOTES, NeverNoteDB.COLUMN_ID + "=?", new String[]{data.id + ""});
-                                            c.close();
-                                            refreshNoteArrayList(context, materialListView, resources, noteListCellDataArrayList, noteDate);
-                                        }
-                                    }).setNegativeButton("No", null).show();
-                                }
-                            }))
-                    .addAction(R.id.right_text_button, new TextViewAction(context)
-                            .setText("Edit")
-                            .setTextResourceColor(R.color.orange_button)
-                            .setListener(new OnActionClickListener() {
-                                @Override
-                                public void onActionClicked(View view, Card card) {
-                                    NoteListCellData data = (NoteListCellData) card.getTag();
-                                    Intent i = new Intent(context, NoteView.class);
-
-                                    if (data != null) {
-                                        i.putExtra(NoteView.EXTRA_NOTE_ID, data.id);
-//                                        i.putExtra(NoteView.EXTRA_NOTE_NAME, data.name);
-//                                        i.putExtra(NoteView.EXTRA_NOTE_CONTENT, data.content);
-//                                        i.putExtra(NoteView.EXTRA_NOTE_LATITUDE, data.latitude);
-//                                        i.putExtra(NoteView.EXTRA_NOTE_LONGITUDE, data.longitude);
-                                    }
-                                    context.startActivity(i);
-                                }
-                            }))
+                    .addAction(R.id.left_text_button, actionDelete)
+                    .addAction(R.id.right_text_button, actionEdit)
                     .endConfig()
                     .build();
         } else {
@@ -189,51 +188,8 @@ public class PublicVariableAndMethods {
                     .setLayout(R.layout.material_basic_buttons_card)
                     .setTitle(noteListCellData.name)
                     .setDescription(noteListCellData.date)
-                    .addAction(R.id.left_text_button, new TextViewAction(context)
-                            .setText("Delete")
-                            .setTextResourceColor(R.color.black_button)
-                            .setListener(new OnActionClickListener() {
-                                @Override
-                                public void onActionClicked(View view, final Card card) {
-                                    new AlertDialog.Builder(context).setTitle("Delete this note?").setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            NoteListCellData data = (NoteListCellData) card.getTag();
-                                            File f;
-
-                                            Cursor c = dbRead.query(NeverNoteDB.TABLE_NAME_MEDIA, null, NeverNoteDB.COLUMN_NAME_MEDIA_OWNER_NOTE_ID + "=?", new String[]{data.id + ""}, null, null, null);
-                                            while (c.moveToNext()) {
-                                                f = new File(c.getString(c.getColumnIndex(NeverNoteDB.COLUMN_NAME_MEDIA_PATH)));
-                                                if (!f.delete())
-                                                    Log.e("file", "delete error");
-                                            }
-                                            dbWrite.delete(NeverNoteDB.TABLE_NAME_MEDIA, NeverNoteDB.COLUMN_NAME_MEDIA_OWNER_NOTE_ID + "=?", new String[]{data.id + ""});
-                                            dbWrite.delete(NeverNoteDB.TABLE_NAME_NOTES, NeverNoteDB.COLUMN_ID + "=?", new String[]{data.id + ""});
-                                            c.close();
-                                            refreshNoteArrayList(context, materialListView, resources, noteListCellDataArrayList, noteDate);
-                                        }
-                                    }).setNegativeButton("No", null).show();
-                                }
-                            }))
-                    .addAction(R.id.right_text_button, new TextViewAction(context)
-                            .setText("Edit")
-                            .setTextResourceColor(R.color.orange_button)
-                            .setListener(new OnActionClickListener() {
-                                @Override
-                                public void onActionClicked(View view, Card card) {
-                                    NoteListCellData data = (NoteListCellData) card.getTag();
-                                    Intent i = new Intent(context, NoteView.class);
-
-                                    if (data != null) {
-                                        i.putExtra(NoteView.EXTRA_NOTE_ID, data.id);
-//                                        i.putExtra(NoteView.EXTRA_NOTE_NAME, data.name);
-//                                        i.putExtra(NoteView.EXTRA_NOTE_CONTENT, data.content);
-//                                        i.putExtra(NoteView.EXTRA_NOTE_LATITUDE, data.latitude);
-//                                        i.putExtra(NoteView.EXTRA_NOTE_LONGITUDE, data.longitude);
-                                    }
-                                    context.startActivity(i);
-                                }
-                            }))
+                    .addAction(R.id.left_text_button, actionDelete)
+                    .addAction(R.id.right_text_button, actionEdit)
                     .endConfig()
                     .build();
         }

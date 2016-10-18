@@ -33,7 +33,7 @@ public class LaunchView extends Initialization {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.view_launch);
 
-        ImageView ivLaunch = (ImageView) findViewById(R.id.ivLaunch);
+        ImageView ivLaunch = (ImageView) findViewById(R.id.imageViewLaunchBackground);
         WindowManager windowManager = this.getWindowManager();
         ScaleAnimation scaleAnimation = new ScaleAnimation(1.0f, 1.1f, 1.0f, 1.1f, windowManager.getDefaultDisplay().getWidth() / 2, windowManager.getDefaultDisplay().getHeight() / 2);
         scaleAnimation.setDuration(2500);

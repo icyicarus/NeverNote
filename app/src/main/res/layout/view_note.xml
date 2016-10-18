@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/containerEditNote"
+    android:id="@+id/coordinatorLayoutNoteView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
@@ -19,7 +19,7 @@
             android:theme="@style/AppTheme.AppBarOverlay">
 
             <android.support.v7.widget.Toolbar
-                android:id="@+id/tbEditNote"
+                android:id="@+id/toolBarNoteView"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:background="?attr/colorPrimary"
@@ -40,19 +40,19 @@
                 android:hint="@string/title">
 
                 <EditText
-                    android:id="@+id/etName"
+                    android:id="@+id/editTextNoteViewName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:inputType="text"
-                    android:labelFor="@id/etName"
+                    android:labelFor="@id/editTextNoteViewName"
+                    android:maxLines="1"
                     android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
-                    android:singleLine="true" />
+                    android:paddingRight="10dp" />
             </android.support.design.widget.TextInputLayout>
 
             <Button
-                android:id="@+id/btnAddLocation"
+                android:id="@+id/buttonNoteViewLocation"
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -69,19 +69,19 @@
             android:hint="@string/content">
 
             <EditText
-                android:id="@+id/etContent"
+                android:id="@+id/editTextNoteViewContent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:gravity="top"
                 android:inputType="text"
-                android:labelFor="@id/etContent"
+                android:labelFor="@id/editTextNoteViewContent"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp" />
         </android.support.design.widget.TextInputLayout>
 
         <ListView
-            android:id="@+id/enMediaList"
+            android:id="@+id/listViewNoteViewMediaList"
             android:layout_width="fill_parent"
             android:layout_height="0dp"
             android:layout_weight="2"
@@ -93,7 +93,7 @@
             android:layout_height="wrap_content">
 
             <Button
-                android:id="@+id/btnSave"
+                android:id="@+id/buttonNoteViewSaveNote"
                 style="?android:attr/buttonBarButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -101,7 +101,7 @@
                 android:text="@string/save" />
 
             <Button
-                android:id="@+id/btnAddPhoto"
+                android:id="@+id/buttonNoteViewAddPhoto"
                 style="?android:attr/buttonBarButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -109,7 +109,7 @@
                 android:text="@string/add_photo" />
 
             <Button
-                android:id="@+id/btnAddVideo"
+                android:id="@+id/buttonNoteViewAddVideo"
                 style="?android:attr/buttonBarButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -117,7 +117,7 @@
                 android:text="@string/add_video" />
 
             <Button
-                android:id="@+id/btnAddAudio"
+                android:id="@+id/buttonNoteViewAddAudio"
                 style="?android:attr/buttonBarButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

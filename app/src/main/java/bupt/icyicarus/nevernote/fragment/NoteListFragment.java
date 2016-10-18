@@ -47,7 +47,7 @@ public class NoteListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_note_list, container, false);
-        mlvNoteListFragment = (MaterialListView) root.findViewById(R.id.mlvNoteListFragment);
+        mlvNoteListFragment = (MaterialListView) root.findViewById(R.id.fragmentNoteList);
 
         mlvNoteListFragment.addOnItemTouchListener(new RecyclerItemClickListener.OnItemClickListener() {
             @Override

@@ -56,7 +56,7 @@ public class CalenderFragment extends Fragment {
         }
 
         FragmentTransaction t = getChildFragmentManager().beginTransaction();
-        t.replace(R.id.mainCalenderView, caldroidFragment);
+        t.replace(R.id.fragmentCalenderView, caldroidFragment);
         t.commit();
         CaldroidListener caldroidListener = new CaldroidListener() {
             @Override

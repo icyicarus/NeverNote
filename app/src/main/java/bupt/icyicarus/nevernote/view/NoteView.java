@@ -62,13 +62,13 @@ public class NoteView extends Initialization {
         @Override
         public void onClick(View v) {
             switch (v.getId()) {
-                case R.id.btnSave:
+                case R.id.buttonNoteViewSaveNote:
                     clearOperationQueue();
                     saveMedia(saveNote());
                     setResult(RESULT_OK);
                     finish();
                     break;
-                case R.id.btnAddPhoto:
+                case R.id.buttonNoteViewAddPhoto:
                     i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                     f = new File(mediaDirectory, System.currentTimeMillis() + ".jpg");
                     if (!f.exists()) {
@@ -82,7 +82,7 @@ public class NoteView extends Initialization {
                     i.putExtra(MediaStore.EXTRA_OUTPUT, FileProvider.getUriForFile(NoteView.this, BuildConfig.APPLICATION_ID + ".provider", f));
                     startActivityForResult(i, PublicVariableAndMethods.REQUEST_CODE_GET_PHOTO);
                     break;
-                case R.id.btnAddVideo:
+                case R.id.buttonNoteViewAddVideo:
                     i = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
                     f = new File(mediaDirectory, System.currentTimeMillis() + ".mp4");
                     if (!f.exists()) {
@@ -96,13 +96,13 @@ public class NoteView extends Initialization {
                     i.putExtra(MediaStore.EXTRA_OUTPUT, FileProvider.getUriForFile(NoteView.this, BuildConfig.APPLICATION_ID + ".provider", f));
                     startActivityForResult(i, PublicVariableAndMethods.REQUEST_CODE_GET_VIDEO);
                     break;
-                case R.id.btnAddAudio:
+                case R.id.buttonNoteViewAddAudio:
                     i = new Intent(NoteView.this, AudioRecorder.class);
                     currentPath = mediaDirectory + "/" + System.currentTimeMillis() + ".aac";
                     i.putExtra(AudioRecorder.EXTRA_PATH, currentPath);
                     startActivityForResult(i, PublicVariableAndMethods.REQUEST_CODE_GET_AUDIO);
                     break;
-                case R.id.btnAddLocation:
+                case R.id.buttonNoteViewLocation:
                     i = new Intent(NoteView.this, MapView.class);
                     i.putExtra(EXTRA_NOTE_LATITUDE, noteLatitude);
                     i.putExtra(EXTRA_NOTE_LONGITUDE, noteLongitude);
@@ -117,22 +117,22 @@ public class NoteView extends Initialization {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.view_note_edit);
+        setContentView(R.layout.view_note);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
-        Toolbar tbMain = (Toolbar) findViewById(R.id.tbEditNote);
+        Toolbar tbMain = (Toolbar) findViewById(R.id.toolBarNoteView);
         setSupportActionBar(tbMain);
         needMenu = true;
 
         Typeface iconFont = FontManager.getTypeface(getApplicationContext(), FontManager.FONTAWESOME);
-        FontManager.markAsIconContainer(findViewById(R.id.containerEditNote), iconFont);
+        FontManager.markAsIconContainer(findViewById(R.id.coordinatorLayoutNoteView), iconFont);
 
         db = new NeverNoteDB(this);
         dbRead = db.getReadableDatabase();
         dbWrite = db.getWritableDatabase();
         operationQueue = new HashMap();
 
-        enListView = (ListView) findViewById(R.id.enMediaList);
+        enListView = (ListView) findViewById(R.id.listViewNoteViewMediaList);
         adapter = new MediaAdapter(this);
         enListView.setAdapter(adapter);
         enListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -181,9 +181,9 @@ public class NoteView extends Initialization {
             }
         });
 
-        etName = (EditText) findViewById(R.id.etName);
-        etContent = (EditText) findViewById(R.id.etContent);
-        btnAddLocation = (Button) findViewById(R.id.btnAddLocation);
+        etName = (EditText) findViewById(R.id.editTextNoteViewName);
+        etContent = (EditText) findViewById(R.id.editTextNoteViewContent);
+        btnAddLocation = (Button) findViewById(R.id.buttonNoteViewLocation);
 
         noteID = getIntent().getIntExtra(EXTRA_NOTE_ID, -1);
 
@@ -207,14 +207,14 @@ public class NoteView extends Initialization {
         }
 
         WindowManager wm = this.getWindowManager();
-        ((EditText) findViewById(R.id.etContent)).setMaxHeight(wm.getDefaultDisplay().getHeight() * 35 / 100);
-        ((EditText) findViewById(R.id.etContent)).setMinHeight(wm.getDefaultDisplay().getHeight() * 20 / 100);
+        ((EditText) findViewById(R.id.editTextNoteViewContent)).setMaxHeight(wm.getDefaultDisplay().getHeight() * 35 / 100);
+        ((EditText) findViewById(R.id.editTextNoteViewContent)).setMinHeight(wm.getDefaultDisplay().getHeight() * 20 / 100);
 
-        findViewById(R.id.btnSave).setOnClickListener(btnClickHandler);
-        findViewById(R.id.btnAddPhoto).setOnClickListener(btnClickHandler);
-        findViewById(R.id.btnAddVideo).setOnClickListener(btnClickHandler);
-        findViewById(R.id.btnAddAudio).setOnClickListener(btnClickHandler);
-        findViewById(R.id.btnAddLocation).setOnClickListener(btnClickHandler);
+        findViewById(R.id.buttonNoteViewSaveNote).setOnClickListener(btnClickHandler);
+        findViewById(R.id.buttonNoteViewAddPhoto).setOnClickListener(btnClickHandler);
+        findViewById(R.id.buttonNoteViewAddVideo).setOnClickListener(btnClickHandler);
+        findViewById(R.id.buttonNoteViewAddAudio).setOnClickListener(btnClickHandler);
+        findViewById(R.id.buttonNoteViewLocation).setOnClickListener(btnClickHandler);
     }
 
     public void saveMedia(int noteID) {
@@ -289,11 +289,11 @@ public class NoteView extends Initialization {
     @Override
     protected void onResume() {
         super.onResume();
-        findViewById(R.id.btnSave).setVisibility(showOKButton ? View.VISIBLE : View.GONE);
+        findViewById(R.id.buttonNoteViewSaveNote).setVisibility(showOKButton ? View.VISIBLE : View.GONE);
         if (customBackground) {
-            findViewById(R.id.containerEditNote).setBackgroundColor(Integer.parseInt(backgroundColor));
+            findViewById(R.id.coordinatorLayoutNoteView).setBackgroundColor(Integer.parseInt(backgroundColor));
         } else {
-            findViewById(R.id.containerEditNote).setBackgroundColor(Color.WHITE);
+            findViewById(R.id.coordinatorLayoutNoteView).setBackgroundColor(Color.WHITE);
         }
         if (!Objects.equals(noteLatitude, " ") && !Objects.equals(noteLongitude, " "))
             btnAddLocation.setTextColor(getResources().getColor(R.color.royalblue));

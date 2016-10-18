@@ -1,7 +1,6 @@
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:fab="http://schemas.android.com/tools"
-    android:id="@+id/cNoteList"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
@@ -17,7 +16,7 @@
             android:theme="@style/AppTheme.AppBarOverlay">
 
             <android.support.v7.widget.Toolbar
-                android:id="@+id/tbNoteList"
+                android:id="@+id/toolBarNoteListView"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:background="?attr/colorPrimary"
@@ -26,25 +25,25 @@
         </android.support.design.widget.AppBarLayout>
 
         <com.dexafree.materialList.view.MaterialListView
-            android:id="@+id/mlvNoteList"
+            android:id="@+id/materialListViewNoteListView"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </LinearLayout>
 
     <com.github.clans.fab.FloatingActionMenu
-        android:id="@+id/fabmNoteList"
+        android:id="@+id/floatActionMenuNoteListView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_marginBottom="10dp"
-        android:layout_marginRight="10dp"
+        android:layout_marginEnd="10dp"
         fab:menu_fab_hide_animation="@anim/hide_to_bottom"
         fab:menu_fab_label="your_label_here"
         fab:menu_fab_show_animation="@anim/show_from_bottom"
         fab:menu_fab_size="normal">
 
         <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/fabmNoteListAddVideo"
+            android:id="@+id/floatActionMenuNoteListViewAddVideo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_video"
@@ -52,7 +51,7 @@
             fab:fab_size="normal" />
 
         <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/fabmNoteListAddAudio"
+            android:id="@+id/floatActionMenuNoteListViewAddAudio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_audio"
@@ -60,7 +59,7 @@
             fab:fab_size="normal" />
 
         <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/fabmNoteListAddPhoto"
+            android:id="@+id/floatActionMenuNoteListViewAddPhoto"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_camera"
@@ -68,7 +67,7 @@
             fab:fab_size="normal" />
 
         <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/fabmNoteListAddNote"
+            android:id="@+id/floatActionMenuNoteListViewAddNote"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_edit"

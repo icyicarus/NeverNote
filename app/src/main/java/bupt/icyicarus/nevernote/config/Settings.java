@@ -20,7 +20,7 @@ public class Settings extends Initialization {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_settings);
 
-        Toolbar tbMain = (Toolbar) findViewById(R.id.tbSettings);
+        Toolbar tbMain = (Toolbar) findViewById(R.id.toolBarSettingsView);
         setSupportActionBar(tbMain);
     }
 
@@ -28,14 +28,14 @@ public class Settings extends Initialization {
     protected void onResume() {
         super.onResume();
 
-        SwitchCompat scShowOKButton = (SwitchCompat) findViewById(R.id.scShowOKButton);
+        SwitchCompat scShowOKButton = (SwitchCompat) findViewById(R.id.switchCompatSettingsViewShowSaveButton);
         scShowOKButton.setChecked(showOKButton);
 
-        SwitchCompat scCustomBackground = (SwitchCompat) findViewById(R.id.scCustomBackground);
+        SwitchCompat scCustomBackground = (SwitchCompat) findViewById(R.id.switchCompatSettingsViewCustomBackground);
         scCustomBackground.setChecked(customBackground);
 
-        final FrameLayout containerBackgroundColor = (FrameLayout) findViewById(R.id.containerBackgroundColor);
-        final ButtonRectangle sampleBackgroundColor = (ButtonRectangle) findViewById(R.id.sampleBackgroundColor);
+        final FrameLayout containerBackgroundColor = (FrameLayout) findViewById(R.id.frameLayoutSettingsViewSampleBackgroundColor);
+        final ButtonRectangle sampleBackgroundColor = (ButtonRectangle) findViewById(R.id.buttonRectangleSampleBackgroundColor);
         containerBackgroundColor.setVisibility(customBackground ? View.VISIBLE : View.GONE);
         sampleBackgroundColor.setBackgroundColor(Integer.parseInt(p.get("BACKGROUND_COLOR").toString()));
 

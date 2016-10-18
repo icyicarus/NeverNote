@@ -43,11 +43,11 @@ public class AlarmList extends Initialization {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_alarm_list);
 
-        Toolbar tbAlarmList = (Toolbar) findViewById(R.id.tbAlarmList);
+        Toolbar tbAlarmList = (Toolbar) findViewById(R.id.toolBarAlarmList);
         setSupportActionBar(tbAlarmList);
         needMenu = true;
 
-        mlvAlarmList = (MaterialListView) findViewById(R.id.mlvAlarmList);
+        mlvAlarmList = (MaterialListView) findViewById(R.id.materialListViewAlarmList);
         db = new NeverNoteDB(this);
         dbRead = db.getReadableDatabase();
         dbWrite = db.getWritableDatabase();
