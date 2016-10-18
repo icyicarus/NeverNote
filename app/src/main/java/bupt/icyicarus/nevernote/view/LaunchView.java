@@ -31,7 +31,7 @@ public class LaunchView extends Initialization {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
         }
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.aty_launch);
+        setContentView(R.layout.view_launch);
 
         ImageView ivLaunch = (ImageView) findViewById(R.id.ivLaunch);
         WindowManager windowManager = this.getWindowManager();

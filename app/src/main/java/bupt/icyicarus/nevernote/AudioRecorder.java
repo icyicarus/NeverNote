@@ -68,7 +68,7 @@ public class AudioRecorder extends Initialization {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.aty_audio_recorder);
+        setContentView(R.layout.view_audio_recorder);
 
         Typeface iconFont = FontManager.getTypeface(getApplicationContext(), FontManager.FONTAWESOME);
         FontManager.markAsIconContainer(findViewById(R.id.containerAudioRecorder), iconFont);

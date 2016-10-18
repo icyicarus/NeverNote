@@ -56,7 +56,7 @@ public class MediaAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
 
         if (convertView == null) {
-            convertView = LayoutInflater.from(context).inflate(R.layout.media_list_cell, null);
+            convertView = LayoutInflater.from(context).inflate(R.layout.cell_media_list, null);
         }
 
         MediaListCellData data = getItem(position);

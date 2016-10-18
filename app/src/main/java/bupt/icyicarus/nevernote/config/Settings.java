@@ -18,7 +18,7 @@ public class Settings extends Initialization {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.aty_settings);
+        setContentView(R.layout.view_settings);
 
         Toolbar tbMain = (Toolbar) findViewById(R.id.tbSettings);
         setSupportActionBar(tbMain);

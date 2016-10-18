@@ -38,7 +38,7 @@ public class NoteList extends Initialization {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.aty_note_list);
+        setContentView(R.layout.view_note_list);
 
         Toolbar tbNoteList = (Toolbar) findViewById(R.id.tbNoteList);
         setSupportActionBar(tbNoteList);

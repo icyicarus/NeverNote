@@ -117,7 +117,7 @@ public class NoteView extends Initialization {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.aty_edit_note);
+        setContentView(R.layout.view_note_edit);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
         Toolbar tbMain = (Toolbar) findViewById(R.id.tbEditNote);

@@ -23,7 +23,7 @@ public class MergeView extends Initialization {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.aty_merge_view);
+        setContentView(R.layout.view_merge);
         Toolbar tbMergeView = (Toolbar) findViewById(R.id.tbMergeView);
         setSupportActionBar(tbMergeView);
         needMenu = true;

@@ -55,7 +55,7 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        setContentView(R.layout.aty_map);
+        setContentView(R.layout.view_map);
         addressSearchBar = (MaterialSearchBar) findViewById(R.id.addressSearchBar);
         addressSearchBar.setOnSearchActionListener(new MaterialSearchBar.OnSearchActionListener() {
             @Override

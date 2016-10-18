@@ -41,7 +41,7 @@ public class AlarmList extends Initialization {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.aty_alarm_list);
+        setContentView(R.layout.view_alarm_list);
 
         Toolbar tbAlarmList = (Toolbar) findViewById(R.id.tbAlarmList);
         setSupportActionBar(tbAlarmList);
