@@ -46,7 +46,6 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
     protected GoogleApiClient mGoogleApiClient;
     protected Location mLastLocation;
     protected FloatingSearchView floatingSearchView;
-    //    protected MaterialSearchBar addressSearchBar;
     protected String extraLatitude = " ";
     protected String extraLongitude = " ";
     protected long markerClickTime = 0;
