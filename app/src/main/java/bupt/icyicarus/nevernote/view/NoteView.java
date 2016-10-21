@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
@@ -30,6 +31,7 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Random;
 
 import bupt.icyicarus.nevernote.AudioRecorder;
 import bupt.icyicarus.nevernote.BuildConfig;
@@ -105,7 +107,8 @@ public class NoteView extends Initialization {
                 case R.id.buttonNoteViewAddAudio:
                     i = new Intent(NoteView.this, AudioRecorder.class);
                     currentPath = mediaDirectory + "/" + System.currentTimeMillis() + ".wav";
-                    int color = getResources().getColor(R.color.royalblue);
+                    Random rnd = new Random();
+                    int color = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
                     AndroidAudioRecorder.with(NoteView.this)
                             .setFilePath(currentPath)
                             .setColor(color)
@@ -278,6 +281,7 @@ public class NoteView extends Initialization {
                     adapter.notifyDataSetChanged();
                 } else if (currentPath != null) {
                     f = new File(currentPath);
+                    Log.e("111111",f.getPath());
                     if (!f.delete())
                         Toast.makeText(NoteView.this, "File not deleted", Toast.LENGTH_SHORT).show();
                 }

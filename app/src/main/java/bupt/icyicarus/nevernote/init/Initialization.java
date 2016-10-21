@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
@@ -23,6 +24,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Properties;
+import java.util.Random;
 
 import bupt.icyicarus.nevernote.BuildConfig;
 import bupt.icyicarus.nevernote.PublicVariableAndMethods;
@@ -81,7 +83,8 @@ public class Initialization extends AppCompatActivity {
                 case R.id.floatingActionMenuMainViewAddAudio:
                 case R.id.floatActionMenuNoteListViewAddAudio:
                     currentPath = mediaDirectory + "/" + System.currentTimeMillis() + ".wav";
-                    int color = getResources().getColor(R.color.royalblue);
+                    Random rnd = new Random();
+                    int color = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
                     AndroidAudioRecorder.with(Initialization.this)
                             .setFilePath(currentPath)
                             .setColor(color)
