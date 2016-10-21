@@ -9,10 +9,11 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import com.arlib.floatingsearchview.FloatingSearchView;
+import com.arlib.floatingsearchview.suggestions.model.SearchSuggestion;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
@@ -23,7 +24,6 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.mancj.materialsearchbar.MaterialSearchBar;
 import com.yanzhenjie.permission.AndPermission;
 import com.yanzhenjie.permission.PermissionListener;
 
@@ -45,7 +45,8 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
     protected GoogleMap mGoogleMap;
     protected GoogleApiClient mGoogleApiClient;
     protected Location mLastLocation;
-    protected MaterialSearchBar addressSearchBar;
+    protected FloatingSearchView floatingSearchView;
+    //    protected MaterialSearchBar addressSearchBar;
     protected String extraLatitude = " ";
     protected String extraLongitude = " ";
     protected long markerClickTime = 0;
@@ -57,27 +58,16 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setContentView(R.layout.view_map);
-        addressSearchBar = (MaterialSearchBar) findViewById(R.id.materialSearchBarSearchAddress);
-        addressSearchBar.setOnSearchActionListener(new MaterialSearchBar.OnSearchActionListener() {
+        floatingSearchView = (FloatingSearchView) findViewById(R.id.floatingSearchViewGoogleMap);
+        floatingSearchView.setOnSearchListener(new FloatingSearchView.OnSearchListener() {
             @Override
-            public void onSearchStateChanged(boolean b) {
+            public void onSuggestionClicked(SearchSuggestion searchSuggestion) {
 
             }
 
             @Override
-            public void onSearchConfirmed(CharSequence charSequence) {
-                getCoordinate(charSequence.toString());
-            }
-
-            @Override
-            public void onButtonClicked(int buttonCode) {
-                switch (buttonCode) {
-                    case MaterialSearchBar.BUTTON_SPEECH:
-                        Log.e("msb", "speech");
-                        break;
-                    default:
-                        break;
-                }
+            public void onSearchAction(String currentQuery) {
+                getCoordinate(currentQuery);
             }
         });
 
@@ -154,6 +144,7 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
                 if (!Objects.equals(extraLatitude, " ") && !Objects.equals(extraLongitude, " ")) {
                     oldMarker = mGoogleMap.addMarker(new MarkerOptions().position(new LatLng(Double.parseDouble(extraLatitude), Double.parseDouble(extraLongitude))).draggable(true).flat(false));
                     mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(oldMarker.getPosition(), 16));
+                    getAddress(oldMarker.getPosition());
                 }
                 mGoogleMap.setMyLocationEnabled(true);
             }
@@ -236,7 +227,7 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    addressSearchBar.setText(addressRecord);
+                                    floatingSearchView.setSearchText(addressRecord);
                                 }
                             });
                         } catch (JSONException e) {

@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -79,34 +80,17 @@ public class Initialization extends AppCompatActivity {
                     break;
                 case R.id.floatingActionMenuMainViewAddAudio:
                 case R.id.floatActionMenuNoteListViewAddAudio:
-//                    i = new Intent(getApplicationContext(), AudioRecorder.class);
-//                    f = new File(mediaDirectory, System.currentTimeMillis() + ".aac");
-//                    if (!f.exists()) {
-//                        try {
-//                            f.createNewFile();
-//                        } catch (IOException e) {
-//                            e.printStackTrace();
-//                        }
-//                    }
-//                    currentPath = f.getAbsolutePath();
-//                    i.putExtra(AudioRecorder.EXTRA_PATH, currentPath);
-//                    startActivityForResult(i, PublicVariableAndMethods.REQUEST_CODE_GET_AUDIO);
                     currentPath = mediaDirectory + "/" + System.currentTimeMillis() + ".wav";
-                    int color = getResources().getColor(R.color.colorPrimaryDark);
+                    int color = getResources().getColor(R.color.royalblue);
                     AndroidAudioRecorder.with(Initialization.this)
-                            // Required
                             .setFilePath(currentPath)
                             .setColor(color)
                             .setRequestCode(PublicVariableAndMethods.REQUEST_CODE_GET_AUDIO)
-
-                            // Optional
                             .setSource(AudioSource.MIC)
                             .setChannel(AudioChannel.STEREO)
                             .setSampleRate(AudioSampleRate.HZ_48000)
                             .setAutoStart(false)
                             .setKeepDisplayOn(true)
-
-                            // Start recording
                             .record();
                     break;
                 case R.id.floatingActionMenuMainViewAddVideo:
@@ -188,8 +172,10 @@ public class Initialization extends AppCompatActivity {
                         cv.put(NeverNoteDB.COLUMN_NAME_MEDIA_PATH, currentPath);
                         dbWrite.insert(NeverNoteDB.TABLE_NAME_MEDIA, null, cv);
                     }
-                } else if (f != null) {
-                    f.delete();
+                } else if (currentPath != null) {
+                    f = new File(currentPath);
+                    if (!f.delete())
+                        Toast.makeText(this, "File not deleted", Toast.LENGTH_SHORT).show();
                 }
                 break;
 

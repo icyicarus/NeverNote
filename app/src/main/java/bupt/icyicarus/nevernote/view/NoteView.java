@@ -105,7 +105,7 @@ public class NoteView extends Initialization {
                 case R.id.buttonNoteViewAddAudio:
                     i = new Intent(NoteView.this, AudioRecorder.class);
                     currentPath = mediaDirectory + "/" + System.currentTimeMillis() + ".wav";
-                    int color = getResources().getColor(R.color.colorPrimaryDark);
+                    int color = getResources().getColor(R.color.royalblue);
                     AndroidAudioRecorder.with(NoteView.this)
                             .setFilePath(currentPath)
                             .setColor(color)
@@ -276,7 +276,8 @@ public class NoteView extends Initialization {
                 if (resultCode == RESULT_OK) {
                     adapter.Add(new MediaListCellData(currentPath));
                     adapter.notifyDataSetChanged();
-                } else if (f != null) {
+                } else if (currentPath != null) {
+                    f = new File(currentPath);
                     if (!f.delete())
                         Toast.makeText(NoteView.this, "File not deleted", Toast.LENGTH_SHORT).show();
                 }

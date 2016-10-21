@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:msb="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
@@ -20,11 +20,16 @@
         map:uiZoomControls="true"
         tools:context=".MapsActivity" />
 
-    <com.mancj.materialsearchbar.MaterialSearchBar
-        android:id="@+id/materialSearchBarSearchAddress"
+    <com.arlib.floatingsearchview.FloatingSearchView
+        android:id="@+id/floatingSearchViewGoogleMap"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        msb:hint="Search Google Map"
-        msb:maxSuggestionsCount="10"
-        msb:speechMode="true" />
+        android:layout_height="match_parent"
+        app:floatingSearch_close_search_on_keyboard_dismiss="true"
+        app:floatingSearch_searchBarMarginLeft="5dp"
+        app:floatingSearch_searchBarMarginRight="5dp"
+        app:floatingSearch_searchBarMarginTop="5dp"
+        app:floatingSearch_searchHint="Search Google Map"
+        app:floatingSearch_showVoiceInput="true"
+        app:floatingSearch_suggestionsListAnimDuration="250" />
+
 </RelativeLayout>

@@ -49,6 +49,5 @@ dependencies {
     compile 'com.github.arcadefire:nice-spinner:-SNAPSHOT'
     compile 'com.yanzhenjie:permission:1.0.3'
     compile 'com.github.adrielcafe:AndroidAudioRecorder:0.2.0'
-
-    compile 'com.github.mancj:MaterialSearchBar:0.3.2'
+    compile 'com.github.arimorty:floatingsearchview:2.0.3'
 }
