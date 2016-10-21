@@ -10,6 +10,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 import bupt.icyicarus.nevernote.db.NeverNoteDB;
 
@@ -41,7 +42,7 @@ public class BootReceiver extends BroadcastReceiver {
                 PendingIntent pi = PendingIntent.getBroadcast(context, alarmID, i, 0);
 
                 try {
-                    am.set(AlarmManager.RTC_WAKEUP, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(sb.toString()).getTime(), pi);
+                    am.set(AlarmManager.RTC_WAKEUP, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).parse(sb.toString()).getTime(), pi);
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }

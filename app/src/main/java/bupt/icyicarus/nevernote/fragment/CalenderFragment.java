@@ -19,6 +19,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 import bupt.icyicarus.nevernote.R;
 import bupt.icyicarus.nevernote.db.NeverNoteDB;
@@ -46,7 +47,7 @@ public class CalenderFragment extends Fragment {
         while (c.moveToNext()) {
             String dateString = c.getString(c.getColumnIndex(NeverNoteDB.COLUMN_NAME_NOTE_DATE));
             try {
-                Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(dateString);
+                Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).parse(dateString);
                 ColorDrawable blue = new ColorDrawable(getResources().getColor(R.color.blue));
                 caldroidFragment.setBackgroundDrawableForDate(blue, date);
                 caldroidFragment.setTextColorForDate(R.color.white, date);
@@ -67,6 +68,7 @@ public class CalenderFragment extends Fragment {
             }
         };
 
+        c.close();
         caldroidFragment.setCaldroidListener(caldroidListener);
         return root;
     }

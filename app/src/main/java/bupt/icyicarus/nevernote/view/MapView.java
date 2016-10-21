@@ -39,7 +39,7 @@ import bupt.icyicarus.nevernote.http.HttpCallbackListener;
 import static bupt.icyicarus.nevernote.view.NoteView.EXTRA_NOTE_LATITUDE;
 import static bupt.icyicarus.nevernote.view.NoteView.EXTRA_NOTE_LONGITUDE;
 
-public class MapView extends FragmentActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, GoogleMap.OnMapClickListener, GoogleMap.OnMarkerDragListener {
+public class MapView extends FragmentActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, GoogleMap.OnMapClickListener, GoogleMap.OnMarkerDragListener, GoogleMap.OnMarkerClickListener {
 
     protected Marker oldMarker = null;
     protected GoogleMap mGoogleMap;
@@ -48,6 +48,7 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
     protected MaterialSearchBar addressSearchBar;
     protected String extraLatitude = " ";
     protected String extraLongitude = " ";
+    protected long markerClickTime = 0;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -140,6 +141,7 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
     public void onMapReady(GoogleMap googleMap) {
         mGoogleMap = googleMap;
         mGoogleMap.setOnMapClickListener(MapView.this);
+        mGoogleMap.setOnMarkerClickListener(MapView.this);
         mGoogleMap.setOnMarkerDragListener(MapView.this);
         mGoogleMap.setPadding(0, 150, 0, 0);
         if (mGoogleMap != null) {
@@ -181,6 +183,19 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
         Toast.makeText(MapView.this, "Connection failed: ConnectionResult.getErrorCode() = " + connectionResult.getErrorCode(), Toast.LENGTH_SHORT).show();
+    }
+
+    // GoogleMap.OnMarkerClickListener
+    @Override
+    public boolean onMarkerClick(Marker marker) {
+        if ((System.currentTimeMillis() - markerClickTime) > 1000) {
+            Toast.makeText(this, "Press again to delete", Toast.LENGTH_SHORT).show();
+            markerClickTime = System.currentTimeMillis();
+        } else {
+            oldMarker.remove();
+            oldMarker = null;
+        }
+        return true;
     }
 
     // GoogleMap.OnMapClickListener

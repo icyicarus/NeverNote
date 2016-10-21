@@ -20,9 +20,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 import java.util.Properties;
 
-import bupt.icyicarus.nevernote.AudioRecorder;
 import bupt.icyicarus.nevernote.BuildConfig;
 import bupt.icyicarus.nevernote.PublicVariableAndMethods;
 import bupt.icyicarus.nevernote.R;
@@ -30,6 +30,10 @@ import bupt.icyicarus.nevernote.alarm.AlarmList;
 import bupt.icyicarus.nevernote.config.Settings;
 import bupt.icyicarus.nevernote.db.NeverNoteDB;
 import bupt.icyicarus.nevernote.view.NoteView;
+import cafe.adriel.androidaudiorecorder.AndroidAudioRecorder;
+import cafe.adriel.androidaudiorecorder.model.AudioChannel;
+import cafe.adriel.androidaudiorecorder.model.AudioSampleRate;
+import cafe.adriel.androidaudiorecorder.model.AudioSource;
 
 public class Initialization extends AppCompatActivity {
 
@@ -70,24 +74,40 @@ public class Initialization extends AppCompatActivity {
                         }
                     }
                     currentPath = f.getAbsolutePath();
-//                    i.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(f));
                     i.putExtra(MediaStore.EXTRA_OUTPUT, FileProvider.getUriForFile(Initialization.this, BuildConfig.APPLICATION_ID + ".provider", f));
                     startActivityForResult(i, PublicVariableAndMethods.REQUEST_CODE_GET_PHOTO);
                     break;
                 case R.id.floatingActionMenuMainViewAddAudio:
                 case R.id.floatActionMenuNoteListViewAddAudio:
-                    i = new Intent(getApplicationContext(), AudioRecorder.class);
-                    f = new File(mediaDirectory, System.currentTimeMillis() + ".aac");
-                    if (!f.exists()) {
-                        try {
-                            f.createNewFile();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                    currentPath = f.getAbsolutePath();
-                    i.putExtra(AudioRecorder.EXTRA_PATH, currentPath);
-                    startActivityForResult(i, PublicVariableAndMethods.REQUEST_CODE_GET_AUDIO);
+//                    i = new Intent(getApplicationContext(), AudioRecorder.class);
+//                    f = new File(mediaDirectory, System.currentTimeMillis() + ".aac");
+//                    if (!f.exists()) {
+//                        try {
+//                            f.createNewFile();
+//                        } catch (IOException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                    currentPath = f.getAbsolutePath();
+//                    i.putExtra(AudioRecorder.EXTRA_PATH, currentPath);
+//                    startActivityForResult(i, PublicVariableAndMethods.REQUEST_CODE_GET_AUDIO);
+                    currentPath = mediaDirectory + "/" + System.currentTimeMillis() + ".wav";
+                    int color = getResources().getColor(R.color.colorPrimaryDark);
+                    AndroidAudioRecorder.with(Initialization.this)
+                            // Required
+                            .setFilePath(currentPath)
+                            .setColor(color)
+                            .setRequestCode(PublicVariableAndMethods.REQUEST_CODE_GET_AUDIO)
+
+                            // Optional
+                            .setSource(AudioSource.MIC)
+                            .setChannel(AudioChannel.STEREO)
+                            .setSampleRate(AudioSampleRate.HZ_48000)
+                            .setAutoStart(false)
+                            .setKeepDisplayOn(true)
+
+                            // Start recording
+                            .record();
                     break;
                 case R.id.floatingActionMenuMainViewAddVideo:
                 case R.id.floatActionMenuNoteListViewAddVideo:
@@ -101,7 +121,6 @@ public class Initialization extends AppCompatActivity {
                         }
                     }
                     currentPath = f.getAbsolutePath();
-//                    i.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(f));
                     i.putExtra(MediaStore.EXTRA_OUTPUT, FileProvider.getUriForFile(Initialization.this, BuildConfig.APPLICATION_ID + ".provider", f));
                     startActivityForResult(i, PublicVariableAndMethods.REQUEST_CODE_GET_VIDEO);
                     break;
@@ -156,7 +175,7 @@ public class Initialization extends AppCompatActivity {
                         dbWrite.insert(NeverNoteDB.TABLE_NAME_MEDIA, null, cv);
                     } else {
                         ContentValues cv = new ContentValues();
-                        String newNoteDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+                        String newNoteDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
                         cv.put(NeverNoteDB.COLUMN_NAME_NOTE_DATE, newNoteDate);
                         cv.put(NeverNoteDB.COLUMN_NAME_NOTE_NAME, "Created on " + newNoteDate);
                         dbWrite.insert(NeverNoteDB.TABLE_NAME_NOTES, null, cv);

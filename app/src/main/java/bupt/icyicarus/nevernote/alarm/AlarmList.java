@@ -133,7 +133,7 @@ public class AlarmList extends Initialization {
                                                 public void onTimeSet(RadialTimePickerDialogFragment dialog, int hourOfDay, int minute) {
                                                     cv.put(NeverNoteDB.COLUMN_NAME_ALARM_HOUR, hourOfDay + "");
                                                     cv.put(NeverNoteDB.COLUMN_NAME_ALARM_MINUTE, minute + "");
-                                                    cv.put(NeverNoteDB.COLUMN_NAME_ALARM_NOTEID, alarmInfo.getNoteid() + "");
+                                                    cv.put(NeverNoteDB.COLUMN_NAME_ALARM_NOTEID, alarmInfo.getNoteID() + "");
                                                     cv.put(NeverNoteDB.COLUMN_NAME_ALARM_NAME, alarmInfo.getName());
                                                     cv.put(NeverNoteDB.COLUMN_NAME_ALARM_CONTENT, alarmInfo.getContent());
 
@@ -145,7 +145,7 @@ public class AlarmList extends Initialization {
                                                     AlarmManager am = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
                                                     Intent i = new Intent(AlarmList.this, NeverNoteAlarmReceiver.class);
                                                     i.putExtra("alarmID", alarmInfo.getId());
-                                                    i.putExtra("noteID", alarmInfo.getNoteid());
+                                                    i.putExtra("noteID", alarmInfo.getNoteID());
                                                     i.putExtra("noteName", alarmInfo.getName());
                                                     i.putExtra("noteContent", alarmInfo.getContent());
                                                     PendingIntent pi = PendingIntent.getBroadcast(AlarmList.this, alarmInfo.getId(), i, 0);

@@ -47,7 +47,7 @@ public class AlarmInfo {
         return minute;
     }
 
-    public int getNoteid() {
+    public int getNoteID() {
         return noteid;
     }
 

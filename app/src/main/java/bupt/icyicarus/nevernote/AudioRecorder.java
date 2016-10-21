@@ -10,13 +10,11 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
 import java.io.File;
-import java.io.IOException;
 
 import bupt.icyicarus.nevernote.font.FontManager;
 import bupt.icyicarus.nevernote.init.Initialization;
@@ -73,7 +71,7 @@ public class AudioRecorder extends Initialization {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_audio_recorder);
 
-        Typeface iconFont = FontManager.getTypeface(getApplicationContext(), FontManager.FONTAWESOME);
+        Typeface iconFont = FontManager.getTypeface(getApplicationContext(), FontManager.FONT_AWESOME);
         FontManager.markAsIconContainer(findViewById(R.id.containerAudioRecorder), iconFont);
 
         btnRecordStart = (Button) findViewById(R.id.buttonStartRecording);

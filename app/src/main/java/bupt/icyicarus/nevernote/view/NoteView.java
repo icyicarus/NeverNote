@@ -13,7 +13,6 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
@@ -21,12 +20,14 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 
@@ -39,6 +40,10 @@ import bupt.icyicarus.nevernote.font.FontManager;
 import bupt.icyicarus.nevernote.init.Initialization;
 import bupt.icyicarus.nevernote.mediaList.MediaAdapter;
 import bupt.icyicarus.nevernote.mediaList.MediaListCellData;
+import cafe.adriel.androidaudiorecorder.AndroidAudioRecorder;
+import cafe.adriel.androidaudiorecorder.model.AudioChannel;
+import cafe.adriel.androidaudiorecorder.model.AudioSampleRate;
+import cafe.adriel.androidaudiorecorder.model.AudioSource;
 
 public class NoteView extends Initialization {
 
@@ -52,9 +57,8 @@ public class NoteView extends Initialization {
     private EditText etName, etContent;
     private Button btnAddLocation;
     private MediaAdapter adapter;
-    private NeverNoteDB db;
     private SQLiteDatabase dbRead, dbWrite;
-    private Map operationQueue = null;
+    private Map<String, String> operationQueue = null;
 
     private OnClickListener btnClickHandler = new OnClickListener() {
         Intent i;
@@ -73,7 +77,8 @@ public class NoteView extends Initialization {
                     f = new File(mediaDirectory, System.currentTimeMillis() + ".jpg");
                     if (!f.exists()) {
                         try {
-                            f.createNewFile();
+                            if (!f.createNewFile())
+                                Toast.makeText(NoteView.this, "File not created", Toast.LENGTH_SHORT).show();
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -87,7 +92,8 @@ public class NoteView extends Initialization {
                     f = new File(mediaDirectory, System.currentTimeMillis() + ".mp4");
                     if (!f.exists()) {
                         try {
-                            f.createNewFile();
+                            if (!f.createNewFile())
+                                Toast.makeText(NoteView.this, "File not created", Toast.LENGTH_SHORT).show();
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -98,9 +104,18 @@ public class NoteView extends Initialization {
                     break;
                 case R.id.buttonNoteViewAddAudio:
                     i = new Intent(NoteView.this, AudioRecorder.class);
-                    currentPath = mediaDirectory + "/" + System.currentTimeMillis() + ".aac";
-                    i.putExtra(AudioRecorder.EXTRA_PATH, currentPath);
-                    startActivityForResult(i, PublicVariableAndMethods.REQUEST_CODE_GET_AUDIO);
+                    currentPath = mediaDirectory + "/" + System.currentTimeMillis() + ".wav";
+                    int color = getResources().getColor(R.color.colorPrimaryDark);
+                    AndroidAudioRecorder.with(NoteView.this)
+                            .setFilePath(currentPath)
+                            .setColor(color)
+                            .setRequestCode(PublicVariableAndMethods.REQUEST_CODE_GET_AUDIO)
+                            .setSource(AudioSource.MIC)
+                            .setChannel(AudioChannel.STEREO)
+                            .setSampleRate(AudioSampleRate.HZ_48000)
+                            .setAutoStart(false)
+                            .setKeepDisplayOn(true)
+                            .record();
                     break;
                 case R.id.buttonNoteViewLocation:
                     i = new Intent(NoteView.this, MapView.class);
@@ -124,13 +139,13 @@ public class NoteView extends Initialization {
         setSupportActionBar(tbMain);
         needMenu = true;
 
-        Typeface iconFont = FontManager.getTypeface(getApplicationContext(), FontManager.FONTAWESOME);
+        Typeface iconFont = FontManager.getTypeface(getApplicationContext(), FontManager.FONT_AWESOME);
         FontManager.markAsIconContainer(findViewById(R.id.coordinatorLayoutNoteView), iconFont);
 
-        db = new NeverNoteDB(this);
+        NeverNoteDB db = new NeverNoteDB(this);
         dbRead = db.getReadableDatabase();
         dbWrite = db.getWritableDatabase();
-        operationQueue = new HashMap();
+        operationQueue = new HashMap<>();
 
         enListView = (ListView) findViewById(R.id.listViewNoteViewMediaList);
         adapter = new MediaAdapter(this);
@@ -156,7 +171,7 @@ public class NoteView extends Initialization {
                         break;
                     case PublicVariableAndMethods.REQUEST_CODE_GET_VIDEO:
                         uri = FileProvider.getUriForFile(NoteView.this, BuildConfig.APPLICATION_ID + ".provider", new File(data.path));
-                        i.setDataAndType(uri, "audio/amr");
+                        i.setDataAndType(uri, "audio/wav");
                         startActivity(i);
                         break;
                     default:
@@ -195,8 +210,7 @@ public class NoteView extends Initialization {
             noteLatitude = c.getString(c.getColumnIndex(NeverNoteDB.COLUMN_NAME_NOTE_LATITUDE));
             noteLongitude = c.getString(c.getColumnIndex(NeverNoteDB.COLUMN_NAME_NOTE_LONGITUDE));
 
-            c = dbRead.query(NeverNoteDB.TABLE_NAME_MEDIA, null,
-                    NeverNoteDB.COLUMN_NAME_MEDIA_OWNER_NOTE_ID + "=?", new String[]{noteID + ""}, null, null, null);
+            c = dbRead.query(NeverNoteDB.TABLE_NAME_MEDIA, null, NeverNoteDB.COLUMN_NAME_MEDIA_OWNER_NOTE_ID + "=?", new String[]{noteID + ""}, null, null, null);
             while (c.moveToNext()) {
                 adapter.Add(new MediaListCellData(
                         c.getString(c.getColumnIndex(NeverNoteDB.COLUMN_NAME_MEDIA_PATH)),
@@ -241,7 +255,7 @@ public class NoteView extends Initialization {
         cv.put(NeverNoteDB.COLUMN_NAME_NOTE_LATITUDE, noteLatitude);
         cv.put(NeverNoteDB.COLUMN_NAME_NOTE_LONGITUDE, noteLongitude);
         if (noteID == -1) {
-            cv.put(NeverNoteDB.COLUMN_NAME_NOTE_DATE, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+            cv.put(NeverNoteDB.COLUMN_NAME_NOTE_DATE, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date()));
         }
 
         if (noteID > -1) {
@@ -263,14 +277,19 @@ public class NoteView extends Initialization {
                     adapter.Add(new MediaListCellData(currentPath));
                     adapter.notifyDataSetChanged();
                 } else if (f != null) {
-                    f.delete();
+                    if (!f.delete())
+                        Toast.makeText(NoteView.this, "File not deleted", Toast.LENGTH_SHORT).show();
                 }
                 break;
             case PublicVariableAndMethods.REQUEST_CODE_GET_LOCATION:
-                if (data != null) {
+                if (resultCode == RESULT_OK) {
                     noteLatitude = data.getStringExtra("latitude");
                     noteLongitude = data.getStringExtra("longitude");
-                    Log.e("onar", ":" + noteLatitude + ":" + noteLongitude + ":");
+                    btnAddLocation.setTextColor(getResources().getColor(R.color.royalblue));
+                } else {
+                    noteLatitude = " ";
+                    noteLongitude = " ";
+                    btnAddLocation.setTextColor(Color.GRAY);
                 }
                 break;
             default:
@@ -279,10 +298,11 @@ public class NoteView extends Initialization {
     }
 
     private void clearOperationQueue() {
-        for (Object key : operationQueue.keySet()) {
-            dbWrite.delete(NeverNoteDB.TABLE_NAME_MEDIA, NeverNoteDB.COLUMN_NAME_MEDIA_PATH + "=?", new String[]{key.toString() + ""});
-            f = new File(key.toString());
-            f.delete();
+        for (String key : operationQueue.keySet()) {
+            dbWrite.delete(NeverNoteDB.TABLE_NAME_MEDIA, NeverNoteDB.COLUMN_NAME_MEDIA_PATH + "=?", new String[]{key + ""});
+            f = new File(key);
+            if (!f.delete())
+                Toast.makeText(NoteView.this, "File not deleted", Toast.LENGTH_SHORT).show();
         }
     }
 

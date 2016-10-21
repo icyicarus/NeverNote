@@ -19,7 +19,7 @@ public class MediaListCellData {
         } else if (path.endsWith(".mp4")) {
             iconID = R.drawable.img_video;
             type = PublicVariableAndMethods.REQUEST_CODE_GET_AUDIO;
-        } else if (path.endsWith(".aac")) {
+        } else if (path.endsWith(".wav")) {
             iconID = R.drawable.img_audio;
             type = PublicVariableAndMethods.REQUEST_CODE_GET_VIDEO;
         }
