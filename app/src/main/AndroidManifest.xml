@@ -48,11 +48,6 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name=".AudioRecorder"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:label="Audio Recorder"
-            android:theme="@style/Theme.AppCompat.Light.Dialog" />
-        <activity
             android:name=".config.Settings"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="Settings" />

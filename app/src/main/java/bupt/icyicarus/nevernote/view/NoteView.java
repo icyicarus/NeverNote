@@ -33,7 +33,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Random;
 
-import bupt.icyicarus.nevernote.AudioRecorder;
 import bupt.icyicarus.nevernote.BuildConfig;
 import bupt.icyicarus.nevernote.PublicVariableAndMethods;
 import bupt.icyicarus.nevernote.R;
@@ -105,7 +104,6 @@ public class NoteView extends Initialization {
                     startActivityForResult(i, PublicVariableAndMethods.REQUEST_CODE_GET_VIDEO);
                     break;
                 case R.id.buttonNoteViewAddAudio:
-                    i = new Intent(NoteView.this, AudioRecorder.class);
                     currentPath = mediaDirectory + "/" + System.currentTimeMillis() + ".wav";
                     Random rnd = new Random();
                     int color = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
