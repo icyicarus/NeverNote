@@ -279,7 +279,7 @@ public class NoteView extends Initialization {
                     adapter.notifyDataSetChanged();
                 } else if (currentPath != null) {
                     f = new File(currentPath);
-                    Log.e("111111",f.getPath());
+                    Log.e("111111", f.getPath());
                     if (!f.delete())
                         Toast.makeText(NoteView.this, "File not deleted", Toast.LENGTH_SHORT).show();
                 }
