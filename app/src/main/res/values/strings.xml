@@ -12,7 +12,7 @@
     <string name="custom_background">Custom Background</string>
     <string name="launch_view">LaunchView</string>
     <string name="copyright">By Icarus @ GWU</string>
-    <string name="show_okbutton">Show OK Button</string>
+    <string name="show_ok_button">Show OK Button</string>
     <string name="background_color">Background Color</string>
     <string name="change_color">Change</string>
     <string name="alarm_list">Alarm List</string>
