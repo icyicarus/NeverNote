@@ -34,6 +34,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
+import java.util.Locale;
 
 import bupt.icyicarus.nevernote.PublicVariableAndMethods;
 import bupt.icyicarus.nevernote.R;
@@ -43,7 +44,7 @@ import bupt.icyicarus.nevernote.receiver.NeverNoteAlarmReceiver;
 
 public class NoteListFragment extends Fragment {
 
-    private MaterialListView mlvNoteListFragment;
+    private MaterialListView materialListViewNoteListFragment;
     private ArrayList<NoteListCellData> noteListCellDataArrayList = null;
     private long lastClick = 0;
 
@@ -55,9 +56,9 @@ public class NoteListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_note_list, container, false);
-        mlvNoteListFragment = (MaterialListView) root.findViewById(R.id.fragmentNoteList);
+        materialListViewNoteListFragment = (MaterialListView) root.findViewById(R.id.materialListViewNoteListFragment);
 
-        mlvNoteListFragment.addOnItemTouchListener(new RecyclerItemClickListener.OnItemClickListener() {
+        materialListViewNoteListFragment.addOnItemTouchListener(new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(@NonNull final Card card, int position) {
                 if ((System.currentTimeMillis() - lastClick) > 1000) {
@@ -146,7 +147,7 @@ public class NoteListFragment extends Fragment {
                                                 PendingIntent pi = PendingIntent.getBroadcast(getContext(), alarmID, i, 0);
 
                                                 try {
-                                                    am.set(AlarmManager.RTC_WAKEUP, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(sb.toString()).getTime(), pi);
+                                                    am.set(AlarmManager.RTC_WAKEUP, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).parse(sb.toString()).getTime(), pi);
                                                 } catch (ParseException e) {
                                                     e.printStackTrace();
                                                 }
@@ -167,7 +168,7 @@ public class NoteListFragment extends Fragment {
 
     @Override
     public void onResume() {
-        PublicVariableAndMethods.refreshNoteArrayList(getContext(), mlvNoteListFragment, getResources(), noteListCellDataArrayList, -1);
+        PublicVariableAndMethods.refreshNoteArrayList(getContext(), materialListViewNoteListFragment, getResources(), noteListCellDataArrayList, -1);
         super.onResume();
     }
 }

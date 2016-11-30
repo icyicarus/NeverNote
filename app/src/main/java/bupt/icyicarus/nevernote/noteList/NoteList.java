@@ -39,7 +39,7 @@ import bupt.icyicarus.nevernote.init.Initialization;
 import bupt.icyicarus.nevernote.receiver.NeverNoteAlarmReceiver;
 
 public class NoteList extends Initialization {
-    private MaterialListView mlvNoteList;
+    private MaterialListView materialListViewNoteListView;
     private ArrayList<NoteListCellData> noteListCellDataArrayList = null;
     private long noteDate = -1;
     private long lastClick = 0;
@@ -53,8 +53,8 @@ public class NoteList extends Initialization {
         setSupportActionBar(tbNoteList);
         needMenu = true;
 
-        mlvNoteList = (MaterialListView) findViewById(R.id.materialListViewNoteListView);
-        mlvNoteList.addOnItemTouchListener(new RecyclerItemClickListener.OnItemClickListener() {
+        materialListViewNoteListView = (MaterialListView) findViewById(R.id.materialListViewNoteListView);
+        materialListViewNoteListView.addOnItemTouchListener(new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(@NonNull final Card card, int position) {
                 if ((System.currentTimeMillis() - lastClick) > 1000) {
@@ -172,6 +172,6 @@ public class NoteList extends Initialization {
     @Override
     protected void onResume() {
         super.onResume();
-        PublicVariableAndMethods.refreshNoteArrayList(NoteList.this, mlvNoteList, getResources(), noteListCellDataArrayList, noteDate);
+        PublicVariableAndMethods.refreshNoteArrayList(NoteList.this, materialListViewNoteListView, getResources(), noteListCellDataArrayList, noteDate);
     }
 }
