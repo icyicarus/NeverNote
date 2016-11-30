@@ -13,7 +13,6 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
@@ -279,7 +278,6 @@ public class NoteView extends Initialization {
                     adapter.notifyDataSetChanged();
                 } else if (currentPath != null) {
                     f = new File(currentPath);
-                    Log.e("111111", f.getPath());
                     if (!f.delete())
                         Toast.makeText(NoteView.this, "File not deleted", Toast.LENGTH_SHORT).show();
                 }

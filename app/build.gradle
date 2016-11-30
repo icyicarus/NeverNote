@@ -7,7 +7,7 @@ android {
         }
     }
     compileSdkVersion 25
-    buildToolsVersion '25.0.0'
+    buildToolsVersion '25.0.1'
     defaultConfig {
         applicationId "bupt.icyicarus.nevernote"
         minSdkVersion 23
@@ -38,8 +38,8 @@ dependencies {
     })
     compile 'com.android.support:appcompat-v7:25.0.1'
     compile 'com.android.support:design:25.0.1'
-    compile 'com.google.android.gms:play-services-maps:9.8.0'
-    compile 'com.google.android.gms:play-services-location:9.8.0'
+    compile 'com.google.android.gms:play-services-maps:10.0.0'
+    compile 'com.google.android.gms:play-services-location:10.0.0'
 
     compile 'com.github.dexafree:materiallist:3.2.1'
     compile 'com.github.vajro:MaterialDesignLibrary:1.6'

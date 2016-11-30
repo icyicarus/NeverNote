@@ -16,8 +16,6 @@ import bupt.icyicarus.nevernote.fragment.NoteListFragment;
 import bupt.icyicarus.nevernote.init.Initialization;
 
 public class MergeView extends Initialization {
-    private SectionsPagerAdapter mSectionsPagerAdapter;
-    private ViewPager mViewPager;
     private long exitTime = 0;
 
     @Override
@@ -28,8 +26,8 @@ public class MergeView extends Initialization {
         setSupportActionBar(tbMergeView);
         needMenu = true;
 
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
-        mViewPager = (ViewPager) findViewById(R.id.viewPagerMainView);
+        SectionsPagerAdapter mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        ViewPager mViewPager = (ViewPager) findViewById(R.id.viewPagerMainView);
         mViewPager.setAdapter(mSectionsPagerAdapter);
         TabLayout dvTabLayout = (TabLayout) findViewById(R.id.tabLayoutMainView);
         dvTabLayout.setupWithViewPager(mViewPager);
@@ -60,7 +58,7 @@ public class MergeView extends Initialization {
 
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
-        public SectionsPagerAdapter(FragmentManager fm) {
+        SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
         }
 
