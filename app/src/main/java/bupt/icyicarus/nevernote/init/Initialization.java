@@ -60,7 +60,7 @@ public class Initialization extends AppCompatActivity {
             Intent i;
             switch (v.getId()) {
                 case R.id.floatingActionMenuMainViewAddNote:
-                case R.id.floatActionMenuNoteListViewAddNote:
+                case R.id.floatingActionMenuNoteListViewAddNote:
                     startActivity(new Intent(getApplicationContext(), NoteView.class));
                     break;
                 case R.id.floatingActionMenuMainViewAddPhoto:
@@ -79,7 +79,7 @@ public class Initialization extends AppCompatActivity {
                     startActivityForResult(i, PublicVariableAndMethods.REQUEST_CODE_GET_PHOTO);
                     break;
                 case R.id.floatingActionMenuMainViewAddAudio:
-                case R.id.floatActionMenuNoteListViewAddAudio:
+                case R.id.floatingActionMenuNoteListViewAddAudio:
                     currentPath = mediaDirectory + "/" + System.currentTimeMillis() + ".wav";
                     Random rnd = new Random();
                     int color = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
@@ -95,7 +95,7 @@ public class Initialization extends AppCompatActivity {
                             .record();
                     break;
                 case R.id.floatingActionMenuMainViewAddVideo:
-                case R.id.floatActionMenuNoteListViewAddVideo:
+                case R.id.floatingActionMenuNoteListViewAddVideo:
                     i = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
                     f = new File(mediaDirectory, System.currentTimeMillis() + ".mp4");
                     if (!f.exists()) {

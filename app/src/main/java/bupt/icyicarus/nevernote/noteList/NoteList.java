@@ -1,16 +1,19 @@
 package bupt.icyicarus.nevernote.noteList;
 
+import android.Manifest;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
@@ -163,15 +166,19 @@ public class NoteList extends Initialization {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         setTitle("Notes on " + sdf.format(new Date(noteDate)));
 
-        findViewById(R.id.floatActionMenuNoteListViewAddNote).setOnClickListener(fabClickHandler);
+        findViewById(R.id.floatingActionMenuNoteListViewAddNote).setOnClickListener(fabClickHandler);
         findViewById(R.id.floatActionMenuNoteListViewAddPhoto).setOnClickListener(fabClickHandler);
-        findViewById(R.id.floatActionMenuNoteListViewAddAudio).setOnClickListener(fabClickHandler);
-        findViewById(R.id.floatActionMenuNoteListViewAddVideo).setOnClickListener(fabClickHandler);
+        findViewById(R.id.floatingActionMenuNoteListViewAddAudio).setOnClickListener(fabClickHandler);
+        findViewById(R.id.floatingActionMenuNoteListViewAddVideo).setOnClickListener(fabClickHandler);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         PublicVariableAndMethods.refreshNoteArrayList(NoteList.this, materialListViewNoteListView, getResources(), noteListCellDataArrayList, noteDate);
+
+        if (ActivityCompat.checkSelfPermission(NoteList.this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
+            findViewById(R.id.floatingActionMenuNoteListViewAddAudio).setEnabled(false);
+        }
     }
 }

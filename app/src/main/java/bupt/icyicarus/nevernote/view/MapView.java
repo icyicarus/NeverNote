@@ -111,7 +111,7 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        AndPermission.onRequestPermissionsResult(this, requestCode, permissions, grantResults, new PermissionListener() {
+        AndPermission.onRequestPermissionsResult(MapView.this, requestCode, permissions, grantResults, new PermissionListener() {
             @Override
             public void onSucceed(int requestCode) {
                 onMapReady(mGoogleMap);
@@ -273,6 +273,8 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
                     }
                 }
         );
+
+        mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(oldMarker.getPosition(), 16));
     }
 
 }

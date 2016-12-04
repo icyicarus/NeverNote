@@ -1,9 +1,11 @@
 package bupt.icyicarus.nevernote.view;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
@@ -11,6 +13,8 @@ import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -21,6 +25,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import com.yanzhenjie.permission.AndPermission;
+import com.yanzhenjie.permission.PermissionListener;
 
 import java.io.File;
 import java.io.IOException;
@@ -103,6 +110,7 @@ public class NoteView extends Initialization {
                     startActivityForResult(i, PublicVariableAndMethods.REQUEST_CODE_GET_VIDEO);
                     break;
                 case R.id.buttonNoteViewAddAudio:
+//                     else {
                     currentPath = mediaDirectory + "/" + System.currentTimeMillis() + ".wav";
                     Random rnd = new Random();
                     int color = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
@@ -116,6 +124,7 @@ public class NoteView extends Initialization {
                             .setAutoStart(false)
                             .setKeepDisplayOn(true)
                             .record();
+//                    }
                     break;
                 case R.id.buttonNoteViewLocation:
                     i = new Intent(NoteView.this, MapView.class);
@@ -311,15 +320,19 @@ public class NoteView extends Initialization {
     protected void onResume() {
         super.onResume();
         findViewById(R.id.buttonNoteViewSaveNote).setVisibility(showOKButton ? View.VISIBLE : View.GONE);
-        if (customBackground) {
+        if (customBackground)
             findViewById(R.id.coordinatorLayoutNoteView).setBackgroundColor(Integer.parseInt(backgroundColor));
-        } else {
+        else
             findViewById(R.id.coordinatorLayoutNoteView).setBackgroundColor(Color.WHITE);
-        }
+
         if (!Objects.equals(noteLatitude, " ") && !Objects.equals(noteLongitude, " "))
             btnAddLocation.setTextColor(getResources().getColor(R.color.royalblue));
         else
             btnAddLocation.setTextColor(Color.GRAY);
+
+        if (ActivityCompat.checkSelfPermission(NoteView.this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
+            AndPermission.with(NoteView.this).requestCode(5).permission(Manifest.permission.RECORD_AUDIO).send();
+        }
     }
 
     @Override
@@ -337,5 +350,19 @@ public class NoteView extends Initialization {
             setResult(RESULT_OK);
         }
         super.onBackPressed();
+    }
+
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        AndPermission.onRequestPermissionsResult(NoteView.this, requestCode, permissions, grantResults, new PermissionListener() {
+            @Override
+            public void onSucceed(int requestCode) {
+            }
+
+            @Override
+            public void onFailed(int requestCode) {
+                Toast.makeText(NoteView.this, "Audio note will not be possible until you allow NeverNote to access your microphone", Toast.LENGTH_SHORT).show();
+                findViewById(R.id.buttonNoteViewAddAudio).setEnabled(false);
+            }
+        });
     }
 }

@@ -1,7 +1,10 @@
 package bupt.icyicarus.nevernote.view;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -36,6 +39,14 @@ public class MergeView extends Initialization {
         findViewById(R.id.floatingActionMenuMainViewAddPhoto).setOnClickListener(fabClickHandler);
         findViewById(R.id.floatingActionMenuMainViewAddAudio).setOnClickListener(fabClickHandler);
         findViewById(R.id.floatingActionMenuMainViewAddVideo).setOnClickListener(fabClickHandler);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (ActivityCompat.checkSelfPermission(MergeView.this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
+            findViewById(R.id.floatingActionMenuMainViewAddAudio).setEnabled(false);
+        }
     }
 
     @Override

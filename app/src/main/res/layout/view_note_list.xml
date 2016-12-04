@@ -43,7 +43,7 @@
         fab:menu_fab_size="normal">
 
         <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/floatActionMenuNoteListViewAddVideo"
+            android:id="@+id/floatingActionMenuNoteListViewAddVideo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_video"
@@ -51,7 +51,7 @@
             fab:fab_size="normal" />
 
         <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/floatActionMenuNoteListViewAddAudio"
+            android:id="@+id/floatingActionMenuNoteListViewAddAudio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_audio"
@@ -67,7 +67,7 @@
             fab:fab_size="normal" />
 
         <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/floatActionMenuNoteListViewAddNote"
+            android:id="@+id/floatingActionMenuNoteListViewAddNote"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_edit"
