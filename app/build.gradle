@@ -7,7 +7,7 @@ android {
         }
     }
     compileSdkVersion 25
-    buildToolsVersion '25.0.1'
+    buildToolsVersion '25.0.2'
     defaultConfig {
         applicationId "bupt.icyicarus.nevernote"
         minSdkVersion 23
@@ -36,8 +36,8 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:25.0.1'
-    compile 'com.android.support:design:25.0.1'
+    compile 'com.android.support:appcompat-v7:25.1.0'
+    compile 'com.android.support:design:25.1.0'
     compile 'com.google.android.gms:play-services-maps:10.0.1'
     compile 'com.google.android.gms:play-services-location:10.0.1'
 
@@ -46,7 +46,6 @@ dependencies {
     compile 'com.roomorama:caldroid:3.0.1'
     compile 'com.github.clans:fab:1.6.4'
     compile 'com.code-troopers.betterpickers:library:2.5.5'
-//    compile 'com.github.arcadefire:nice-spinner:-SNAPSHOT'
     compile 'com.yanzhenjie:permission:1.0.3'
     compile 'com.github.adrielcafe:AndroidAudioRecorder:0.2.0'
     compile 'com.github.arimorty:floatingsearchview:2.0.3'
