@@ -1,4 +1,4 @@
-# NeverNote Project Proposal
+# NeverNote
 
 #### by Xuenan Xu & Yicheng Jia
 
